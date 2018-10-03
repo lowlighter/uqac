@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>IA - Devoir 1</title>
+    <link rel="stylesheet" href="resources/style.css">
+  </head>
+  <body>
+
+    <!-- Auteurs -->
+    <div class="authors">
+      <b>UQAC INF846 - 2018</b><br>
+      <a href="https://github.com/lowlighter/uqac/tree/master/ai/1">GitHub</a><br>
+      Bondue Emeric<br>
+      Lainé Vincent<br>
+      Lecoq Simon<br>
+    </div>
+
+    <!-- Journal de l'agent -->
+    <div class="debugger agent"><div class="name">Agent</div></div>
+
+    <!-- Contenu principal -->
+    <main>
+      <!-- Scores -->
+      <table class="scores">
+        <tr>
+          <td></td>
+          <td colspan="4">Agent</td>
+          <td colspan="2">Environement</td>
+          <td>Score</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><img src="resources/dust.png" alt="dust" title="Poussières aspirées"></td>
+          <td><img src="resources/jewel.png" alt="jewel" title="Bijoux ramassés"></td>
+          <td><img src="resources/jewel-aspired.png" alt="jewel" title="Bijoux aspirés"></td>
+          <td><img src="resources/energy.png" alt="energy" title="Energie dépensée"></td>
+          <td><img src="resources/dust.png" alt="dust" title="Poussières générées"></td>
+          <td><img src="resources/jewel.png" alt="jewel" title="Bijoux générés"></td>
+          <td><img src="resources/score.png" alt="score" title="Score"></td>
+        </tr>
+        <tr class="total">
+          <td>Total</td>
+          <td class="dust"></td>
+          <td class="jewel-picked"></td>
+          <td class="jewel-aspired"></td>
+          <td class="energy"></td>
+          <td class="dust-generated"></td>
+          <td class="jewel-generated"></td>
+          <td></td>
+        </tr>
+        <tr class="recent">
+          <td>≤ <span class="timelapse"></span>s</td>
+          <td class="dust"></td>
+          <td class="jewel-picked"></td>
+          <td class="jewel-aspired"></td>
+          <td class="energy"></td>
+          <td class="dust-generated"></td>
+          <td class="jewel-generated"></td>
+          <td class="measure"></td>
+        </tr>
+
+        <tr class="inmap">
+          <td>Carte</td>
+          <td></td><td></td><td></td><td></td>
+          <td class="dust-generated"></td>
+          <td class="jewel-generated"></td>
+          <td></td>
+        </tr>
+      </table>
+
+      <!-- Surface de rendu -->
+      <canvas width="0" height="0"></canvas>
+
+      <!-- Intentions de l'agent -->
+      <div class="intentions">
+        <label><input type="checkbox" name="learning" value="">Apprentissage</label><br>
+        <select name="exploration">
+          <option value="0">Exploration non informée</option>
+          <option value="1" selected>Exploration informée</option>
+        </select>
+        <div class="list"></div>
+      </div>
+    </main>
+
+    <!-- Journal de l'environment -->
+    <div class="debugger environment"><div class="name">Environnement</div></div>
+
+    <!-- Ressources -->
+    <img src="resources/cell.png" alt="cell">
+    <img src="resources/dust.png" alt="dust">
+    <img src="resources/jewel.png" alt="jewel">
+    <img src="resources/both.png" alt="both">
+    <img src="resources/clean.png" alt="clean">
+    <img src="resources/agent.png" alt="agent">
+    <img src="resources/agent.action.png" alt="action">
+
+    <!-- Code source -->
+    <script type="text/javascript" src="sources/misc/miscelleanous.js"></script>
+    <script type="text/javascript" src="sources/misc/renderer.js"></script>
+    <script type="text/javascript" src="sources/agent.sensors.js"></script>
+    <script type="text/javascript" src="sources/agent.effectors.js"></script>
+    <script type="text/javascript" src="sources/agent.explore.js"></script>
+    <script type="text/javascript" src="sources/agent.js"></script>
+    <script type="text/javascript" src="sources/environment.scores.js"></script>
+    <script type="text/javascript" src="sources/environment.js"></script>
+    <script type="text/javascript" src="sources/misc/debug.js"></script>
+    <script type="text/javascript" src="sources/app.js"></script>
+
+  </body>
+</html>

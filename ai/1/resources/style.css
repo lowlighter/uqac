@@ -1,0 +1,227 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: #323232;
+  overflow: hidden;
+  font-family: Monospace;
+}
+
+main {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+main canvas {
+  width: 80%;
+  max-width: 480px;
+  cursor: pointer;
+}
+
+img {
+  display: none;
+}
+
+canvas {
+  border: 1px solid black;
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+}
+
+a, a:visited {
+  text-decoration: none;
+  color: #61AFEF;
+}
+
+a:hover {
+  background: black;
+  color: white;
+}
+
+.authors {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  border-top-left-radius: 5px;
+  padding: 5px;
+}
+
+.scores {
+  border-collapse: collapse;
+  background-color: #F1F3F4;
+  padding: 2px 6px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+}
+
+.scores img {
+  display: inline-block;
+  height: 1.8em;
+  width: 1.8em;
+  margin: 2px;
+}
+
+.scores tr:first-child td {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.scores .recent, .scores .inmap {
+  font-weight: bold;
+}
+
+.scores .total {
+  opacity: 0.6;
+}
+
+.scores td:nth-child(1), .scores td:nth-child(5), .scores td:nth-child(7), .scores tr:first-child td {
+  border-right: 1px solid rgba(0,0,0,0.2);
+}
+
+.scores td {
+  padding: 2px 4px;
+}
+
+.scores td:not(:first-child) {
+  text-align: center;
+}
+
+.debugger {
+  height: 100vh;
+  width: 320px;
+  background-color: rgba(0,0,0,0.4);
+  padding: 4px;
+  color: white;
+  overflow-y: scroll;
+  white-space: pre;
+  padding-top: 4em;
+  display: none;
+}
+
+.debugger div {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.debugger .name {
+  position: absolute;
+  top:0%;
+  font-size: 1.6em;
+}
+
+.debugger .error {
+  color: red;
+}
+
+.debugger .info {
+  color: magenta;
+}
+
+.debugger .success {
+  color: green;
+}
+
+.debugger.agent {
+  left: 0;
+}
+
+.debugger.environment {
+  right: 0;
+}
+
+.intentions {
+  width: 320px;
+  height: 160px;
+  color: white;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: center;
+}
+
+.intentions select {
+  border-radius: 5px;
+  padding: 4px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  outline: none;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.intentions label {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.intentions .computing {
+  font-size: 1.2em;
+  opacity: 0.7;
+}
+
+.intentions .computing .info {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  margin-bottom: 2px;
+}
+
+.intentions .bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 5px;
+  background-color: black;
+  overflow: hidden;
+}
+
+.intentions > div {
+  position: relative;
+}
+
+.intentions .bar.small {
+  position: absolute;
+  left: 35%;
+  width: 30%;
+}
+
+.intentions .bar .inner {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  animation: status forwards;
+  animation-duration: 0s;
+  animation-timing-function: linear;
+}
+
+@keyframes status {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+@media screen and (min-width: 700px) {
+  .debugger.environment {
+    display:block;
+  }
+}
+
+@media screen and (min-width: 1040px) {
+  .debugger.agent {
+    display:block;
+  }
+}
