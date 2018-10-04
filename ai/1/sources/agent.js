@@ -57,7 +57,7 @@
             if (!this.intentions.length) {
               //Mise à jour des croyances et des désirs
                 this.beliefs = {map:this.sensors.environment.data(), position:this.sensors.position.data()}
-                this.desires = [[$.CELL.DUST, $.ACTION.ASPIRE], [$.CELL.JEWEL, $.ACTION.PICKUP]]
+                this.desires = [[$.CELL.JEWEL, $.ACTION.PICKUP], [$.CELL.DUST, $.ACTION.ASPIRE]]
               //Exploration
                 await this.explore()
             }
