@@ -254,37 +254,41 @@ function AgentExplore() {
         let apply = Expand.apply.bind(null, children, node)
 
       //Rammasage
-        child = apply($.ACTION.PICKUP)
-        child.data.cell &= ~$.CELL.JEWEL
+        if (node.data.cell & $.CELL.JEWEL) {
+          child = apply($.ACTION.PICKUP)
+          child.data.cell &= ~$.CELL.JEWEL
+        }
 
       //Aspiration
-        child = apply($.ACTION.ASPIRE)
-        child.data.cell = $.CELL.CLEAN
+        if (node.data.cell & $.CELL.DUST) {
+          child = apply($.ACTION.ASPIRE)
+          child.data.cell = $.CELL.CLEAN
+        }
 
       //Déplacement (les noeuds qui consistent à retourner en arrière (i.e. deux déplacements dans le sens opposé) ne sont pas permis)
         //Haut
-          if ((y - 1 >= 0)) {
+          if (y - 1 >= 0) {
             child = apply($.ACTION.UP)
             child.data.position.y--
             child.data.cell = beliefs.map[child.data.position.x][child.data.position.y]
           }
 
         //Droite
-          if ((x + 1 < $.WIDTH)) {
+          if (x + 1 < $.WIDTH) {
             child = apply($.ACTION.RIGHT)
             child.data.position.x++
             child.data.cell = beliefs.map[child.data.position.x][child.data.position.y]
           }
 
         //Bas
-          if ((y + 1 < $.HEIGHT)) {
+          if (y + 1 < $.HEIGHT) {
             child = apply($.ACTION.DOWN)
             child.data.position.y++
             child.data.cell = beliefs.map[child.data.position.x][child.data.position.y]
           }
 
         //Gauche
-          if ((x - 1 >= 0)) {
+          if (x - 1 >= 0) {
             child = apply($.ACTION.LEFT)
             child.data.position.x--
             child.data.cell = beliefs.map[child.data.position.x][child.data.position.y]

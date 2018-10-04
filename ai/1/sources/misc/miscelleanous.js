@@ -96,13 +96,13 @@
 
 //Map retournant l'effecteur à activer pour effectuer une certaine action
   $.EFFECTOR = {
-    [$.ACTION.NONE]:function (agent) { return agent.effectors.wait.enable() },
-    [$.ACTION.ASPIRE]:function (agent) { return agent.effectors.aspire.enable() },
-    [$.ACTION.PICKUP]:function (agent) { return agent.effectors.pickup.enable() },
-    [$.ACTION.UP]:function (agent) { return agent.effectors.move.up() },
-    [$.ACTION.DOWN]:function (agent) { return agent.effectors.move.down() },
-    [$.ACTION.LEFT]:function (agent) { return agent.effectors.move.left() },
-    [$.ACTION.RIGHT]:function (agent) { return agent.effectors.move.right() },
+    [$.ACTION.NONE]:async function (agent) { await agent.effectors.wait.enable() ; debug.agent.action() },
+    [$.ACTION.ASPIRE]:async function (agent) { await agent.effectors.aspire.enable() ; debug.agent.action() },
+    [$.ACTION.PICKUP]:async function (agent) { await agent.effectors.pickup.enable() ; debug.agent.action() },
+    [$.ACTION.UP]:async function (agent) { await agent.effectors.move.up() ; debug.agent.action() },
+    [$.ACTION.DOWN]:async function (agent) { await agent.effectors.move.down() ; debug.agent.action() },
+    [$.ACTION.LEFT]:async function (agent) { await agent.effectors.move.left() ; debug.agent.action() },
+    [$.ACTION.RIGHT]:async function (agent) { await agent.effectors.move.right() ; debug.agent.action() },
   }
 
 //Messages de debug

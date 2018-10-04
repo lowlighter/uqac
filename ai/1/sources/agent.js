@@ -34,7 +34,7 @@
 
         //Action
           this.beliefs = null
-          this.desires = [[$.CELL.DUST, $.ACTION.ASPIRE], [$.CELL.JEWEL, $.ACTION.PICKUP]]
+          this.desires = []
           this.intentions = []
 
         //Thread reservé à l'exploration de l'agent
@@ -51,15 +51,19 @@
         while (this.alive) {
           //Apprentissage (si activé)
             if (this.learning) await this.learn()
+
           //Si aucun plan d'action, exploration afin de déterminer un nouveau plan d'action
-            if (!this.intentions.length) await this.explore()
+            if (!this.intentions.length) {
+              //Mise à jour des croyances et des désirs
+                this.beliefs = {map:this.sensors.environment.data(), position:this.sensors.position.data()}
+                this.desires = [[$.CELL.DUST, $.ACTION.ASPIRE], [$.CELL.JEWEL, $.ACTION.PICKUP]]
+              //Exploration
+                await this.explore()
+            }
 
           //Exécution de la prochaine action planfiée
             let action = this.intentions.shift()
-            if (action) {
-              await action()
-              debug.agent.action()
-            }
+            if (action) await action()
 
           //Prochaine itération
             await sleep(1000/this.frequency)
@@ -70,10 +74,7 @@
      * Fonction d'exploration.
      */
       explore() {
-        //Mise à jour des croyances
-          this.beliefs = {map:this.sensors.environment.data(), position:this.sensors.position.data()}
-
-        //Exploration (voir agent.explore.js)
+        //Exploration (voir agent.explore.js, la fonction étant exécutée dans un thread supplémentaire)
           this.thread.postMessage([$.AGENT.EXPLORATION_START, this.beliefs, this.desires, this.mode, this.exploration.timeout])
           debug.agent.intentions(null)
           return new Promise(solve => { this.thread.onmessage = (message) => {
