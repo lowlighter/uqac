@@ -26,7 +26,7 @@
         <tr>
           <td></td>
           <td colspan="4">Agent</td>
-          <td colspan="2">Environement</td>
+          <td colspan="2">Environnement</td>
           <td>Score</td>
         </tr>
         <tr>
@@ -74,7 +74,14 @@
 
       <!-- Intentions de l'agent -->
       <div class="intentions">
-        <label><input type="checkbox" name="learning" value="">Apprentissage</label><br>
+        <div class="learning">
+          <label><input type="checkbox" name="learning" value="">Apprentissage</label><br>
+          <div class="details hide">
+            Pourcentage du plan d'action exécuté<br>
+            <span class="learning-ratio">%</span>
+          </div>
+        </div>
+        <br>
         <select name="exploration">
           <option value="0">Exploration non informée</option>
           <option value="1" selected>Exploration informée</option>

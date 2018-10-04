@@ -74,6 +74,7 @@
           document.querySelector(`.inmap .dust-generated`).innerHTML = inmap.dust
           document.querySelector(`.inmap .jewel-generated`).innerHTML = inmap.jewel
           document.querySelector(`.recent .measure`).innerHTML = environment.measure
+          document.querySelector(`.learning-ratio`).innerHTML = `${(100*agent.learning.ratio).toFixed(2)} %`
       }
 
   }

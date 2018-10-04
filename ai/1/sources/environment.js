@@ -97,7 +97,7 @@
      */
       get measure() {
         let {dust, jewel, energy} = this.scores.recent
-        return dust.aspired * 8 - dust.generated * 2 + jewel.picked * 12 - jewel.aspired * 16 - jewel.generated - energy.used
+        return (dust.aspired * 10 + jewel.picked * 15) - (energy.used + dust.generated * 3 + jewel.aspired * 50)
       }
 
     /**
@@ -109,7 +109,7 @@
           let cell = this.map[this.agent.x][this.agent.y]
 
         //Prise en compte de l'action de l'agent
-          debug.agent.log($.DEBUG[action])
+          debug.agent.log2($.DEBUG[action])
           this.scores.energy.used()
 
         //Aspiration

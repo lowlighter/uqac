@@ -32,7 +32,7 @@
       }
 
     /** Durée de l'action. */
-      get duration() { return 500 }
+      get duration() { return 350 }
   }
 
 /**
@@ -51,7 +51,7 @@
       }
 
     /** Durée de l'action. */
-      get duration() { return 800 }
+      get duration() { return 350 }
   }
 
 /**
@@ -77,39 +77,38 @@
      * Déplacement vers le haut.
      */
       async up() {
-        this.agent.action = $.ACTION.PENDING
+        await sleep(this.duration)
         this.environment.eval($.ACTION.UP)
         this.agent.y = Math.max(0, this.agent.y - 1)
-        this.agent.action = $.ACTION.DONE
       }
 
     /**
      * Déplacement vers le bas.
      */
       async down() {
-        this.agent.action = $.ACTION.PENDING
+        await sleep(this.duration)
         this.environment.eval($.ACTION.DOWN)
         this.agent.y = Math.min(this.agent.y + 1, this.environment.height - 1)
-        this.agent.action = $.ACTION.DONE
       }
 
     /**
      * Déplacement vers la gauche.
      */
       async left() {
-        this.agent.action = $.ACTION.PENDING
+        await sleep(this.duration)
         this.environment.eval($.ACTION.LEFT)
         this.agent.x = Math.max(0, this.agent.x - 1)
-        this.agent.action = $.ACTION.DONE
       }
 
     /**
      * Déplacement vers la droite.
      */
       async right() {
-        this.agent.action = $.ACTION.PENDING
+        await sleep(this.duration)
         this.environment.eval($.ACTION.RIGHT)
         this.agent.x = Math.min(this.agent.x + 1, this.environment.width - 1)
-        this.agent.action = $.ACTION.DONE
       }
+
+    /** Durée de l'action. */
+      get duration() { return 50 }
   }

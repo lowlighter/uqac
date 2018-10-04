@@ -5,6 +5,7 @@
 
     //Ligne dans le journal
       log(text) { if ($.DEBUG.ENABLED) this.console.innerHTML = `<div>${this.time} │ ${text}</div>` + this.console.innerHTML }
+      log2(text) { if ($.DEBUG.ENABLED) this.console.innerHTML = `<div class="log2">${this.time} │ ${text}</div>` + this.console.innerHTML }
       info(text) { if ($.DEBUG.ENABLED) this.console.innerHTML = `<div class="info">${this.time} │ ${text}</div>` + this.console.innerHTML }
       error(text) { if ($.DEBUG.ENABLED) this.console.innerHTML = `<div class="error">${this.time} │ ${text}</div>` + this.console.innerHTML }
       success(text) { if ($.DEBUG.ENABLED) this.console.innerHTML = `<div class="success">${this.time} │ ${text}</div>` + this.console.innerHTML }
@@ -90,7 +91,8 @@
       }
       document.querySelector("[name=learning]").onchange = function (event) {
         let target = event.target
-        agent.learning = target.checked
+        agent.learning.enabled = target.checked
+        document.querySelector(".learning .details").classList[agent.learning.enabled ? "remove" : "add"]("hide")
       }
 
     //Pause
