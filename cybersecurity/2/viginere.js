@@ -17,6 +17,8 @@
 //Recherche des occurence par n-grams
   const max_n = 6
   console.log(`\nRecherche des n-grams (n ≤ ${max_n}) :`)
+  console.log("  n-gramme |  Occur. |              Distances | Facteurs")
+  console.log("=".repeat("  n-gramme |  Occur. |              Distances | Facteurs".length + 14))
   let lengthes = new Map()
   for (let n = 2; n <= max_n; n++) {
     for (let i = 0; i < x.length - n; i++) {
@@ -32,12 +34,13 @@
         for (let j = matches.length-1; j > 0; j--) matches[j] -= matches[j-1]
         matches.shift()
         if (!matches.length) continue
+        process.stdout.write(` | ${(1+matches.length).toString().padStart(2, " ")} fois | ${matches.join(",").padStart(22, " ")}`)
       //Recherches des facteurs de distances
         let factors = []
         matches.forEach(v => { factors.push(v) ; for (let k = 2; k < v**0.5; k++) (v%k === 0) ? factors.push(k) : null })
       //Enregistrement des facteurs de distances dans la liste globale
         factors.forEach(v => lengthes.set(v, (lengthes.get(v)||0) + 1))
-        process.stdout.write(` | ${(1+matches.length).toString().padStart(2, " ")} fois | ${[...new Set(factors)].sort((a, b) => a - b).join(", ")}\n`)
+        process.stdout.write(` | ${[...new Set(factors)].sort((a, b) => a - b).join(", ")}\n`)
     }
   }
 
