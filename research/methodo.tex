@@ -27,11 +27,10 @@
     supposent un environnement stationnaire.
 
     Les difficultés de l’apprentissage en environnement non stationnaire sont mises 
-    en évidence : complexité, aspects continu et évolutif, amené à diverger des données d'apprentissage. 
+    en évidence : complexité, aspects continu et évolutif, diverge des données d'apprentissage. 
     Les approches actuelles pour pallier le problème sont mentionnées : détection de contexte ou 
     suivi d’événements (tracking). Les auteurs expliquent cependant 
-    que ces méthodes ne sont pas adaptées pour un fonctionnement en régime à exemples limités 
-    \textit{"few-shot regime"}. 
+    que ces méthodes ne sont pas adaptées pour un fonctionnement en \textit{"few-shot regime"}. 
     
     Le papier cherche à répondre aux problématiques de l'apprentissage en environnement non 
     stationnaire grâce à l'adaptation continue et du méta-apprentissage.
@@ -39,7 +38,7 @@
     L'approche proposée ici est de considérer l'environnement non stationnaire comme une 
     séquence de tâches stationnaires afin de pouvoir la représenter par une chaîne de Markov. 
     Une version altérée du modèle agnostique de méta-apprentissage MAML (Finn et al., 2017b) sera 
-    utilisée, et deux environnements avec physique simulée a été mis en place dans l'optique de 
+    utilisée, et deux environnements avec physique simulée ont été mis en place dans l'optique de 
     tester l'adaptation continue.
 
 
@@ -49,12 +48,12 @@
     \subsection{Environnement non stationnaire}
     \vspace{-1em}
     Environnement où un changement radical du fonctionnement de celui-ci peut se produire. 
-    De nombreux éléments peuvent induire la non stationnarité, comme par exemple l’apprentissage 
-    et le changement perpétuel de chaque agent dans un environnement multi-agent.
+    La non stationnarité peut par exemple être induite par l’apprentissage de chaque 
+    agent dans un environnement multi-agent.
 
     \subsection{Méta-apprentissage}
     \vspace{-1em}
-    Apprendre à apprendre. Consiste à produire des règles d’apprentissage flexibles qui 
+    Consiste à produire des règles d’apprentissage flexibles qui 
     peuvent être appliquées quel que soit la situation. Ainsi, en cas de changement du monde 
     dans lequel un agent évolue, celui-ci sera capable de produire un résultat satisfaisant 
     rapidement à partir d’un entrainement très limité.
@@ -63,7 +62,7 @@
     \vspace{-1em}
     Consiste à réussir à opérer dans une unique tâche dans un environnement non stationnaire 
     en s’adaptant aux changements de celui-ci à l’exécution et avec des jeux de données ou un 
-    nombre d’interactions très limités avant que l’environnement ne change de nouveau.
+    nombre d’interactions limité avant que l’environnement ne change de nouveau.
 
     % Proposition
     \section{Proposition}
@@ -108,17 +107,19 @@
     Les deux exercices suivants ont été soumis à des agents de différentes morphologies (fig. \ref{about}a), 
     politiques et méthodes d'adaptation :  
 
-    \begin{itemize}
+    \begin{enumerate}
+      \vspace{-0.5em}
       \item{
         Se déplacer rapidement dans une direction fixée (fig. \ref{about}b). 
         À chaque épisode, deux membres de l'agent sont progressivement paralysés. 
       }
       \item{
         Un jeu où deux agents tentent de renverser leur adversaire ou de le faire sortir du ring (fig. \ref{about}c). 
-        Chaque partie contient plusieurs manches et l'agent est autorisé  Le jeu a été équilibré au préalable de façon à ce 
+        Chaque partie contient plusieurs manches et l'agent est autorisé à mettre à jour sa politique. Le jeu a été équilibré au préalable de façon à ce 
         que chaque type d'agent ait les mêmes chances de gagner.
       }
-    \end{itemize}
+      \vspace{-0.5em}
+    \end{enumerate}
 
     L'objectif est d'évaluer l'efficacité de différentes méthodes d'adaptation : 
     aucune, implicite (avec $RL^2$), tracking (PPO) et méta-apprentissage. Pour éviter les biais, 
@@ -129,15 +130,17 @@
     \section{Résultats}
 
     Pour le premier exercice (fig. \ref{ex1}), on constate que les politiques utilisant le méta-apprentissage sont 
-    sous-optimales par rapport aux autres méthodes lors du premier épisode, mais après deux ou trois 
+    sous-optimales par rapport aux autres méthodes lors du premier épisode, mais qu'après deux ou trois 
     épisodes les performances sont similaires, et à l'issue des sept épisodes, elles sont nettement meilleures.
     On constate que le tracking n'améliore pas significativement les résultats par rapport à une politique sans adaptation, 
     et les performances sont même parfois inférieures.
 
     En ce qui concerne le second exercice (fig. \ref{ex2}) qui introduit une dimension compétitive, plusieurs remarques 
-    peuvent être faite. Les réseaux récurrents sont les plus efficaces, par leur capacité à garder en mémoire les épisodes récents.
-    Les politiques avec une adaptation par méta-apprentissage sont systématiquement classés parmi les plus performants.
-
+    peuvent être faites. Les réseaux récurrents sont les plus efficaces, par leur capacité à garder en mémoire les épisodes récents.
+    Les politiques avec une adaptation par méta-apprentissage sont systématiquement classés parmi les plus performants. 
+    Une étude portée sur l'évolution de 1050 agents a aussi été réalisée, dans laquelle les perdants été supprimés et les vainqueurs dupliqués. 
+    Au bout de 10 générations, les agents avec méta-apprentissage constituaient près de 85\% de la population. 
+    
     % Figure résultats déplacement
     \begin{figure}[h]
       \centering
@@ -163,24 +166,24 @@
     Un des points discutés dans l'article étudié est la performance de chaque méthode d'adaptation 
     selon le nombre d'épisodes à disposition. Le méta-apprentissage est très performant lorsque peu 
     d'expérience est à disposition, mais semble ne pas pouvoir améliorer son efficacité quand de nouvelles 
-    données sont disponibles tandis que le tracking peut quasiment réaliser un apprentissage à la volée.
+    données sont disponibles tandis que le tracking peut quasiment réaliser un apprentissage à la volée\textsuperscript{\cite{paper}}.
     
     Il serait donc intéressant de déterminer la cause de la stagnation des performances du méta-apprentissage.
     Avec le modèle actuel, si l'environnement non stationnaire n'est pas particulièrement instable, 
-    le tracking\cite{sutton} semble produire de meilleurs résultats sur le long terme.
+    le tracking\textsuperscript{\cite{sutton}} semble produire de meilleurs résultats sur le long terme.
 
     L'aspect coopératif des environnements compétitifs (e.g. combats en équipe) n'est pas abordé et 
     pourrait être étudié dans de futurs travaux, afin d'y évaluer les performances de l'adaptation 
     continue. Il serait intéressant de les comparer aux IA de DeepMind conçues pour la capture de drapeau sur 
-    le jeu Quake 3\cite{jaderberg} ou même plus généralement pour résoudre des problèmes multi-agents qui ne 
-    sont pas uniquement compétitifs\cite{raluca}.
+    le jeu Quake 3\textsuperscript{\cite{jaderberg}} ou même plus généralement pour résoudre des problèmes multi-agents qui ne 
+    sont pas uniquement compétitifs\textsuperscript{\cite{raluca}}.
 
     % Conclusion
     \section{Conclusion}
 
-    L'adaptation continue par méta-apprentissage est discuté pour répondre aux problématiques de l'apprentissage
+    L'adaptation continue par méta-apprentissage est ici discutée pour répondre aux problématiques de l'apprentissage
     en environnement non stationnaire. Les résultats des deux expérimentations réalisées ont démontré
-    des résultats convaincant et suggèrent que le modèle est viable et exploitable.
+    des résultats convaincants et suggèrent que le modèle est viable et exploitable.
 
     Toutefois, les performances semblent être plafonnées avec le modèle actuel et ne semble donc pas 
     pouvoir être utilisé en toute circonstances. Des travaux futurs pourraient étudier la question de 

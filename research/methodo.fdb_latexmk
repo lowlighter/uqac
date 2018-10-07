@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1538883966 "c:/Users/lecoq/Documents/GitHub/uqac/research/methodo.tex" "methodo.pdf" "methodo" 1538883968
-  "c:/Users/lecoq/Documents/GitHub/uqac/research/methodo.tex" 1538883964 11295 82f097f0caa2bd453550f9ccc78d0622 ""
+["pdflatex"] 1538950206 "c:/Users/lecoq/Documents/GitHub/uqac/research/methodo.tex" "methodo.pdf" "methodo" 1538950207
+  "c:/Users/lecoq/Documents/GitHub/uqac/research/methodo.tex" 1538950204 11623 601b4fa7c89b5a6f6ee6bf0b7db3449d ""
   "c:/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1538443866 3332 103109f5612ad95229751940c61aada0 ""
   "c:/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1538443305 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "c:/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm" 1538443305 1528 abec98dbc43e172678c11b3b9031252a ""
@@ -31,7 +31,6 @@
   "c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1538442986 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "c:/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1538444349 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "c:/texlive/2018/texmf-dist/tex/latex/base/article.cls" 1538444105 19823 fcbc01552b07b608574cbf8e1977e0c0 ""
-  "c:/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd" 1538444105 2472 aa08940f0a4dc6c24ae9f943b04ae0b9 ""
   "c:/texlive/2018/texmf-dist/tex/latex/base/size11.clo" 1538444106 8310 c914ded44e64c3c6e0ed92e7ac6a2004 ""
   "c:/texlive/2018/texmf-dist/tex/latex/caption/caption.sty" 1538443231 66287 d36a847b369384f469bcc508af4f1b98 ""
   "c:/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty" 1538443231 66886 6e8b633cfe0c40edf5496588a2f4d7f8 ""
@@ -52,9 +51,9 @@
   "fig1c.png" 1538763475 13825 f75bd5ff65615661270042376cd4195f ""
   "fig2.png" 1538763533 76901 e9d44b8183926bc099dfbd39e6cb1531 ""
   "fig3.png" 1538763556 39334 01e7c244b6f02825cd66157f683c94c6 ""
-  "methodo.aux" 1538883967 2335 712afdf137b5ac64764084182904df88 ""
-  "methodo.tex" 1538883964 11295 82f097f0caa2bd453550f9ccc78d0622 ""
+  "methodo.aux" 1538950207 2352 2750a8f952cbdd9b4af1413d5bc2ef96 ""
+  "methodo.tex" 1538950204 11623 601b4fa7c89b5a6f6ee6bf0b7db3449d ""
   (generated)
+  "methodo.aux"
   "methodo.log"
   "methodo.pdf"
-  "methodo.aux"

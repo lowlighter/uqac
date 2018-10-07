@@ -63,8 +63,6 @@ INPUT ./fig1b.png
 INPUT fig1c.png
 INPUT ./fig1c.png
 INPUT ./fig1c.png
-INPUT c:/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
-INPUT c:/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 INPUT fig2.png
 INPUT ./fig2.png
 INPUT ./fig2.png
