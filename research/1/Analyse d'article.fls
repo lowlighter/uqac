@@ -1,9 +1,9 @@
-PWD c:/Users/lecoq/Documents/GitHub/uqac/research
+PWD c:/Users/lecoq/Documents/GitHub/uqac/research/1
 INPUT c:/texlive/2018/texmf.cnf
 INPUT c:/texlive/2018/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/Users/lecoq/Documents/GitHub/uqac/research/methodo.tex
-OUTPUT methodo.log
+INPUT c:/Users/lecoq/Documents/GitHub/uqac/research/1/Analyse d'article.tex
+OUTPUT Analyse d'article.log
 INPUT c:/texlive/2018/texmf-dist/tex/latex/base/article.cls
 INPUT c:/texlive/2018/texmf-dist/tex/latex/base/article.cls
 INPUT c:/texlive/2018/texmf-dist/tex/latex/base/size11.clo
@@ -30,9 +30,9 @@ INPUT c:/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
 INPUT c:/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
 INPUT c:/texlive/2018/texmf-dist/tex/latex/float/float.sty
 INPUT c:/texlive/2018/texmf-dist/tex/latex/float/float.sty
-INPUT methodo.aux
-INPUT methodo.aux
-OUTPUT methodo.aux
+INPUT Analyse d'article.aux
+INPUT Analyse d'article.aux
+OUTPUT Analyse d'article.aux
 INPUT c:/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT c:/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
@@ -51,7 +51,7 @@ INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-OUTPUT methodo.pdf
+OUTPUT Analyse d'article.pdf
 INPUT c:/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT fig1a.png
 INPUT ./fig1a.png
@@ -69,9 +69,8 @@ INPUT ./fig2.png
 INPUT fig3.png
 INPUT ./fig3.png
 INPUT ./fig3.png
-INPUT methodo.aux
+INPUT Analyse d'article.aux
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
