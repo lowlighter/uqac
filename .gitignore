@@ -1,0 +1,11 @@
+# GCC outputs
+a.out
+
+# Nodes modules
+node_modules
+
+# Python cache
+__pycache__
+
+# EndNote libraries data (prevent accidental release of licensed papers)
+pcg.Data
