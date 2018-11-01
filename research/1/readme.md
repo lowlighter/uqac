@@ -1,0 +1,1 @@
+[Analyse](https://github.com/lowlighter/uqac/blob/master/research/1/Analyse%20d'article.pdf) de l'article intitulé [Continuous Adaptation via Meta-Learning in Nonstationary and Competitive Environments](https://openreview.net/forum?id=Sk2u1g-0-).
