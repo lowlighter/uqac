@@ -2,38 +2,9 @@
 
 * [Démonstration](https://lowlighter.github.io/access/5005d70afd47a09d181c918c16ca0c4346c3b70c/uqac/ai/1/)
 
-## Projet
-
-### Instructions
-Le projet est une application web, ce qui signifie qu’il peut être lancé directement dans le navigateur sans aucun autre prérequis.
-
-Il accessible en ligne mais il est possible également de faire fonctionner l’application localement. 
-Pour cela il faut :
-1. Télécharger les ressources du projet
-2. Ouvrir le fichier index.html dans un navigateur
-
-Notez tout de même que le programme nécessite un navigateur récent et le fonctionnement des n’est pas garanti sur les versions désuètes.
-
-Les paramètres de l’application (fréquences d’exécution, temps alloué à l’exploration, paramètres d’apprentissage, dimensions de la carte, probabilités des poussières et bijoux, fenêtre temporelle d’évaluation de la performance, etc.) peuvent être modifiés dans le fichier app.js. 
-Il est conseillé de désactiver le cache du navigateur si ces valeurs sont modifiées.
-
-### Organisation des fichiers
-* /source
-  * app.js : Paramètres de l’application
-  * agent.js : Description générale de l’agent (initialisation, cycle de vie, etc.)
-  * agent.sensors.js : Définition des capteurs de l’agent 
-  * agent.effectors.js : Définition des effecteurs de l’agent
-  * agent.explore.js : Définition des méthodes d’explorations de l’agent
-  * environment.js : Description générale de l'environnement
-  * environment.scores.js : Définition des mesures de performances de l’environnement
-* /misc : Fichiers annexes contenant entre autres le moteur de rendu, les constantes et les fichiers de debug.
-* /resources 
-  * Textures et styles de l’interface graphique
-* index.html : Point d’entrée de l’application
-
 ### Interface
 
-![Interface](https://github.com/lowlighter/uqac/tree/master/ai/1/resources/interface.png)
+![Interface](https://github.com/lowlighter/uqac/blob/master/ai/1/resources/interface.png)
 
 1. Evénements de l’agent
 2. Evénements de l’environnement
@@ -278,3 +249,33 @@ De cette manière, au début de l’apprentissage l’agent testera des valeurs 
 Voici par exemple les résultats que nous avons obtenu au cours de 40 épisodes :
 * Exploration non informée : 76%
 * Exploration informée : 81%
+
+
+## Projet
+
+### Instructions
+Le projet est une application web, ce qui signifie qu’il peut être lancé directement dans le navigateur sans aucun autre prérequis.
+
+Il accessible en ligne mais il est possible également de faire fonctionner l’application localement. 
+Pour cela il faut :
+1. Télécharger les ressources du projet
+2. Ouvrir le fichier index.html dans un navigateur
+
+Notez tout de même que le programme nécessite un navigateur récent et le fonctionnement des n’est pas garanti sur les versions désuètes.
+
+Les paramètres de l’application (fréquences d’exécution, temps alloué à l’exploration, paramètres d’apprentissage, dimensions de la carte, probabilités des poussières et bijoux, fenêtre temporelle d’évaluation de la performance, etc.) peuvent être modifiés dans le fichier app.js. 
+Il est conseillé de désactiver le cache du navigateur si ces valeurs sont modifiées.
+
+### Organisation des fichiers
+* /source
+  * app.js : Paramètres de l’application
+  * agent.js : Description générale de l’agent (initialisation, cycle de vie, etc.)
+  * agent.sensors.js : Définition des capteurs de l’agent 
+  * agent.effectors.js : Définition des effecteurs de l’agent
+  * agent.explore.js : Définition des méthodes d’explorations de l’agent
+  * environment.js : Description générale de l'environnement
+  * environment.scores.js : Définition des mesures de performances de l’environnement
+* /misc : Fichiers annexes contenant entre autres le moteur de rendu, les constantes et les fichiers de debug.
+* /resources 
+  * Textures et styles de l’interface graphique
+* index.html : Point d’entrée de l’application
