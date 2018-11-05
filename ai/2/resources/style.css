@@ -1,0 +1,145 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #323232;
+  font-family: Monospace;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sudoku {
+  background: whitesmoke;
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  display: inline-block;
+}
+
+.row {
+  display: flex;
+}
+
+.square {
+  font-size: 26px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  color: dodgerblue;
+}
+
+.square.left {
+  border-left-width: 4px;
+}
+
+.square.right {
+  border-right-width: 4px;
+}
+
+.square.top {
+  border-top-width: 4px;
+}
+
+.square.bottom {
+  border-bottom-width: 4px;
+}
+
+.fixed {
+  color: black;
+}
+
+a, a:visited {
+  text-decoration: none;
+  color: #61AFEF;
+}
+
+a:hover {
+  background: black;
+  color: white;
+}
+
+.authors {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  border-top-left-radius: 5px;
+  padding: 5px;
+}
+
+button {
+  border-radius: 5px;
+  padding: 4px;
+  margin: 6px;
+  outline: none;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.square input {
+  border: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+}
+
+.flex-ui, .flex-ui-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-ui-column {
+  flex-direction: column
+}
+
+label {
+  text-align: center;
+  margin: 8px;
+}
+
+label, input[type=checkbox] {
+  cursor: pointer;
+}
+
+.ui {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  background-color: #F1F3F4;
+  padding: 2px 6px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  max-width: 600px;
+}
+
+b {
+  font-weight: bold;
+}
+
+[disabled] {
+  cursor: not-allowed !important;
+}
+
+[name=rendering_step] {
+  width: 4em;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid gray;
+}

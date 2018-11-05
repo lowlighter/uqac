@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IA - Devoir 2</title>
+    <link rel="stylesheet" href="resources/style.css">
+  </head>
+  <body>
+
+    <!-- Auteurs -->
+    <div class="authors">
+      <b>UQAC INF846 - 2018</b><br>
+      <a href="https://github.com/lowlighter/uqac/tree/master/ai/2">GitHub</a><br>
+      Lecoq Simon<br>
+    </div>
+
+    <!-- Rendu graphique -->
+    <div id="app">
+      <template>
+        <div class="sudoku">
+          <div v-for="y in 9" class="row">
+            <div v-for="x in 9" class="square" v-bind:class="{fixed:(!isNaN(sudoku.variables.get(`${x-1}:${y-1}`)))||(maker.set.has(`${x-1}:${y-1}`)), right:(x%3 == 0), bottom:(y%3 == 0)}">
+              <input type="text" v-bind:value="(maker.set.has(`${x-1}:${y-1}`) ? maker.set : ((sudoku.solver||sudoku).variables)).get(`${x-1}:${y-1}`)||''" v-bind:name="`${x-1}:${y-1}`" v-on:keydown="maker($event)" v-bind:disabled="sudoku.solving.started">
+            </div>
+          </div>
+        </div>
+        <div class="ui">
+          <b>{{ sudoku.solving.ended ? sudoku.solving.solvable === null ? "Résolution stoppée" : sudoku.solving.solvable ? `Résolu en ${(sudoku.solving.time/1000).toFixed(3)} secs` : "Aucune solution trouvée" : sudoku.solving.started ? "Résolution en cours..." : "Résolution stoppée" }}</b>
+        </div>
+      </template>
+    </div>
+
+    <!-- Controles utilisateurs -->
+    <div class="ui">
+      <div class="flex-ui-column">
+        <b>Options de résolution :</b>
+        <div class="flex-ui">
+          <label title="Minimum Remaining Values">MRV<br><input type="checkbox" name="mrv" checked></label>
+          <label title="Degree Heuristic">DH<br><input type="checkbox" name="dh" checked></label>
+          <label title="Least Constraining Value">LCV<br><input type="checkbox" name="lcv" checked></label>
+          <label title="Arc Consistency (#3)">AC3<br><input type="checkbox" name="ac3" checked></label>
+          <!--<label title="Temps de pause entre chaque itération">Pause (s)<br><input type="number" value="0" min="0" max="10" step="1" name="rendering_step"></label>-->
+        </div>
+      </div>
+      <div class="flex-ui">
+        <button onclick="solve()">Résoudre le sudoku</button>
+        <button onclick="stop()">Stopper la résolution</button>
+        <button onclick="maker.random()">Génération aléatoire</button>
+        <button onclick="maker.clear()">Nettoyer le sudoku</button>
+      </div>
+    </div>
+
+
+    <!-- Code source -->
+    <script src="resources/vue.js"></script>
+    <script src="resources/generator.js"></script>
+    <script src="resources/miscelleanous.js"></script>
+    <script src="sources/algo.backtracking.js"></script>
+    <script src="sources/algo.basic.js"></script>
+    <script src="sources/algo.degreeheuristic.js"></script>
+    <script src="sources/algo.mrv.js"></script>
+    <script src="sources/algo.ac3.js"></script>
+    <script src="sources/algo.lcv.js"></script>
+    <script src="sources/csp.js"></script>
+    <script src="sources/csp.sudoku.js"></script>
+    <script src="sources/csp.assignment.js"></script>
+    <script> sudoku_init()</script>
+
+  </body>
+</html>
