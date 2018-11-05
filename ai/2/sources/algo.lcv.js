@@ -6,13 +6,13 @@
  *
  * Note : Cette fonction modifie directement le domaine de variable et n'a donc pas de valeur de retour
  */
-  function lcv(assignment, variable) {
+  function lcv(assignment, variable, values) {
     //Initialisation
       let map = {}
-      assignment.domains.get(variable).forEach(value => map[value] = 0)
+      values.forEach(value => map[value] = 0)
 
     //Parcours des valeurs du domaine de la variable
-      for (let value of assignment.domains.get(variable)) {
+      for (let value of values) {
         //Ajout temporaire de {variable, value}
           assignment.add({variable, value})
         //Comptage du nombre de valeurs légales sur les autres variables non assignées
@@ -23,6 +23,7 @@
       }
 
     //Mise à jour du domaine de la variable en les triant par ceux qui autorisent le plus de mouvements légaux
-      assignment.domains.set(variable, sortByMappedValueReversed(map))
+      let sorted = [...sortByMappedValueReversed(map)]
+      values.sort((a, b) => sorted.indexOf(a) - sorted.indexOf(b))
   }
 

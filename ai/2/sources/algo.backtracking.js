@@ -13,10 +13,16 @@
       if (assignment.complete) return assignment
 
     //Sinon, récupération d'une variable non assignée
-      let variable = assignment.select.unassigned
-
+      let variable = assignment.select.unassigned()
+      let domain = assignment.select.values(variable)
+      
     //Parcours des valeurs du domaine de chaque variable
-      for (let value of assignment.domains.get(variable)) {
+    //Note : La boucle "for (let value of domain)" a été substituée par l'implémentation ci-dessous (boucle "while")
+    //  en raison de l'heuristique LCV qui perturbait l'itérateur à cause du changement sur l'ordre des valeurs du domaine. 
+      while (domain.length) {
+        //Sélection d'une valeur
+          let value = assignment.select.value(variable, domain)
+
         //Test de consistance
           if (assignment.consistant({variable, value})) {
             //Ajout de {variable, valeur}

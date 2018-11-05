@@ -30,26 +30,47 @@
       }
 
     /**
-     * Retourne la prochaine variable non assignée à utiliser, à partir des heuristiques actives.
-     * MRV, Degree heuristic et LCV sont exécutés à ce moment.
-     * 
-     * Cette méthode s'appele de la façon suivante : 
-     * let variable = assignment.select.unassigned
+     * Contient les différentes méthodes permettant de sélectionner les prochaine variables et valeurs. 
      */
       get select() {
-        //Variables non assignées
-          let unassigned = this.unassigned
+        let that = this
+        return {
+          /** 
+           * Retourne la prochaine variable non assignée à utiliser, à partir des heuristiques actives.
+           * MRV, Degree heuristic et LCV sont exécutés à ce moment.
+           */
+            unassigned() {
+              //Variables non assignées
+                let unassigned = that.unassigned
 
-        //Heuristiques (variables)
-          if (this.options.basic) unassigned = basic(this, unassigned)
-          if (this.options.mrv) unassigned = mrv(this, unassigned)
-          if (this.options.dh) unassigned = dh(this, unassigned)
-          let selected = [...unassigned][0]
+              //Heuristiques (variables)
+                if (that.options.basic) unassigned = basic(that, unassigned)
+                if (that.options.mrv) unassigned = mrv(that, unassigned)
+                if (that.options.dh) unassigned = dh(that, unassigned)
 
-        //Heuristiques (valeurs)
-          if (this.options.lcv) lcv(this, selected)
+              //Retourne la première variable
+                return [...unassigned][0]
+            },
 
-        return {unassigned:selected}
+          /**
+           * Retourne la prochaine valeur à utiliser du domaine de variable, à partir des heuristiques actives.
+           * Le domaine est directement modifié (i.e. trié/shifté)
+           */
+            value(variable, domain) {
+              //Heuristiques (valeurs)
+                if (that.options.lcv) lcv(that, variable, domain)
+
+              //Retourne la première valeur
+                return domain.shift()
+            },
+
+          /** 
+           * Retourne la liste des valeurs du domaine de variable.
+          */
+            values(variable) {
+              return [...that.domains.get(variable)]
+            }
+        }
       }
 
     /** 
