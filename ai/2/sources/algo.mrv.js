@@ -2,6 +2,7 @@
  * Minimum Remaining Value.
  * 
  * Filtre les variables non assignées selon leur nombre de valeurs légales restantes.
+ * e.g. : [0:0 (2)]
  */
   function mrv(assignment, unassigned) {
     //Initialisation
@@ -15,5 +16,6 @@
         map[variable] = legal
       }
       
-    return filterByMappedValue(map, min)
+    //Filtre les variables possédant le minimum de valeurs légales restantes
+      return filterByMappedValue(map, min)
   }

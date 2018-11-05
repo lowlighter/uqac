@@ -36,6 +36,7 @@
         b_values: for (let vb of assignment.domains.get(b)) 
           if (assignment.test(arc, {variable:a, value:va}, {variable:b, value:vb})) continue a_values
         
+        //Si le 'continue a_values' n'a pas exécuté, cela signifie que : 
         //Aucune valeur de 'b' ne peut satisfaire 'arc' pour (a = va, b = vb)
           assignment.domains.delete(va)
           removed = true

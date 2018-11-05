@@ -2,7 +2,8 @@
  * Sudoku.
  * 
  * Chaque case du sudoku représente une variable (il y a donc 9*9 variables).
- * Celles-ci sont initialisées à 'NaN' pour indiquer qu'elles ne sont pas définies, ou à un nombre s'il s'agit d'une variable "fixe" qui fait partie du sudoku non résolu.
+ * Celles-ci sont initialisées à 'NaN' pour indiquer qu'elles ne sont pas définies, 
+ *  ou à un nombre s'il s'agit d'une variable "fixe" qui fait partie du problème initial.
  * 
  * Les variables sont identifées par une string de la façon suivante : 
  *  "x:y", qui est basée sur les coordonnées de la case dans le sudoku.
@@ -15,7 +16,7 @@
  * Les contraintes du sudoku sont représentées par un objet de la façon suivante :
  *  {a, b, op} où 'a' et 'b' sont les variables affectées par la contrainte et 'op' l'opérateur.
  *  Ici, seul l'opérateur '!=' a été défini car c'est le seul requis pour résoudre un sudoku.
- *  Note : le test de contrainte '!=' exploite la particularité que NaN est toujours différent de NaN
+ *  Note : le test de contrainte '!=' implémenté ici exploite la particularité que "NaN === NaN //false"
  */ 
   class Sudoku extends ConstraintSatisfactionProblem {
 

@@ -21,12 +21,14 @@
           this.constraints = []
           this.constraints_map = new Map() 
 
-        //Utilisé pour gérer l'état de la résolution du problème 
+        //Utilisé pour gérer l'état de la résolution du problème (pour l'interface utilisateur)
           this.solving = new ConstraintSatisfactionProblem.SolvingState()
       }
 
     /** 
      * Cherche une solution au CSP avec l'algorithme passé en paramètre.
+     * Note : Seul la fonction 'backtracking' peut être utilisée en tant que premier paramètre
+     * 
      * Le chronomètre est également démarré.
      */
       async solve(algorithm, options) {
@@ -51,15 +53,10 @@
       }
 
     /** 
-     * Temps écoulé depuis le début de la résolution.
-     */
-      get chrono() {
-        return Number.isFinite(this.solving.started) ? performance.now() - this.solving.started : 0
-      }
-
-    /** 
      * Génère la map des contraintes.
      * Celle-ci regroupe les contraintes d'une même variable. 
+     * 
+     * Le contenu est équivalent à csp.constraints, mais permet de les filtrer par variable pour économiser du temps de calcul
      */
       compute_constraints_map() {
         //Parcours des variables
@@ -75,7 +72,7 @@
 
     /** 
      * Calcule le voisinage de chaque variable.
-     * i.e. les variables avec lesquelles elle a au moins une contrainte
+     * i.e. les variables avec lesquelles une varible possède au moins une contrainte.
      */
       compute_neighborhoods() {
         //Parcours des variables
@@ -89,6 +86,13 @@
           }
       }
       
+
+    /** 
+     * Temps écoulé depuis le début de la résolution.
+     */
+      get chrono() {
+        return Number.isFinite(this.solving.started) ? performance.now() - this.solving.started : 0
+      }
   }
 
 //Classe permettant de gérer l'état de résolution d'un CSP

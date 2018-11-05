@@ -2,8 +2,6 @@
  * Assignement.
  * 
  * Pour un côté plus pratique de l'implémentation, les instances d'assignements sont liées à un CSP.
- * MRV, Degree heuristic et LCV sont exécutés à chaque fois qu'un couple {variable, valeur} est ajouté ou retiré de l'assignement.
- * AC3 est exécuté à chaque fois qu'un couple {variable, valeur} est ajouté dans l'assignement.
  */ 
   class Assignment {
 
@@ -33,6 +31,10 @@
 
     /**
      * Retourne la prochaine variable non assignée à utiliser, à partir des heuristiques actives.
+     * MRV, Degree heuristic et LCV sont exécutés à ce moment.
+     * 
+     * Cette méthode s'appele de la façon suivante : 
+     * let variable = assignment.select.unassigned
      */
       get select() {
         //Variables non assignées
@@ -52,7 +54,7 @@
 
     /** 
      * Indique si aucune contrainte du CSP n'est violée.
-     * Si un couple {variable, valeur} est précisé, test si l'éventuel ajout de ce couple laisse le CSP consistant.
+     * Si un couple {variable, valeur} est précisé, teste si l'éventuel ajout de ce couple laisse le CSP consistant.
      */
       consistant({variable, value} = {}) {
         //Parcours des contraintes du CSP et test de contrainte
