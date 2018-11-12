@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.1)  12 NOV 2018 02:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.1)  12 NOV 2018 11:32
 entering extended mode
  file:line:error style messages enabled.
  %&-line parsing enabled.
@@ -475,13 +475,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 142--142
 Here is how much of TeX's memory you used:
  13626 strings out of 493432
  272707 string characters out of 6149824
- 319331 words of memory out of 5000000
+ 319332 words of memory out of 5000000
  17210 multiletter control sequences out of 15000+600000
  56458 words of font info for 48 fonts, out of 8000000 for 9000
  622 hyphenation exceptions out of 8191
- 55i,11n,67p,557b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,11n,67p,540b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc}<c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmri9.pfb><c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmtt9.pfb>
-Output written on introduction.pdf (9 pages, 979562 bytes).
+Output written on introduction.pdf (9 pages, 979147 bytes).
 PDF statistics:
  88 PDF objects out of 1000 (max. 8388607)
  63 compressed objects within 1 object stream

@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1542009314 "c:/Users/lecoq/Documents/GitHub/uqac/research/2/introduction.tex" "introduction.pdf" "introduction" 1542009318
-  "c:/Users/lecoq/Documents/GitHub/uqac/research/2/introduction.tex" 1542009313 26191 0cfd101d71f8bfc7d6f1c00bb675072c ""
+["pdflatex"] 1542040376 "c:/Users/lecoq/Documents/GitHub/uqac/research/2/introduction.tex" "introduction.pdf" "introduction" 1542040378
+  "c:/Users/lecoq/Documents/GitHub/uqac/research/2/introduction.tex" 1542040371 26124 d6badb2b5a9dc6c855427613e76474bd ""
   "c:/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc" 1538440610 2327 9d6df24f9c4f7368395224341a95523a ""
   "c:/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc" 1538440610 2359 de53213020575850c8f8debc35095765 ""
   "c:/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1538440266 3332 103109f5612ad95229751940c61aada0 ""
@@ -144,9 +144,9 @@
   "c:/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1538441572 2833714 2acb2509ab7ab74587d28100ffa66f95 ""
   "c:/texlive/2018/texmf.cnf" 1538441497 772 fb4a98856d58e7fc188e7993d72dffd6 ""
   "fig1.png" 1542004522 672060 667e9c9f1b69ad1e4be143fad15a1592 ""
-  "introduction.aux" 1542009318 2130 eecbc0840f3168825afafb4f1ba639c2 ""
-  "introduction.tex" 1542009313 26191 0cfd101d71f8bfc7d6f1c00bb675072c ""
+  "introduction.aux" 1542040378 2130 eecbc0840f3168825afafb4f1ba639c2 ""
+  "introduction.tex" 1542040371 26124 d6badb2b5a9dc6c855427613e76474bd ""
   (generated)
-  "introduction.log"
   "introduction.aux"
   "introduction.pdf"
+  "introduction.log"
