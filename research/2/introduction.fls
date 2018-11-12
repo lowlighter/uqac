@@ -10,6 +10,8 @@ INPUT c:/texlive/2018/texmf-dist/tex/latex/base/size11.clo
 INPUT c:/texlive/2018/texmf-dist/tex/latex/base/size11.clo
 INPUT c:/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT c:/texlive/2018/texmf-dist/tex/latex/tools/indentfirst.sty
+INPUT c:/texlive/2018/texmf-dist/tex/latex/tools/indentfirst.sty
 INPUT c:/texlive/2018/texmf-dist/tex/latex/lm/lmodern.sty
 INPUT c:/texlive/2018/texmf-dist/tex/latex/lm/lmodern.sty
 INPUT c:/texlive/2018/texmf-dist/tex/latex/amsmath/amsmath.sty
@@ -133,6 +135,10 @@ INPUT c:/texlive/2018/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandler
 INPUT c:/texlive/2018/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 INPUT c:/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 INPUT c:/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
+INPUT c:/texlive/2018/texmf-dist/tex/latex/caption/caption.sty
+INPUT c:/texlive/2018/texmf-dist/tex/latex/caption/caption.sty
+INPUT c:/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
+INPUT c:/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
 INPUT c:/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.misc.code.tex
 INPUT c:/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.misc.code.tex
 INPUT c:/texlive/2018/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.misc.code.tex
@@ -186,6 +192,16 @@ INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/rm-lmri10.tfm
 INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/rm-lmri9.tfm
 OUTPUT introduction.pdf
 INPUT c:/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT fig1.png
+INPUT ./fig1.png
+INPUT ./fig1.png
+INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/rm-lmr10.tfm
+INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/rm-lmbx10.tfm
+INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/rm-lmr7.tfm
+INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/lmmi10.tfm
+INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/lmmi7.tfm
+INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/lmsy10.tfm
+INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/lmsy7.tfm
 INPUT c:/texlive/2018/texmf-dist/fonts/tfm/public/lm/rm-lmbx10.tfm
 INPUT introduction.aux
 INPUT c:/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
@@ -196,6 +212,7 @@ INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr10.pfb
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr12.pfb
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr17.pfb
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr6.pfb
+INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr7.pfb
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr8.pfb
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr9.pfb
 INPUT c:/texlive/2018/texmf-dist/fonts/type1/public/lm/lmri10.pfb

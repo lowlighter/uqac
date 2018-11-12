@@ -4,10 +4,12 @@
   \author{Lecoq Simon (LECS09129600)}
   \date{}
   % Packages
+  \usepackage{indentfirst}
   \usepackage{lmodern,amsmath}
   \usepackage[hyphens]{url}
   \usepackage{tabularx,array,arydshln}
   \usepackage{tikz}
+  \usepackage[font=small,labelfont=bf]{caption}
   \usetikzlibrary{shapes.misc,arrows.meta,positioning,calc}
   % Corps du document
   \begin{document}
@@ -17,45 +19,53 @@
     \setlength{\parskip}{1em}
 
     % I - CONTEXTE
-    \section{Contexte}
+    \section{Contexte}\label{section:context}
     
       % Courte introduction sur les jeux vidéo
       L'industrie des jeux vidéo est un secteur d'activité en plein essor et qui continue de s'agrandir. 
       Estimé à une valeur de 78 milliards de dollars en 2017, le marché des jeux vidéo devrait atteindre les 90 milliards d'ici 2020 avec 2.5 milliards de joueurs (en incluant les joueurs occasionnels)\footnote{2018 Video Game Industry Statistics, Trends \& Data : \url{wepc.com/news/video-game-statistics/}}.
       Démocratisés dans les années 1980 grâce avec l'apparition des bornes d'arcades et l'arrivée des premières consoles de jeux, et plus encore avec l'avènement des jeux mobiles au début des années 2010 grâce aux smartphones, les jeux vidéo font désormais partie intégrante de la culture populaire.
     
-      % Couts de développement et ressources
+      % Coûts de développement et ressources
       Toutefois, s'il était possible auparavant d'émerveiller les joueurs avec une poignée de personnes talentueuses, l'attente du public n'a cessé de croître avec les avancées technologiques. 
-      Il n'est pas rare que le développement d'un jeu vidéo nécessite le travail de plusieurs dizaines, voire centaines de personnes, afin mener à bien la conception, le développement, la direction artistique, le doublage, le markéting, etc.
-      Inéluctablement, les coûts de production ont eux aussi augmentés, parfois même allant jusqu'à rivaliser avec l'industrie hollywoodienne : 
-      la réalisation de \textit{Grand Theft Auto V} (Rockstar Games, 2013), qui est le fruit de 5 années de travail mobilisant plus de 300 personnes, possède un coût total estimé à 250 millions de dollars (dont 137 millions pour le développement)\footnote{Développement de \textit{GTA V} : \url{fr.wikipedia.org/wiki/D\%C3\%A9veloppement_de_Grand_Theft_Auto_V}}.
+      Il n'est pas rare que le développement d'un jeu vidéo nécessite le travail de plusieurs dizaines, voire centaines de personnes, afin de mener à bien la conception, le développement, la direction artistique, le doublage, le marketing, etc.
+      Inéluctablement, les coûts de production ont eux aussi augmenté, allant parfois même jusqu'à rivaliser avec l'industrie hollywoodienne : 
+      la réalisation de \textit{Grand Theft Auto V} (Rockstar Games, 2013), qui est le fruit de 5 années de travail mobilisant plus de 300 personnes, est estimé à un coût total de 250 millions de dollars (dont 137 millions uniquement pour le développement)\footnote{Développement de \textit{GTA V} : \url{fr.wikipedia.org/wiki/D\%C3\%A9veloppement_de_Grand_Theft_Auto_V}}.
 
       % Public cible élargi
       Pour compenser les coûts importants et rentabiliser leurs produits, la solution la plus évidente pour les producteurs de jeux vidéo est d'élargir le public cible.
       Afin d'étendre la démographie potentiellement intéressée, il convient de prendre en considération l'âge, le genre, la personnalité, la culture, etc. des joueurs.
-      Par exemple, dans \textit{Splatoon 2} (Nintendo, 2017), les terrains et modes de jeux suivent une rotation imposée par les développeurs ce qui satisfait les joueurs japonais mais qui peut frustrer les joueurs occidentaux en y voyant ici une contrainte\footnote{Un concepteur de Nintendo explique pourquoi le \textit{Salmon Run} n'est pas toujours disponible : \url{kotaku.com/nintendo-designer-explains-why-salmon-run-isnt-always-a-1801065018}}. 
-      L'exemple présenté illustre le fait qu'il est difficile de pouvoir satisfaire entièrement un large public aussi varié sans adapter certains aspects du jeu pour correspondre aux attentes des joueurs.
+      Par exemple, dans \textit{Splatoon 2} (Nintendo, 2017), les terrains et modes de jeux suivent une rotation imposée par les développeurs ce qui satisfait les joueurs japonais, mais qui peut frustrer les joueurs occidentaux en y voyant ici une contrainte\footnote{Un concepteur de Nintendo explique pourquoi le \textit{Salmon Run} n'est pas toujours disponible : \url{kotaku.com/nintendo-designer-explains-why-salmon-run-isnt-always-a-1801065018}}. 
+      L'exemple présenté illustre le fait qu'il est difficile d'espérer pouvoir satisfaire entièrement un large public aussi varié sans adapter certains aspects du jeu pour correspondre aux attentes des joueurs.
           
       % Pose le problème sur lequel va porter la question de recherche
-      La situation actuelle ne permet donc plus la création de nouveau contenu original à la cadence espérée par les joueurs et pour tous les types de joueurs, en raison des goulots d'étranglements liés aux manques de ressources humaines, financières ou temporelles \cite{Hendrikx}.
+      La situation actuelle ne permet donc plus la création de nouveau contenu original à la cadence espérée par les joueurs et pour tous les types de joueurs, en raison des goulots d'étranglement liés aux manques de ressources humaines, financières ou temporelles \cite{Hendrikx}.
       Ainsi, les concepteurs de jeux vidéo tout comme les joueurs se retrouvent confrontés à ce problème.
       
       % Introduction de la génération procédurale de contenu
       La PCG (<< Procedural Content Generation >>, ou génération procédurale de contenu) peut potentiellement être utilisée afin de combler le déficit de ressources du côté des créateurs de jeux.
       La PCG permet d'automatiser la création de contenu par un ensemble de règles régies par des algorithmes. 
-      Si l'on se concentre sur les applications de la PCG en jeux vidéo, elle peut notamment être utilisé pour générer de nouvelles mécaniques de jeu, des quêtes, des armes, des dialogues, des environnements, des textures, etc., tout ceci dépendant ultimement de comment les concepteurs choisissent de l'implémenter et de s'en servir.
-      Par exemple, dans \textit{No Man's Sky} (Hello Games, 2016), la PCG fait partie intégrante des mécaniques de jeux et est utilisé afin de générer un univers immense contenant plusieurs trillions de planètes à explorer, chacune peuplée d'une faune et d'une flore générés également de façon procédurale\footnote{Site officiel de \textit{No Man's Sky} : \url{nomanssky.com}}. 
+      Si l'on se concentre sur les applications de la PCG en jeux vidéo, elle peut notamment être utilisée pour générer de nouvelles mécaniques de jeu, des quêtes, des armes, des dialogues, des environnements, des textures, etc., tout ceci dépendant ultimement de comment les concepteurs choisissent de l'implémenter et de s'en servir.
+      Par exemple, dans \textit{No Man's Sky} (Hello Games, 2016, fig. \ref{fig:pcg}), la PCG fait partie intégrante des mécaniques de jeux et est utilisé afin de générer un univers immense contenant plusieurs trillions de planètes à explorer, chacune peuplée d'une faune et d'une flore générées également de façon procédurale\footnote{Site officiel de \textit{No Man's Sky} : \url{nomanssky.com}}. 
       Le contenu disponible aurait débouché sur des coûts prohibitifs s'il avait été entièrement réalisé à la main, cependant la PCG a permis de limiter de façon significative le nombre de ressources nécessaire à la création de celui-ci.
 
+      % Figure résultats déplacement
+      \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{fig1.png}
+        \caption{Exemples d'environnements générés par PCG. Images tirées du kit de presse de \textsuperscript{4}.}
+        \label{fig:pcg}
+      \end{figure}
+
       % Introduction de la personnalisation dans les jeux
-      Reste que si le contenu générable est supposément infini grâce à la PCG, il n'est utile que s'il plaît aux joueurs, l'un des buts premiers des jeux vidéos étant le divertissement.
-      Cette lourde responsabilité est attribué aux concepteurs eux-mêmes, toutefois l'utilisation de la PCG requiert de faire << confiance >> à l'ordinateur en lui déléguant une partie du processus de création \cite{Riedl}.  
-      Pour s'assurer que le contenu généré plaît au joueur, une des solutions envisageables est de s'inspirer du concept de << jeu personnalisé >>.
-      En somme, cela consiste à réaliser un jeu qui exploite des modèles du joueur afin d'optimiser l'expérience de jeu du joueur en question \cite{Bakkes}.
+      Reste que si le contenu générable est supposément infini grâce à la PCG, il n'est utile que s'il plaît aux joueurs, l'un des buts premiers des jeux vidéo étant le divertissement.
+      Cette lourde responsabilité est attribuée aux concepteurs eux-mêmes, toutefois l'utilisation de la PCG requiert de faire << confiance >> à l'ordinateur en lui déléguant une partie du processus de création \cite{Riedl}.  
+      Pour s'assurer que le contenu généré plaît au joueur, une des solutions envisageables est de s'inspirer du concept de << jeu personnalisé >> \cite{Bakkes}.
+      En somme, cela consiste à réaliser un jeu qui exploite des modèles du joueur afin d'optimiser l'expérience de jeu du joueur en question.
       La personnalisation individuelle devrait (à condition d'être correctement exécutée) résulter sur des << meilleurs >> jeux avec des joueurs plus engagés, mieux divertis et globalement plus satisfaits \cite{Bakkes}.
       
     % II - QUESTION DE RECHERCHE
-    \section{Question de recherche}
+    \section{Question de recherche}\label{section:subject}
 
       % Objet de la recherche
       L'objectif de cet article est de proposer une solution permettant aux concepteurs de jeux vidéo d'offrir plus de contenu à partir de moins de ressources tout en satisfaisant une majorité de joueurs.
@@ -64,42 +74,41 @@
       % Partie 1 : PCG
       Avant de continuer, il convient de présenter succinctement les SB-PCG (<< Search-Based PCG >>), qui sont un sous-ensemble des algorithmes de PCG. 
       Ceux-ci utilisent une fonction permettant d'attribuer une évaluation au contenu généré afin de guider les recherches au sein du domaine de contenu générable.
-      La flexibilité fournie par l'utilisation d'une FE (Fonction d'Évaluation) font des SB-PCG une méthode de choix pour la génération de contenu de l'ED-PCG. 
+      La flexibilité fournie par l'utilisation d'une FE (Fonction d'Évaluation) fait des SB-PCG une méthode de choix pour la génération de contenu de l'ED-PCG. 
       Le tableau \ref{table:fitness-functions} en page \pageref{table:fitness-functions} répertorie les différentes FE couramment utilisées en SB-PCG. 
       
       % Partie 2 : PEM
       En ce qui concerne la modélisation de l'expérience de jeu du joueur, notée PEM (<< Player Experience Modeling >>), il existe trois approches qui sont les suivantes : subjective, objective et interactive \cite{Yannakakis}.
-      Les deux premières se focalisent sur l'aspect affectif et cognitif du joueur, tandis que la troisième mets l'accent sur l'aspect comportemental et cognitif du joueur.
+      Les deux premières se focalisent sur l'aspect affectif et cognitif du joueur, tandis que la troisième met l'accent sur l'aspect comportemental et cognitif du joueur.
       Ces méthodes ne sont pas exclusives l'une de l'autre et peuvent être combinées.      
       Le tableau \ref{table:pems} en page \pageref{table:pems} en fait l'inventaire. 
       
-      % Limitation du champ de recherche (1)
+      % Limitation du champ de recherche
       Il est possible de constater que le domaine de l'ED-PCG est plutôt vaste, et il convient donc de limiter le champ des recherches.
       Dans l'optique de remplir le mieux possible l'objectif présenté au début de cette section, les contraintes supplémentaires suivantes sont examinées :
-
+      
       \begin{enumerate}
         \vspace{-1em}
         \item La modélisation du joueur doit se perfectionner au cours du temps.
         \vspace{-0.8em}
-        \item Les données doivent être collectées de façon non intrusive.
+        \item Les données doivent être collectées de façon non-intrusive.
         \vspace{-0.8em}
-        \item Les données collectées
+        \item La collecte doit être réalisée en minimisant le bruit sur les données.
         \vspace{-1em}
       \end{enumerate}
 
-      % Limitation du champ de recherche (2)
       Ces restrictions permettent d'écarter les SB-PCG avec une FE basée sur la simulation statique (1) et celles avec des FE interactives, jugées trop intrusive ou imprécises (2, 3).
       La PEM subjective n'est pas traitée pour les mêmes raisons (2, 3).
-      De nombreuses recherches sur les FE directes ont été réalisées, et dans le but d'étudier des solutions non explorées, celles-ci ne sont pas prises en compte pour les sections méthodologie et expérimentation.
+      De nombreuses recherches sur les FE directes ont déjà été réalisés \cite{Agius}, et dans le but d'étudier des solutions non explorées, celles-ci ne sont pas prises en compte pour les sections méthodologie et expérimentation.
 
       % Aboutissement de la question de recherche
-      Ainsi, les recherches présentées ici se concentrent principalement sur les ED-PCG basée sur la SB-PCG avec FE simulée dynamique avec une PEM objective ou interactive. 
+      Ainsi, les recherches présentées ici se concentrent principalement sur les ED-PCG basées sur la SB-PCG avec FE simulée dynamique et une PEM objective ou interactive, utilisées dans le but générer du contenu personnalisé pour créer une expérience de jeu spécialement conçu pour le joueur.
 
       % Taxinomie des SB-PCG
       \begin{table}
-        \begin{tabularx}{\linewidth}{p{2.2cm} X}
+        \begin{tabularx}{\linewidth}{|p{2.2cm} X|}
           \hline
-            \multicolumn{2}{c}{\textbf{Taxinomie des fonctions d'évaluations pour la SB-PCG}} \\
+            \multicolumn{2}{|c|}{\textbf{Taxinomie des fonctions d'évaluations pour la SB-PCG}} \\
           \hline
             \textbf{Directe} & Basé sur les caractéristiques du contenu généré \\
             ~~\textit{Théorie} & \textit{- évaluées selon les normes des concepteurs.} \\ 
@@ -120,15 +129,15 @@
         
       % Taxinomie des PEM
       \begin{table}
-        \begin{tabularx}{\linewidth}{p{2.2cm} X}
+        \begin{tabularx}{\linewidth}{|p{2.2cm} X|}
           \hline
-            \multicolumn{2}{c}{\textbf{Approches de modélisation de l'expérience de jeu d'un joueur}} \\
+            \multicolumn{2}{|c|}{\textbf{Approches de modélisation de l'expérience de jeu d'un joueur}} \\
           \hline
-            \textbf{Subjective} & Données collectées par les retours du joueur sur son expérience de jeu (e.g. questionnaires, discussions, etc.). \\
+            \textbf{Subjective} & Données collectées par les retours du joueur sur son expérience de jeu (questionnaires, discussions, etc.). \\
           \hline
-            \textbf{Objective} & Données collectées sur les réactions du joueur par des sources tierces (e.g. caméra, cardiofréquencemètre, etc.). \\
+            \textbf{Objective} & Données collectées sur les réactions du joueur par des sources tierces (caméra, cardiofréquencemètre, etc.). \\
           \hline
-            \textbf{Interactive} \footnotesize<<Gameplay-based>> & Données collectées via les interactions entre le jeu et le joueur (e.g. fréquence d'utilisation d'une certaine fonctionnalité, etc.). \\
+            \textbf{Interactive} \footnotesize<<Gameplay-based>> & Données collectées via les interactions entre le jeu et le joueur (fréquence d'utilisation d'une fonctionnalité, etc.). \\
           \hline
         \end{tabularx}
         \caption{Les trois approches permettant de modéliser l'expérience de jeu d'un joueur repertoriées par Yannakakis \cite{Yannakakis}.}
@@ -136,16 +145,108 @@
       \end{table}
 
     % III - MOTIVATIONS
-    \section{Motivations}
+    \section{Motivations}\label{section:motivations}
+      
+      % Courte introduction
+      Cette section a pour objectif d'expliciter les motifs derrière la réalisation de cet article.
+      En autres, elle explique pourquoi les recherches présentées permettrait d'améliorer de façon significative l'expérience de jeu des joueurs ainsi la phase de conception des jeux. 
+
+      % Rejouabilité et longévité du jeu
+      L'usage de la PCG n'est pas forcément adapté (ni nécessaire) pour tous les types de jeux, cependant il existe de nombreux exemples où son utilisation a permis de prolonger la durée de vie du jeu ainsi que sa rejouabilité de façon conséquente.
+      Par exemple, \textit{Diablo III} (Blizzard, 2012) utilise la PCG afin de générer la disposition des donjons et des monstres. 
+      L'éditeur a publié une infographie\footnote{Diablo III’s One-Year Anniversary Infographic : \url{us.diablo3.com/en/blog/9691895/diablo-iii\%E2\%80\%99s-one-year-anniversary-infographic-5-20-2013}} pour célébrer le premier anniversaire du jeu et celle-ci indique que plus de 2.8 milliards d'heures de jeu ont été réalisées, réparties sur une base de joueurs de 14.5 millions d'individus, soit une moyenne de 193 h par joueur, ce qui est assez remarquable.
+      Un autre avantage est aussi que chaque session de jeu étant unique à sa manière, elle offre la possibilité au joueur de partager des instants plus personnels et anecdotiques avec d'autres joueurs, contrairement à des jeux scénarisés où les expériences de jeux sont très similaires d'un joueur à l'autre.
+
+      % Personnalisation
+      L'ED-PCG introduit une dimension basée sur l'expérience du joueur, afin de répondre au mieux à ses besoins.
+      La possibilité de personnalisation (tel que le sexe, l'apparence et les équipements d'un personnage) permet de renforcer l'effet d'immersion ainsi que l'engagement du joueur \cite{Teng}.
+      Will Wright, qui est à l'origine de la série de simulation de vie \textit{Les Sims} déclara en 2007 lors d'une conférence présentant son jeu \textit{Spore} (EA, 2008)\footnote{\url{ted.com/talks/will_wright_makes_toys_that_make_worlds}} :
+      
+      \begin{quote}
+        \vspace{-1em}
+        << Les joueurs adorent créer des choses.
+        Quand ils sont devenus capables de créer des choses dans le jeu [...], ils s'attachaient et se sentaient vraiment concernés par ce qu'il adviendrait de leur création. >>
+        \vspace{-1em}
+      \end{quote}
+      
+      Ces propos peuvent expliquer l'engouement autour de jeux tels que \textit{Minecraft} (Mojang, 2011) ou \textit{Terraria} (Re-Logic, 2011).
+      Ceux-ci utilisent la PCG comme support de jeu et offrent la liberté au joueur de s'exprimer et de stimuler son esprit créatif.
+      Réussir à générer du contenu qui plaît au joueur via l'ED-PCG et que celui-ci puisse l'utiliser pour façonner lui-même son expérience de jeu permettrait donc d'aboutir à un cercle vertueux entre le jeu et le joueur.
+
+      % Aide les concepteurs
+      Cependant, les joueurs ne sont pas les seuls potentiels bénéficiaires de cette recherche.
+      Comme évoqué dans la section \ref{section:context}, l'usage de la PCG permet de réduire les coûts en ressources et de faciliter la conception d'un jeu.
+      De nombreuses manières d'utiliser la PCG existent \cite{Craveirinha} et il est possible d'arriver à des résultats qui rivalisent avec la conception humaine.
+      Par exemple, le système \textit{Ludi} \cite{Browne} génère des jeux de plateaux à partir de combinaisons et de mutations de règles basiques, après quoi il évalue la qualité du jeu produit sur plusieurs critères et nomme sa création.
+      Le système est notamment à l'origine du jeu \textit{Yavalath}\footnote{Page du jeu \textit{Yavalath} sur \textit{Board Game Geek} : \url{boardgamegeek.com/boardgame/33767/yavalath}}, dans lequel les joueurs doivent aligner 4 de leurs pions à la suite sans en aligner 3 auparavant, auquel cas ils perdent.
+      Ainsi, l'utilisation de l'ED-PCG pourrait permettre de déboucher sur des jeux qui font évoluer les mécaniques de jeux initialement imaginés par les concepteurs pour mieux correspondre au profil du joueur, et ce, sans nécessiter aucune correction de leur part.
+
+      % PEM objective plus facile à réaliser
+      Enfin, l'accès à des contrôleurs alternatifs comme les casques de réalité virtuelle (ainsi que les manettes associées) ou l'intégration de gyroscope dans les manettes, permettent désormais de récolter de nombreuses données plus facilement sur la façon dont le joueur joue et ce, de manière moins intrusive que l'électrocardiographie par exemple.
+      Ces données permettent en théorie d'améliorer la précision de la PEM objective, qui est basée sur la prémisse que les jeux provoquent des réponses émotionnelles chez le joueur qui se reflètent entre autres sur sa physionomie et sa posture \cite{Yannakakis}.
+      Ainsi, avec une PEM objective de meilleure qualité, l'ED-PCG devrait aboutir à des résultats plus pertinents et satisfaisants.
+      
+      % Courte conclusion
+      Les points précédents suggèrent donc de l'utilité du questionnement présenté en section \ref{section:subject}.
+      L'utilisation de l'ED-PCG dans ce cas précis devrait donc permettre d'aider les concepteurs à produire des jeux avec la capacité de se renouveler et de s'adapter aux goûts du joueur, pour prolonger la durée de vie du jeu ainsi que sa rejouabilité.
 
     % IV - CHALLENGES
-    \section{Challenges}
+    \section{Challenges}\label{section:challenges}
       
+      % Courte introduction 
+      Cette section a pour objectif de présenter les multiples challenges que soulève la section \ref{section:subject}.
+      Elle met notamment en avant les difficultés posées par la modélisation du joueur ainsi que du contenu.
+     
+      % Modélisation des émotions du joueur
+      L'un des principaux challenges de cette étude est d'être en mesure de réaliser une modélisation du joueur qui lui est fidèle.
+      Il faut réussir à produire une PEM objective pertinente à partir des données externes récoltées par des capteurs tierces, tout comme il faut produire une PEM interactive via des données internes mesurées par des métriques prédéterminées.
+      Le modèle du joueur devrait pouvoir être en mesure de répondre aux trois questions suivantes \cite{Bakkes} :
+
+      \begin{enumerate}
+        \vspace{-1em}
+        \item Qui est le joueur ?
+        \vspace{-0.8em}
+        \item Quels sont ses besoins, ses préférences et ses désirs ?
+        \vspace{-0.8em}
+        \item Qu'est-il en train de faire ?
+        \vspace{-1em}
+      \end{enumerate}
+
+      La difficulté est de réussir à déterminer le style de jeu du joueur et de prévoir ses réactions à des stimulis liés au contenu généré par l'ED-PCG.
+      Modéliser l'émotion d'une personne n'est pas chose aisée, puisqu'il s'agit d'un concept avec des limites mal définies. 
+      De plus, pour certains psychologistes, les émotions provoquées par un jeu ne sont pas authentiques, mais plutôt des << quasi-émotions >> \cite{Walton}. 
+      Il est donc possible de se questionner sur le fait qu'un jeu d'horreur puisse faire naître un réel sentiment de terreur.
+
+      % Détermination du style de jeu du joueur.
+      L'ED-PCG doit aussi être capable de cerner le style de jeu du joueur en un nombre limité d'interactions que constituent les sessions de jeu de celui-ci, afin de pouvoir lui proposer le contenu adéquat.
+      La question est donc de savoir comment minimiser le temps requis pour réaliser cette opération, en sachant que le joueur lui-même est amené à évoluer (humeur, âge, etc.).
+      Se baser sur des archétypes de joueurs existants (stratège, complétionniste, conquérant, etc.) \cite{Nacke} peut potentiellement accélérer le processus au risque de sélectionner un mauvais archétype au départ, tandis qu'un apprentissage classique peut possiblement être long et imprécis mais aboutir à un modèle représentatif.
+      Si le jeu est composé de plusieurs phases comme par exemple dans \textit{Pac-Man} (Namco, 1980), il est important de faire attention à bien séparer les données. 
+      En effet, le joueur ne devrait pas être considéré comme << craintif >> s'il fuit les fantômes durant les phases où l'objectif est bel et bien de les fuir.
+
+      % Représentation du contenu
+      Si déterminer une représentation du joueur convenable est difficile, il en est de même pour ce qui est de représenter le contenu.
+      L'utilisation d'une FE simulée permet une certaine abstraction indépendamment du type de jeu contrairement à une FE directe, grâce à l'évaluation se réalisant sur les performances d'un agent (e.g. : vitesse d'apprentissage, nombre d'échecs, etc.) plutôt que sur des métriques spécifiques (e.g. : nombre de monstres, statistiques des armes, etc.).
+      Toutefois, il est nécessaire de garder à l'esprit que la simulation induite par la FE simulée nécessite probablement plus de temps de calcul qu'un FE directe ou interactive, et que celui-ci sera d'autant plus conséquent si l'on utilise une représentation directe du contenu généré (i.e. à l'échelle 1:1) plutôt qu'une représentation indirecte, qui en contrepartie, aboutira sur une évaluation moins précise.
+      Contrairement à d'autres applications, il n'est pas envisageable de dédier l'entièreté du CPU pour l'ED-PCG, le jeu ayant d'autres éléments à gérer. 
+      Il y a donc nécessité de trouver un compromis entre précision de l'évaluation et temps de calcul, en fonction du détail de la représentation du contenu généré.
+
+      % Courte conclusion
+      La contribution présentée en section \ref{section:contributions} tente de satisfaire le mieux possible les problèmes précédemment détaillés.
+      Pour ce faire, plusieurs pistes sont explorées dans la suite de cet article.
+
     % V - CONTRIBUTIONS
-    \section{Contributions}
+    \section{Contributions}\label{section:contributions}
+      
+      % Court résumé de la contribution
+      Le présent article propose un algorithme d'ED-PCG utilisant une SB-PCG avec FE basée sur la simulation d'un agent tentant de reproduire le comportement du joueur à partir d'une PEM objective ou interactive dans l'optique de répondre aux attentes évoquées dans la section \ref{section:subject}.
+      
+      % Suite [...]
+      \vspace{2em}
+      \centerline{[ ... ]}
 
     % RÉFÉRENCES
-    \begin{thebibliography}{9}
+    \begin{thebibliography}{99}
       \bibitem{Hendrikx}
         Hendrikx, M., Meijer, S., Van Der Velden, J., \& Iosup, A. (2013). Procedural content generation for games. ACM Transactions on Multimedia Computing, Communications, and Applications, 9(1), 1-22. doi:10.1145/2422956.2422957.
       \bibitem{Riedl}
@@ -155,8 +256,20 @@
       \bibitem{Yannakakis}
         Yannakakis, G. N., \& Togelius, J. (2011). Experience-Driven Procedural Content Generation. IEEE Transactions on Affective Computing, 2(3), 147-161. doi:10.1109/t-affc.2011.6
       \bibitem{Togelius}
-        Togelius, J., Yannakakis, G. N., Stanley, K. O., \& Browne, C. (2011). Search-Based Procedural Content Generation: A Taxonomy and Survey. IEEE Transactions on Computational Intelligence and AI in Games, 3(3), 172-186. doi:10.1109/tciaig.2011.2148116
-    \end{thebibliography}
+        Togelius, J., Yannakakis, G. N., Stanley, K. O., \& Browne, C. (2011). Search-Based Procedural Content Generation: A Taxonomy and Survey. IEEE Transactions on Computational Intelligence and AI in Games, 3(3), 172-186. doi:10.1109/tciaig.2011.2148116     
+      \bibitem{Agius}
+        Agius, H., Angelides, M. C., Bateman, C., Baumgarten, R., Bekker, T., Betts, T., ... Youngblood, G. M. (2014). Procedural Content Generation. In Handbook of Digital Games (pp. 62-91). 
+      \bibitem{Teng}
+        Teng, C.-I. (2010). Customization, immersion satisfaction, and online gamer loyalty. Computers in Human Behavior, 26(6), 1547-1554. doi:10.1016/j.chb.2010.05.029
+      \bibitem{Craveirinha}
+        Craveirinha, R., Barreto, N., \& Roque, L. (2016). Towards a Taxonomy for the Clarification of PCG Actors' Roles. Paper presented at the Proceedings of the 2016 Annual Symposium on Computer-Human Interaction in Play, Austin, Texas, USA. 
+      \bibitem{Browne}
+        Browne, C. (2008). Automatic generation and evaluation of recombination games. University of London.
+      \bibitem{Walton}
+        Walton, K. L. (1990). Mimesis as make-believe: On the foundations of the representational arts. Harvard University Press.
+      \bibitem{Nacke}
+        Nacke, L. E., Bateman, C., \& Mandryk, R. L. (2011). BrainHex: preliminary results from a neurobiological gamer typology survey. Paper presented at the International Conference on Entertainment Computing.
+      \end{thebibliography}
 
   \end{document}
 
