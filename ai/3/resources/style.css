@@ -1,0 +1,187 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #323232;
+  overflow: hidden;
+  font-family: Monospace;
+}
+
+#app {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.wrapper {
+  overflow: auto;
+  position: relative;
+  max-height: 100vh;
+}
+
+.environment {
+  background-color: #567d46;
+  display: flex;
+
+}
+
+.environment .row {
+  display: flex;
+}
+
+.environment .square {
+  box-sizing: content-box;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  background-image: url("cell.png");
+  position: relative;
+}
+
+.environment .square-name {
+  position: absolute;
+  top: 0px;
+  left: 2px;
+  color: white;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.environment .square.unexplored {
+  background-image: url("cell.unexplored.png");
+}
+
+.environment .square.unexplored.risky, .environment .square.risky-low {
+  background-image: url("cell.risky.low.png");
+}
+
+.environment .square.risky-med {
+  background-image: url("cell.risky.med.png");
+}
+
+.environment .square.risky-high {
+  background-image: url("cell.risky.high.png");
+}
+
+.environment .square.risky-max {
+  background-image: url("cell.risky.max.png");
+}
+
+.environment .tree {
+  background-image: url("tree-hz.png");
+  background-size: auto 100%;
+  height:50px;
+}
+
+.environment .tree.lateral {
+  background-image: url("tree-vt.png");
+  background-size: 100% auto;
+  width: 50px;
+  height: 100%;
+  background-color: #567d46;
+}
+
+
+a, a:visited {
+  text-decoration: none;
+  color: #61AFEF;
+}
+
+a:hover {
+  background: black;
+  color: white;
+}
+
+.authors {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  border-top-left-radius: 5px;
+  padding: 5px;
+}
+
+.debugger {
+  flex-basis: 320px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 100vh;
+  width: 320px;
+  background-color: rgba(0,0,0,0.4);
+  padding: 4px;
+  color: white;
+  overflow-y: scroll;
+  white-space: pre;
+  padding-top: 4em;
+  display: none;
+}
+
+.debugger div {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.debugger .name {
+  position: absolute;
+  top:0%;
+  font-size: 1.6em;
+}
+
+.score {
+  margin-left: 20px;
+  display: inline-block;
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+
+
+.debugger .log2 {
+  color: gray;
+}
+
+.debugger .error {
+  color: red;
+}
+
+.debugger .info {
+  color: magenta;
+}
+
+.debugger .success {
+  color: green;
+}
+
+.debugger.agent {
+  left: 0;
+}
+
+.debugger.knowledge {
+  right: 0;
+}
+
+@media screen and (min-width: 700px) {
+  .debugger.knowledge {
+    display:block;
+  }
+}
+
+@media screen and (min-width: 1040px) {
+  .debugger.agent {
+    display:block;
+  }
+}
