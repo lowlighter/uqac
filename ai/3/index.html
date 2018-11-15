@@ -16,32 +16,35 @@
 
     <!-- Rendu -->
     <div id="app">
+      <template>
       <!-- Actions de l'agent -->
       <div class="debugger agent"><div class="name">Agent<div class="score">/ Score : {{ environment.score }} ({{ `${environment.score-environment.previous_score>=0?"+":""}${environment.score-environment.previous_score}` }})</div></div><div v-for="log in debug.agent.logs" v-bind:class="{[log.type]:true}">{{ log.text }}</div></div>
       
       <!-- Environnement (affichage) -->
-      <main>
-        <div class="wrapper" v-bind:style="{maxWidth:window.innerWidth-(window.innerWidth > 700)*330-(window.innerWidth > 1040)*330}">
-          <div class="environment" v-bind:style="{width:(environment.width+2)*50, height:(environment.height+2)*50}">
-            <div class="tree lateral"></div>
-            <div>
-              <div class="tree"></div>
-              <div v-for="y in environment.height" class="row">
-                  <div v-for="x in environment.width" class="square" v-bind:class="cell_class(x, y)">
-                    {{ [...environment.map[x-1][y-1]].join("") }}
-                    <div class="square-name">{{ `${x-1},${y-1}` }}</div>
+        <main>
+          <div class="wrapper" v-bind:style="{maxWidth:window.innerWidth-(window.innerWidth > 700)*330-(window.innerWidth > 1040)*330}">
+            <div class="environment" v-bind:style="{width:(environment.width+2)*50, height:(environment.height+2)*50}">
+              <div class="tree lateral"></div>
+              <div>
+                <div class="tree"></div>
+                <div v-for="y in environment.height" class="row">
+                    <div v-for="x in environment.width" class="square" v-bind:class="cell_class(x, y)">
+                      {{ [...environment.map[x-1][y-1]].join("") }}
+                      <div class="square-name">{{ `${x-1},${y-1}` }}</div>
+                    </div>
                   </div>
-                </div>
-              <div class="tree"></div>
+                <div class="tree"></div>
+              </div>
+              <div class="tree lateral"></div>
             </div>
-            <div class="tree lateral"></div>
           </div>
-      </div>
-      </main>
-
+          <span class="info">Appuyez sur la touche <b>i</b> pour que l'agent effectue la prochaine itération de sa routine.</span>
+        </main>
+    
       <!-- Base de connaissance -->
       <div class="debugger knowledge" ><div class="name">Base de connaissances</div><div v-for="(facts, cell) in environment.agent.knowledge_base.facts">{{ `${cell}: [${[...facts].join(", ")}]` }}</div></div>
       
+      </template>
     </div>
 
     <!-- Code source -->

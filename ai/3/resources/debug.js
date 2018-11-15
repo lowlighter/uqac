@@ -10,6 +10,9 @@
       error(text) { if ($.DEBUG.ENABLED) this.logs.unshift({text:`${this.time} | ${text}`, type:"error"}) }
       success(text) { if ($.DEBUG.ENABLED) this.logs.unshift({text:`${this.time} | ${text}`, type:"success"}) }
 
+    //Cache sel
+      hide(sel) { document.querySelector(sel).style.display = "none" }
+
     //Temps
       get time() { return (performance.now()/1000).toFixed(1).padStart(6, " ") }
   }

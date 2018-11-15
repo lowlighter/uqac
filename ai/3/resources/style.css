@@ -21,6 +21,14 @@ main {
   flex-direction: column;
 }
 
+main .info {
+  margin-top: 16px;
+  color: white;
+  text-align: center;
+  max-width: 360px;
+  opacity: 0.4;
+}
+
 .wrapper {
   overflow: auto;
   position: relative;

@@ -154,6 +154,7 @@
         this.agent.knowledge_base.size++
         this.agent.knowledge_base.init();
         this.init();
+        debug.agent.hide(".info")
       }
 
     /**
