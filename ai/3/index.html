@@ -25,11 +25,12 @@
           <div class="wrapper" v-bind:style="{maxWidth:window.innerWidth-(window.innerWidth > 700)*330-(window.innerWidth > 1040)*330}">
             <div class="environment" v-bind:style="{width:(environment.width+2)*50, height:(environment.height+2)*50}">
               <div class="tree lateral"></div>
+              <div class="fogwar" onclick="$.DEBUG.FOGWAR = !$.DEBUG.FOGWAR"><input type="checkbox" v-bind:checked="$.DEBUG.FOGWAR">Brouillard de guerre</div>
               <div>
                 <div class="tree"></div>
                 <div v-for="y in environment.height" class="row">
                     <div v-for="x in environment.width" class="square" v-bind:class="cell_class(x, y)">
-                      {{ [...environment.map[x-1][y-1]].join("") }}
+                      {{ (!$.DEBUG.FOGWAR)||(environment.map[x-1][y-1].has($.CELL.AGENT))||(environment.agent.knowledge_base.facts[[x-1, y-1]].has($.CELL.EXPLORED))||(environment.agent.knowledge_base.facts[[x-1, y-1]].has($.CELL.MONSTER))||(environment.agent.knowledge_base.facts[[x-1, y-1]].has($.CELL.HOLE)) ? [...environment.map[x-1][y-1]].join("") : "" }}
                       <div class="square-name">{{ `${x-1},${y-1}` }}</div>
                     </div>
                   </div>

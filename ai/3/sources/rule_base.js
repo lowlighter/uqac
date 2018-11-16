@@ -200,23 +200,20 @@ class RuleBase {
             let risk_indicators = 0;
             let neighbors = this.get_neighbors({x:pos[0], y:pos[1]});
             for(let neighbor of neighbors){
+                if (this.agent.beliefs.knowledge_base.facts[neighbor].has($.CELL.HOLE)|| this.agent.beliefs.knowledge_base.facts[neighbor].has($.CELL.MONSTER)|| this.agent.beliefs.knowledge_base.facts[neighbor].has($.CELL.MONSTER_DEAD)) {
+                    neighbor.remove = true
+                    continue
+                }
+
                 if(this.agent.beliefs.knowledge_base.facts[neighbor].has(mark)){
                     risk_indicators++;
                 }
             }
+            neighbors = neighbors.filter(v => !v.remove)
 
             this.remove_risk_from_pos(pos, mark);
-
-            if(risk_indicators == neighbors.length) {
-                if(mark == $.CELL.WIND) {
-                    this.agent.beliefs.knowledge_base.add_fact_for_pos(pos, $.CELL.HOLE_MAX_RISK);
-                } else {
-                    this.agent.beliefs.knowledge_base.add_fact_for_pos(pos, $.CELL.MONSTER_MAX_RISK);
-                }
-                
-            } else {
-                this.agent.beliefs.knowledge_base.add_fact_for_pos(pos, $.RISK[mark][risk_indicators-1]);
-            }
+            this.agent.beliefs.knowledge_base.add_fact_for_pos(pos, $.RISK[mark][risk_indicators  + (3 - neighbors.length)]);
+            
         }
 
      /**

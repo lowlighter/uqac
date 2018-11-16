@@ -17,7 +17,7 @@
         for (let y = 0; y < map[x].length; y++) {
           if (map[x][y].has(from)) a = {x, y} 
           if (map[x][y].has(to)) b = {x, y}
-          graph[x][y] = !map[x][y].has(walls) ? x*map.length + y : NaN
+          graph[x][y] = ! walls.reduce((a,b) => a+map[x][y].has(b),0) ? x*map.length + y : NaN
         }
       }
     
@@ -53,9 +53,9 @@
 //Génère des couples {x, y} avec 0 <= x < w et 0 <= y < h et les mélanges
   function Positions({width, height}) {
     let array = []
-    for (let x = 0; x < width; x++)
-      for (let y = 0; y < height; y++)
-        if (x||y) array.push({x, y})
+    for (let x = 1; x < width; x++)
+      for (let y = 1; y < height; y++)
+        array.push({x, y})
     return shuffle(array)
   }
 
@@ -150,8 +150,8 @@
 // Valeur permettant d'evaluer la pertinence d'une case de l'environnement
 
   $.VALUE = {
-    [$.CELL.PREVIOUS_POSITION]: -2,
-    [$.CELL.EXPLORED]:-11,
+    [$.CELL.PREVIOUS_POSITION]: -11,
+    [$.CELL.EXPLORED]:-9,
     [$.CELL.HOLE_LOW_RISK]: -5,
     [$.CELL.MONSTER_LOW_RISK]:-5,
     [$.CELL.HOLE_MED_RISK]: -12,
@@ -207,6 +207,7 @@
 //Messages de debug
   $.DEBUG = {
     ENABLED:true,
+    FOGWAR:true,
     [$.ACTION.SHOOT]:"Tirer",
     [$.ACTION.EXIT]:"Sortir",
     [$.ACTION.UP]:"Haut",

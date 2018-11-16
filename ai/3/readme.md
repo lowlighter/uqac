@@ -18,14 +18,14 @@
   * 🌌 : Indique la présence d'un portail
 #### 3. Base de connaissance de l'agent
   * Tous les signes utilisée dans la section *2. Environnement* ainsi que les suivants : 
-  * 🦑❗ : Indique une case située avec 1 💩 adjacent
-  * 🦑❗❗ : Indique une case située avec 2 💩 adjacents
-  * 🦑❗❗❗ : Indique une case située avec 3 💩 adjacents
-  * 🦑❗❗❗❗ : Indique une case située avec 4 💩 adjacents
-  * 🕳❗ : Indique une case située avec 1 💨 adjacent
-  * 🕳❗❗ : Indique une case située avec 2 💨 adjacents
-  * 🕳❗❗❗ : Indique une case située avec 3 💨 adjacents
-  * 🕳❗❗❗❗ : Indique une case située avec 4 💨 adjacents
+  * 🦑❗ : Indique une case avec 1 💩 adjacent
+  * 🦑❗❗ : Indique une case avec 2 💩 adjacents
+  * 🦑❗❗❗ : Indique une case avec 3 💩 adjacents
+  * 🦑❗❗❗❗ : Indique une case avec 4 💩 adjacents
+  * 🕳❗ : Indique une case avec 1 💨 adjacent
+  * 🕳❗❗ : Indique une case avec 2 💨 adjacents
+  * 🕳❗❗❗ : Indique une case avec 3 💨 adjacents
+  * 🕳❗❗❗❗ : Indique une case avec 4 💨 adjacents
   * 👁 : Indique que l'agent a exploré la case
   * *Previous position* : Indique la case précédente où se situer l'agent
   

@@ -81,7 +81,7 @@
                 }
 
             //S'il existe une solution, on quitte la génération
-              if (connectivity(this.map, {from:$.CELL.AGENT, to:$.CELL.PORTAL, walls:$.CELL.HOLE})) break
+              if (connectivity(this.map, {from:$.CELL.AGENT, to:$.CELL.PORTAL, walls:[$.CELL.MONSTER, $.CELL.HOLE]})) break
           }
       }
 

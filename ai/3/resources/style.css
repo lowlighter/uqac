@@ -35,6 +35,24 @@ main .info {
   max-height: 100vh;
 }
 
+.fogwar {
+  position: absolute;
+  top:2px;
+  left: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgba(0,0,0,0.6);
+  padding: 0px 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.fogwar input {
+  pointer-events: none;
+}
+
 .environment {
   background-color: #567d46;
   display: flex;
