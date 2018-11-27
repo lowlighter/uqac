@@ -1,0 +1,104 @@
+//Paquet et dépendances
+import java.util.Scanner;
+
+/**
+ * Moteur de jeu d'échec.
+ */
+public class Engine {
+
+  /**
+   * Point d'entrée de l'application.
+   * @param args - arguments en ligne de commande
+   */
+    public static void main(String[] args) {
+      
+        //Input channel
+        Scanner stdin = new Scanner(System.in);
+
+        //Main loop
+        while (true) {
+
+            //Next input
+            String in = stdin.nextLine();
+            
+            //Traitement de la commande
+            if ("uci".equals(in)) { uci(); }
+            else if ("isready".equals(in)) { ready(); }
+            else if ("ucinewgame".equals(in)) { ucinewgame(); }
+            else if (in.startsWith("position")) { position(in); }
+            else if (in.startsWith("go")) { go(); }
+            else if ("print".equals(in)) { print(); }
+            else if (in.startsWith("setoption")) { setoption(in); }
+            else if (in.equals("quit")) { quit(); }
+            
+        }
+
+    }
+
+    /**
+     * Affiche les informations sur le moteur de jeu.
+     */
+    private static void uci() {
+        System.out.println("id name Kasparov");
+        System.out.println("id author ???");
+        System.out.println("uciok");
+    }
+
+    /**
+     * Indique que le moteur de jeu est prêt.
+     */
+    private static void ready() {
+        System.out.println("readyok");
+    }
+
+    /**
+     * Méthode appelée lorsqu'une nouvelle partie d'échec démarre.
+     */
+    private static void ucinewgame() {
+    }
+
+    /**
+     * Mise à jour de l'état du plateau.
+     * @param in - état du plateau (e.g. : position startpos moves e2e4 e7e5 g1f3 b8c6)
+     */
+    private static void position(String in) {
+        if (in.contains("startpos ")) {}
+        if (in.contains("move")) {}
+    }
+
+    /**
+     * Affiche le prochain coup à jouer.
+     * NB : la notation UCI requiert d'utiliser "bestmove " devant le coup à jouer.
+     */
+    private static void go() {
+        System.out.println("bestmove ");
+    }
+
+    /**
+     * Affiche le plateau.
+     */
+    private static void print() {
+    }
+
+    /**
+     * Ajoute une option pour le moteur de jeu.
+     * @param in - option (e.g. : setoption name Nullmove value true)
+     */
+    private static void setoption(String in) {
+    }
+
+    /**
+     * Quitte le programme. 
+     */
+    private static void quit() {
+        System.exit(0);
+    }
+
+}
+
+
+
+
+
+
+        
