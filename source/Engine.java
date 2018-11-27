@@ -1,4 +1,5 @@
 //Paquet et dépendances
+
 import java.util.Scanner;
 
 /**
@@ -12,13 +13,14 @@ public class Engine {
    */
     public static void main(String[] args) {
       
-        //Input channel
+        //Flux d'entrée
         Scanner stdin = new Scanner(System.in);
+        board = new Board();
 
-        //Main loop
+        //Boucle principale
         while (true) {
 
-            //Next input
+            //Récupération de la prochaine entrée (envoyée par Arena ou CLI)
             String in = stdin.nextLine();
             
             //Traitement de la commande
@@ -27,9 +29,9 @@ public class Engine {
             else if ("ucinewgame".equals(in)) { ucinewgame(); }
             else if (in.startsWith("position")) { position(in); }
             else if (in.startsWith("go")) { go(); }
-            else if ("print".equals(in)) { print(); }
+            else if (in.startsWith("print")) { print(in); }
             else if (in.startsWith("setoption")) { setoption(in); }
-            else if (in.equals("quit")) { quit(); }
+            else if (in.equals("quit")) { stdin.close(); quit(); }
             
         }
 
@@ -55,15 +57,19 @@ public class Engine {
      * Méthode appelée lorsqu'une nouvelle partie d'échec démarre.
      */
     private static void ucinewgame() {
+        board.init();
     }
+
+    /** Plateau de jeu. */
+    private static Board board;
 
     /**
      * Mise à jour de l'état du plateau.
      * @param in - état du plateau (e.g. : position startpos moves e2e4 e7e5 g1f3 b8c6)
      */
     private static void position(String in) {
-        if (in.contains("startpos ")) {}
-        if (in.contains("move")) {}
+        if (in.contains("startpos ")) { board.init(); }
+        if (in.contains("move")) {  }
     }
 
     /**
@@ -77,7 +83,8 @@ public class Engine {
     /**
      * Affiche le plateau.
      */
-    private static void print() {
+    private static void print(String in) {
+        board.print();
     }
 
     /**
@@ -93,6 +100,7 @@ public class Engine {
     private static void quit() {
         System.exit(0);
     }
+
 
 }
 
