@@ -8,15 +8,16 @@ public class Board extends BoardConstants {
      * Crée un nouveau plateau de jeu.
      * A voir comment on fera pour éviter de créer trop d'instance de Board pour les noeuds et si c'est couteux.
      */
-    public Board() {
-        init();
+    public Board(boolean is_white) {
+        init(is_white);
         move(WHITE_PAWN, A2, A4);
+        MoveGenerator test = new MoveGenerator(this);
     }
 
     /**
      * Initialise les bitboards à la position initiale.
      */
-    public void init() {
+    public void init(boolean is_white) {
         //Initialisation des pièces blanches
         bb_wp = 0b0000000000000000000000000000000000000000000000001111111100000000L;
         bb_wr = 0b0000000000000000000000000000000000000000000000000000000010000001L;
@@ -32,6 +33,12 @@ public class Board extends BoardConstants {
         bb_bb = 0b0010010000000000000000000000000000000000000000000000000000000000L;
         bb_bq = 0b0000100000000000000000000000000000000000000000000000000000000000L;
         bb_bk = 0b0001000000000000000000000000000000000000000000000000000000000000L;
+
+        // Initialisation de la couleur
+        white = is_white;
+
+        // Initialisation des directions
+        set_direction(white);
     }
 
     /**
@@ -93,6 +100,48 @@ public class Board extends BoardConstants {
      */
     private long clearset(long bitboard, long a, long b) {
         return set(clear(bitboard, a), b);
+    }
+
+    /**
+     * Retourne un bit board representant les cases occupés par les pieces blanches
+     */
+    public long white_occupancy() {
+        return bb_wp | bb_wr | bb_wn | bb_wb | bb_wq | bb_wk;
+    }
+
+    /**
+     * Retourne un bit board representant les cases occupés par les pieces noires
+     */
+    public long black_occupancy() {
+        return bb_bp | bb_br | bb_bn | bb_bb | bb_bq | bb_bk;
+    }
+
+    /**
+     * Retourne un bit board representant les cases occupés par toutes les pieces
+     */
+    public long global_occupancy() {
+        return white_occupancy() | black_occupancy();
+    }
+
+    /**
+     * Retourne un bit board representant les cases vides du plateau
+     */
+    public long get_empty() {
+        return ~(white_occupancy() | black_occupancy());
+    }
+
+    /**
+     * @param white - Couleur des pions souhaité
+     * Retourne un bit board representant les cases occupés par tout les pions d'une couleur
+     */
+    public long get_pawns(boolean white) { return (white) ? bb_wp : bb_bp; }
+
+
+    /**
+     * @param white - Couleur du camp du moteur
+     * Set les directions en fonction de notre couleur
+     */
+    public void set_direction(boolean white) {
     }
 
     /**

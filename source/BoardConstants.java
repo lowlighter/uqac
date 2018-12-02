@@ -4,30 +4,30 @@
 public abstract class BoardConstants {
     
     /** Bitboard pions blancs. */
-    protected long bb_wp;
+    public long bb_wp;
     /** Bitboard tour blancs. */
-    protected long bb_wr;
+    public long bb_wr;
     /** Bitboard cavalier blancs. */
-    protected long bb_wn;
+    public long bb_wn;
     /** Bitboard fou blancs. */
-    protected long bb_wb;
+    public long bb_wb;
     /** Bitboard reine blancs. */
-    protected long bb_wq;
+    public long bb_wq;
     /** Bitboard roi blancs. */
-    protected long bb_wk;
+    public long bb_wk;
 
     /** Bitboard pions noirs. */
-    protected long bb_bp;
+    public long bb_bp;
     /** Bitboard tour noirs. */
-    protected long bb_br;
+    public long bb_br;
     /** Bitboard cavalier noirs. */
-    protected long bb_bn;
+    public long bb_bn;
     /** Bitboard fou noirs. */
-    protected long bb_bb;
+    public long bb_bb;
     /** Bitboard reine noirs. */
-    protected long bb_bq;
+    public long bb_bq;
     /** Bitboard roi noirs. */
-    protected long bb_bk;
+    public long bb_bk;
 
     /** Pièces. */
     protected static final char EMPTY = '.';
@@ -109,5 +109,44 @@ public abstract class BoardConstants {
     protected static final long F8 = (1 << 61); 
     protected static final long G8 = (1 << 62); 
     protected static final long H8 = (1 << 63);
+
+
+    /** Lignes */
+
+    public static final long ROW_1 = 0b0000000000000000000000000000000000000000000000000000000011111111L;
+    public static final long ROW_2 = 0b0000000000000000000000000000000000000000000000001111111100000000L;
+    public static final long ROW_3 = 0b0000000000000000000000000000000000000000111111110000000000000000L;
+    public static final long ROW_4 = 0b0000000000000000000000000000000011111111000000000000000000000000L;
+    public static final long ROW_5 = 0b0000000000000000000000001111111100000000000000000000000000000000L;
+    public static final long ROW_6 = 0b0000000000000000111111110000000000000000000000000000000000000000L;
+    public static final long ROW_7 = 0b0000000011111111000000000000000000000000000000000000000000000000L;
+    public static final long ROW_8 = 0b1111111100000000000000000000000000000000000000000000000000000000L;
+
+    /** Colonne  */
+    
+    public static final long COLUMN_A = 0x101010101010101L;
+    public static final long COLUMN_B = 0x202020202020202L;
+    public static final long COLUMN_C = 0x404040404040404L;
+    public static final long COLUMN_D = 0x808080808080808L;
+    public static final long COLUMN_E = 0x1010101010101010L;
+    public static final long COLUMN_F = 0x2020202020202020L;
+    public static final long COLUMN_G = 0x4040404040404040L;
+    public static final long COLUMN_H = 0x8080808080808080L;
+
+    /** Couleur */
+
+    public static boolean white;
+
+    /** Direction */
+
+    public long NORTH = 8;
+    public long SOUTH = 8;
+    public long EAST = 1;
+    public long WEST = 1;
+
+    public long NORTH_WEST = NORTH + WEST;
+    public long NORTH_EAST = NORTH + EAST;
+    public long SOUTH_WEST = SOUTH + WEST;
+    public long SOUTH_EAST = SOUTH + EAST;
 
 }

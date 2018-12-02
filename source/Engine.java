@@ -15,14 +15,14 @@ public class Engine {
       
         //Flux d'entrée
         Scanner stdin = new Scanner(System.in);
-        board = new Board();
+        board = new Board(false);
 
         //Boucle principale
         while (true) {
 
             //Récupération de la prochaine entrée (envoyée par Arena ou CLI)
             String in = stdin.nextLine();
-            
+            System.out.print(in);
             //Traitement de la commande
             if ("uci".equals(in)) { uci(); }
             else if ("isready".equals(in)) { ready(); }
@@ -57,7 +57,7 @@ public class Engine {
      * Méthode appelée lorsqu'une nouvelle partie d'échec démarre.
      */
     private static void ucinewgame() {
-        board.init();
+        board.init(true);
     }
 
     /** Plateau de jeu. */
@@ -68,7 +68,7 @@ public class Engine {
      * @param in - état du plateau (e.g. : position startpos moves e2e4 e7e5 g1f3 b8c6)
      */
     private static void position(String in) {
-        if (in.contains("startpos ")) { board.init(); }
+        if (in.contains("startpos ")) { board.init(true); }
         if (in.contains("move")) {  }
     }
 
