@@ -79,7 +79,7 @@ public class Board extends BoardConstants {
      * @param move - Coup (notation UCI)
      */
     public void move(String move) {
-        System.out.println("info applying move "+move);
+        System.out.println("info applying move "+move+" (ignore)");
         //TODO : Gérer la promotion (move.length() == 5)
         move(fromUCI(move.substring(0, 2)), fromUCI(move.substring(2, 4)));
     }
