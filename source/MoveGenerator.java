@@ -25,14 +25,15 @@ public class MoveGenerator {
         print_all_bits(knigth_mask[56]);
         print_all_bits(knigth_mask[63]);
         print_all_bits(knigth_mask[35]);
+
     }
 
     private void print_all_bits(long bb){
-        for(int i = 0; i < Long.numberOfLeadingZeros(bb); i++) {
+        for(int i = 0; i < Long.numberOfLeadingZeros((long) bb); i++) {
             System.out.print('0');
         }
         if(Long.numberOfLeadingZeros(bb) != 64) {
-            System.out.println(Long.toBinaryString(bb));
+            System.out.println(Long.toBinaryString((long) bb));
         } else {
             System.out.println(' ');
         }
@@ -45,42 +46,42 @@ public class MoveGenerator {
         long pos;
         long test;
         for(int i=0; i<64; i++) {
-            pos = (1<<i);
-            
+            pos = (1L<<i);
+
             test= pos & ~board.COLUMN_A & ~board.COLUMN_B & ~board.ROW_1;
             if(test != 0 && (test & (test-1)) == 0){
-                    knigth_mask[i] |= (1 << (i-10));
+                    knigth_mask[i] |= (1L << (i-10));
             }
             test= pos & ~board.COLUMN_A & ~board.COLUMN_B & ~board.ROW_8;
             if(test != 0 && (test & (test-1)) == 0){
-                    knigth_mask[i] |= (1 << (i+6));
+                    knigth_mask[i] |= (1L << (i+6));
             }
 
             test= pos & ~board.COLUMN_G & ~board.COLUMN_H & ~board.ROW_1;
             if(test != 0 && (test & (test-1)) == 0){
-                    knigth_mask[i] |= (1 << (i-6));
+                    knigth_mask[i] |= (1L << (i-6));
             }
             test= pos & ~board.COLUMN_G & ~board.COLUMN_H & ~board.ROW_8;
             if(test != 0 && (test & (test-1)) == 0){
-                    knigth_mask[i] |= (1 << (i+10));
+                    knigth_mask[i] |= (1L << (i+10));
             }
 
             test= pos & ~board.ROW_1 & ~board.ROW_2 & ~board.COLUMN_A;
             if(test != 0 && (test & (test-1)) == 0){
-                    knigth_mask[i] |= (1 << (i-17));
+                    knigth_mask[i] |= (1L << (i-17));
             }
             test= pos & ~board.ROW_1 & ~board.ROW_2 & ~board.COLUMN_H;
             if(test != 0 && (test & (test-1)) == 0){
-                    knigth_mask[i] |= (1 << (i-15));
+                    knigth_mask[i] |= (1L << (i-15));
             }
 
             test= pos & ~board.ROW_7 & ~board.ROW_8 & ~board.COLUMN_A;
             if(test != 0 && (test & (test-1)) == 0){
-                    knigth_mask[i] |= (1 << (i+15));
+                    knigth_mask[i] |= (1L << (i+15));
             }
             test= pos & ~board.ROW_7 & ~board.ROW_8 & ~board.COLUMN_H;
             if(test != 0 && (test & (test-1)) == 0){
-                    knigth_mask[i] |= (1 << (i+17));
+                    knigth_mask[i] |= (1L << (i+17));
             }
         
         }
