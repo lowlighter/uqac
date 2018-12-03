@@ -17,12 +17,14 @@ public class Engine {
         Scanner stdin = new Scanner(System.in);
         board = new Board(false);
 
+        System.out.println(board.toUCI(Board.C2));
+        System.out.println(board.fromUCI("c2"));
         //Boucle principale
         while (true) {
 
             //Récupération de la prochaine entrée (envoyée par Arena ou CLI)
             String in = stdin.nextLine();
-            System.out.print(in);
+
             //Traitement de la commande
             if ("uci".equals(in)) { uci(); }
             else if ("isready".equals(in)) { ready(); }
@@ -68,8 +70,13 @@ public class Engine {
      * @param in - état du plateau (e.g. : position startpos moves e2e4 e7e5 g1f3 b8c6)
      */
     private static void position(String in) {
-        if (in.contains("startpos ")) { board.init(true); }
-        if (in.contains("move")) {  }
+        //Récupération du dernier coup joué
+        String[] moves = in.split(" ");
+        String move = moves[moves.length-1];
+    
+        //Mise à jour du plateau
+        if (in.contains("moves")) { board.move(move); }
+        if (move.equals("startpos")) { board.startpos(); } 
     }
 
     /**

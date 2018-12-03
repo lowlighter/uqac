@@ -2,6 +2,9 @@
  * Contient les constantes pré-calculées pour les cases et types de pièces.
  */
 public abstract class BoardConstants {
+
+    /** Couleur */
+    public static boolean white;
     
     /** Bitboard pions blancs. */
     public long bb_wp;
@@ -132,10 +135,6 @@ public abstract class BoardConstants {
     public static final long COLUMN_F = 0x2020202020202020L;
     public static final long COLUMN_G = 0x4040404040404040L;
     public static final long COLUMN_H = 0x8080808080808080L;
-
-    /** Couleur */
-
-    public static boolean white;
 
     /** Direction */
 

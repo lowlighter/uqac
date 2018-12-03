@@ -10,7 +10,6 @@ public class Board extends BoardConstants {
      */
     public Board(boolean is_white) {
         init(is_white);
-        move(WHITE_PAWN, A2, A4);
         MoveGenerator test = new MoveGenerator(this);
     }
 
@@ -18,6 +17,22 @@ public class Board extends BoardConstants {
      * Initialise les bitboards à la position initiale.
      */
     public void init(boolean is_white) {
+        //Initialisation du plateau
+        startpos();
+
+        // Initialisation de la couleur
+        white = is_white;
+
+        // Initialisation des directions
+        set_direction(white);
+    }
+
+    /**
+     * Met la configuration du plateau à son état initial.
+     */
+    public void startpos() {
+        System.out.println("info applying startpos");
+
         //Initialisation des pièces blanches
         bb_wp = 0b0000000000000000000000000000000000000000000000001111111100000000L;
         bb_wr = 0b0000000000000000000000000000000000000000000000000000000010000001L;
@@ -33,22 +48,16 @@ public class Board extends BoardConstants {
         bb_bb = 0b0010010000000000000000000000000000000000000000000000000000000000L;
         bb_bq = 0b0000100000000000000000000000000000000000000000000000000000000000L;
         bb_bk = 0b0001000000000000000000000000000000000000000000000000000000000000L;
-
-        // Initialisation de la couleur
-        white = is_white;
-
-        // Initialisation des directions
-        set_direction(white);
     }
 
     /**
      * Déplace une pièce sur le bitboard associé.
      * La légalité du coup n'est pas vérifiée !
-     * @param piece - Pièce
      * @param from - Départ
      * @param to - Arrivé
      */
-    public void move(char piece, long from, long to) {
+    public void move(long from, long to) {
+        char piece = at(from);
         switch (piece) {
             case WHITE_PAWN:{ bb_wp = clearset(bb_wp, from, to); return; }
             case WHITE_ROOK:{ bb_wr = clearset(bb_wr, from, to); return; }
@@ -63,6 +72,16 @@ public class Board extends BoardConstants {
             case BLACK_QUEEN:{ bb_bq = clearset(bb_bq, from, to); return; }
             case BLACK_KING:{ bb_bk = clearset(bb_bk, from, to); return; }
         }
+    }
+    /**
+     * Déplace une pièce sur le bitboard associé.
+     * La légalité du coup n'est pas vérifiée !
+     * @param move - Coup (notation UCI)
+     */
+    public void move(String move) {
+        System.out.println("info applying move "+move);
+        //TODO : Gérer la promotion (move.length() == 5)
+        move(fromUCI(move.substring(0, 2)), fromUCI(move.substring(2, 4)));
     }
 
     /**
@@ -103,6 +122,26 @@ public class Board extends BoardConstants {
     }
 
     /**
+     * Retourne le contenu de la case indiquée.
+     * @param cell
+     */
+    private char at(long cell) {
+        if (get(bb_wp, cell)) return WHITE_PAWN;
+        if (get(bb_wr, cell)) return WHITE_ROOK;
+        if (get(bb_wn, cell)) return WHITE_KNIGHT;
+        if (get(bb_wb, cell)) return WHITE_BISHOP;
+        if (get(bb_wq, cell)) return WHITE_QUEEN;
+        if (get(bb_wk, cell)) return WHITE_KING;
+        if (get(bb_bp, cell)) return BLACK_PAWN;
+        if (get(bb_br, cell)) return BLACK_ROOK;
+        if (get(bb_bn, cell)) return BLACK_KNIGHT;
+        if (get(bb_bb, cell)) return BLACK_BISHOP;
+        if (get(bb_bq, cell)) return BLACK_QUEEN;
+        if (get(bb_bk, cell)) return BLACK_KING;
+        return EMPTY;
+    }
+
+    /**
      * Retourne un bit board representant les cases occupés par les pieces blanches
      */
     public long white_occupancy() {
@@ -127,7 +166,7 @@ public class Board extends BoardConstants {
      * Retourne un bit board representant les cases vides du plateau
      */
     public long get_empty() {
-        return ~(white_occupancy() | black_occupancy());
+        return ~global_occupancy();
     }
 
     /**
@@ -156,24 +195,30 @@ public class Board extends BoardConstants {
                 if ((rank == 7)&&(file == 0)) { b.append("   a b c d e f g h\n  +----------------\n"); }
                 if (file == 0) { b.append((rank+1)+" |"); }
                 b.append(" ");
-                //Pièce
-                if (get(bb_wp, i)) { b.append(WHITE_PAWN); continue; }
-                if (get(bb_wr, i)) { b.append(WHITE_ROOK); continue; }
-                if (get(bb_wn, i)) { b.append(WHITE_KNIGHT); continue; }
-                if (get(bb_wb, i)) { b.append(WHITE_BISHOP); continue; }
-                if (get(bb_wq, i)) { b.append(WHITE_QUEEN); continue; }
-                if (get(bb_wk, i)) { b.append(WHITE_KING); continue; }
-                if (get(bb_bp, i)) { b.append(BLACK_PAWN); continue; }
-                if (get(bb_br, i)) { b.append(BLACK_ROOK); continue; }
-                if (get(bb_bn, i)) { b.append(BLACK_KNIGHT); continue; }
-                if (get(bb_bb, i)) { b.append(BLACK_BISHOP); continue; }
-                if (get(bb_bq, i)) { b.append(BLACK_QUEEN); continue; }
-                if (get(bb_bk, i)) { b.append(BLACK_KING); continue; }
-                b.append(EMPTY);
+                b.append(at(i));
             }
             b.append("\n");
         }
         System.out.println(b.toString());
+    }
+
+    /** 
+     * Convertie un long en une chaîne UCI.
+     * @param long Case
+     */
+    String toUCI(long cell) {
+        short i = 0;
+        for (; i < 64; i++)
+            if (get(1L << i, cell)) break;
+        return Character.toString((char)('a'+ (i%8))) + Character.toString((char)('0' + ~~(i/8) + 1));
+    }
+
+    /** 
+     * Convertie une chaîne UCI en long.
+     * @param uci Chaîne UCI
+     */
+    long fromUCI(String uci) {
+        return 1L << ((uci.charAt(0) - 'a') + 8*(uci.charAt(1) - '0' - 1));
     }
 
 }
