@@ -31,7 +31,7 @@ public class Board extends BoardConstants {
      * Met la configuration du plateau à son état initial.
      */
     public void startpos() {
-        System.out.println("info applying startpos");
+        System.out.println("info applying startpos (ignore)");
 
         //Initialisation des pièces blanches
         bb_wp = 0b0000000000000000000000000000000000000000000000001111111100000000L;
