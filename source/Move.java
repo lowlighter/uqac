@@ -1,10 +1,10 @@
 public class Move {
 
-    public int move;
+    public short move;
     public int value;
 
     public Move(int move) {
-        this.move = move;
+        this.move = (short) move;
     }
     
 }
