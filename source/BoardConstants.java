@@ -46,8 +46,13 @@ public abstract class BoardConstants {
     protected static final char BLACK_BISHOP = 'b'; 
     protected static final char BLACK_QUEEN = 'q';
     protected static final char BLACK_KING = 'k';
+    protected static final char PROMOTED_ROOK = 'r';
+    protected static final char PROMOTED_KNIGHT = 'n';
+    protected static final char PROMOTED_BISHOP = 'b'; 
+    protected static final char PROMOTED_QUEEN = 'q';
     
     /** Cases du plateau. */
+    protected static final long VOID = 0L;
     protected static final long A1 = (1L << 0); 
     protected static final long B1 = (1L << 1); 
     protected static final long C1 = (1L << 2); 

@@ -2,7 +2,7 @@
   const { spawn } = require("child_process")
   const fs = require("fs")
   const path = require("path")
-  const {chunksToLinesAsync, chomp} = require("./x.js")
+  const {chunksToLinesAsync, chomp} = require("@rauschma/stringio")
   
 //Récupération des fichiers de tests
   const tests = {}, asserts = {}
@@ -47,6 +47,7 @@
       //Vérification de la sortie
         let ok = true
         while (asserts[test].length) {
+          console.log(`    \x1b[90m${line}\x1b[0m`)
           if ((!/ignore/.test(line))&&(line.length)) {
             let expected = asserts[test][0].trim()
             if (expected !== line) { 

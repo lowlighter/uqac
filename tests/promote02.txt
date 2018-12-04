@@ -1,0 +1,25 @@
+>>> position startpos
+>>> position startpos moves b2b4
+>>> position startpos moves b2b4 b7b5
+>>> position startpos moves b2b4 b7b5 c2c4
+>>> position startpos moves b2b4 b7b5 c2c4 b8a6
+>>> position startpos moves b2b4 b7b5 c2c4 b8a6 c4b5
+>>> position startpos moves b2b4 b7b5 c2c4 b8a6 c4b5 h7h6
+>>> position startpos moves b2b4 b7b5 c2c4 b8a6 c4b5 h7h6 b5b6
+>>> position startpos moves b2b4 b7b5 c2c4 b8a6 c4b5 h7h6 b5b6 g7g6
+>>> position startpos moves b2b4 b7b5 c2c4 b8a6 c4b5 h7h6 b5b6 g7g6 b6b7
+>>> position startpos moves b2b4 b7b5 c2c4 b8a6 c4b5 h7h6 b5b6 g7g6 b6b7 f7f6
+>>> position startpos moves b2b4 b7b5 c2c4 b8a6 c4b5 h7h6 b5b6 g7g6 b6b7 f7f6 b7b8n
+>>> print
+
+# ASSERT
+    a b c d e f g h
+  +----------------
+8 | r N b q k b n r
+7 | p . p p p . . .
+6 | n . . . . p p p
+5 | . . . . . . . .
+4 | . P . . . . . .
+3 | . . . . . . . .
+2 | P . . P P P P P
+1 | R N B Q K B N R

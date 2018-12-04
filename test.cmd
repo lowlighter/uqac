@@ -1,3 +1,3 @@
 @echo off
 cls
-node tests\index.js --no-warnings
+node tests\src\index.js --no-warnings
