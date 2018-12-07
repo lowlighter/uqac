@@ -62,7 +62,7 @@ public class Board extends Constants {
      * Met la configuration du plateau à son état initial.
      */
     public void startpos() {
-        System.out.println("info applying startpos");
+        System.out.println("info applying startpos (ignore)");
 
         //Initialisation des pièces blanches
         bb_wp = 0b0000000000000000000000000000000000000000000000001111111100000000L;
@@ -89,6 +89,7 @@ public class Board extends Constants {
      */
     public void move(long from, long to) {
         char piece = at(from);
+        if (to != VOID) move(to, VOID);
         switch (piece) {
             case WHITE_PAWN:{ bb_wp = clearset(bb_wp, from, to); return; }
             case WHITE_ROOK:{ bb_wr = clearset(bb_wr, from, to); return; }
@@ -110,9 +111,43 @@ public class Board extends Constants {
      * @param move - Coup (notation UCI)
      */
     public void move(String move) {
-        System.out.println("info applying move "+move);
-        //TODO : Gérer la promotion (move.length() == 5)
+        System.out.println("info applying move "+move+" (ignore)");
+        //Déplacement
         move(fromUCI(move.substring(0, 2)), fromUCI(move.substring(2, 4)));
+        //Promotion
+        if (move.length() == 5) promote(fromUCI(move.substring(2, 4)), move.charAt(4));
+    }
+
+    /**
+     * Promotion d'un pion.
+     * @param cell - Case où se situe le pion
+     * @param piece - Pièce où 
+     */
+    public void promote(long cell, char piece) {
+        //Récupération du pion et suppression de celui-ci
+        System.out.println("info applying promotion ("+piece+") (ignore)");
+        char pawn = at(cell);
+        move(cell, VOID);
+        
+        //Promotion
+        switch(pawn) {
+            case WHITE_PAWN:{
+                switch (piece) {
+                    case PROMOTED_ROOK:{ bb_wr = set(bb_wr, cell); return; }
+                    case PROMOTED_KNIGHT:{ bb_wn = set(bb_wn, cell); return; }
+                    case PROMOTED_BISHOP:{ bb_wb = set(bb_wb, cell); return; }
+                    case PROMOTED_QUEEN:{ bb_wq = set(bb_wq, cell); return; }
+                }
+            }
+            case BLACK_PAWN:{
+                switch (piece) {
+                    case PROMOTED_ROOK:{ bb_br = set(bb_br, cell); return; }
+                    case PROMOTED_KNIGHT:{ bb_bn = set(bb_bn, cell); return; }
+                    case PROMOTED_BISHOP:{ bb_bb = set(bb_bb, cell); return; }
+                    case PROMOTED_QUEEN:{ bb_bq = set(bb_bq, cell); return; }
+                }
+            }
+        }
     }
 
     /**
