@@ -2,7 +2,38 @@
  * Plateau de jeu.
  * Fonctionne avec des bitboards.
  */
-public class Board extends BoardConstants {
+public class Board extends Constants {
+
+
+    /** Couleur */
+    public static boolean white;
+    
+    /** Bitboard pions blancs. */
+    public long bb_wp;
+    /** Bitboard tour blancs. */
+    public long bb_wr;
+    /** Bitboard cavalier blancs. */
+    public long bb_wn;
+    /** Bitboard fou blancs. */
+    public long bb_wb;
+    /** Bitboard reine blancs. */
+    public long bb_wq;
+    /** Bitboard roi blancs. */
+    public long bb_wk;
+
+    /** Bitboard pions noirs. */
+    public long bb_bp;
+    /** Bitboard tour noirs. */
+    public long bb_br;
+    /** Bitboard cavalier noirs. */
+    public long bb_bn;
+    /** Bitboard fou noirs. */
+    public long bb_bb;
+    /** Bitboard reine noirs. */
+    public long bb_bq;
+    /** Bitboard roi noirs. */
+    public long bb_bk;
+
 
     /**
      * Crée un nouveau plateau de jeu.
