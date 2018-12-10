@@ -83,7 +83,9 @@ public class Engine {
      * Affiche le plateau.
      */
     private static void print(String in) {
-        board.print();
+        String[] input = in.split(" ");
+        if (input.length == 1) board.print();
+        if ((input.length == 2)&&(input[1].equals("dominance"))) board.dominance();
     }
 
     /**

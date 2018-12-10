@@ -5,7 +5,7 @@
 public class Board extends Bitboards {
 
     /** Couleur */
-    public static boolean white;
+    public boolean white;
 
     /**
      * Crée un nouveau plateau de jeu.
@@ -19,7 +19,13 @@ public class Board extends Bitboards {
     public MoveGenerator generator;
 
     public void bestmove() {
-        System.out.println("bestmove "+BestMove.compute(this, 2));
+        System.out.println("bestmove "+BestMove.compute(this));
+    }
+
+    public void dominance() {
+        int u = BestMove.utility(this);
+        System.out.println("Dominance : "+u+(u>=0 ? " (WHITE)" : " (BLACK)"));
+        System.out.println("");
     }
 
     /**
