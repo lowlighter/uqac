@@ -16,10 +16,10 @@ public class Board extends Bitboards {
         
     }
 
+    public MoveGenerator generator;
+
     public void bestmove() {
-        MoveGenerator test = new MoveGenerator(this);
-        System.out.println(test.get_legal_moves(white));
-        System.out.println("bestmove ");
+        System.out.println("bestmove "+BestMove.compute(this, 2));
     }
 
     /**
@@ -34,6 +34,8 @@ public class Board extends Bitboards {
 
         // Initialisation des directions
         set_direction(white);
+
+        generator =  new MoveGenerator(this);
     }
 
     /**

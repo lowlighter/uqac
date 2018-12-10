@@ -6,7 +6,7 @@ public abstract class Constants {
     /** Couleurs. */
     protected static final boolean WHITE = true;
     protected static final boolean BLACK = false;
-    
+
     /** Pièces. */
     protected static final char EMPTY = '.';
     protected static final char WHITE_PAWN = 'P';
@@ -94,6 +94,9 @@ public abstract class Constants {
     protected static final long G8 = (1L << 62); 
     protected static final long H8 = (1L << 63);
 
+
+    protected static final short MOVE_TO = 0b0000111111000000;
+    protected static final short MOVE_FROM =   0b0000000000111111;
 
     /** Lignes */
 

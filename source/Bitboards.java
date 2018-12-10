@@ -32,11 +32,15 @@ public abstract class Bitboards extends Constants {
     /** Bitboard roi noirs. */
     public long bb_bk;
 
-    private List<String> moves = new ArrayList<String>();
+    /** Liste des cases d'origines. */
     private List<Long> moves_from = new ArrayList<>();
+    /** Liste des cases de déplacements. */
     private List<Long> moves_to = new ArrayList<>();
+    /** Liste des pièces qui ont fait le déplacement. */
     private List<Character> moves_piece = new ArrayList<>();
+    /** Liste des pièces qui ont été prises. */
     private List<Character> moves_taken = new ArrayList<>();
+    /** Liste des promotions qui ont eu lieu. */
     private List<Character> moves_promoted = new ArrayList<>();
 
     /**
@@ -95,7 +99,6 @@ public abstract class Bitboards extends Constants {
      */
     protected void startpos() {
         System.out.println("info applying startpos (ignore)");
-        moves.clear();
         moves_from.clear();
         moves_to.clear();
         moves_piece.clear();
@@ -124,15 +127,11 @@ public abstract class Bitboards extends Constants {
      * La légalité du coup n'est pas vérifiée !
      * @param move - Coup (notation UCI)
      */
-    public void apply(String move) {
+    public void apply(long from, long to, char promoted) {
         //Analyse du coup
-        long from = fromUCI(move.substring(0, 2));
-        long to = fromUCI(move.substring(2, 4));
         char piece = at(from);
         char taken = at(to);
-        char promoted = move.length() == 5 ? move.charAt(4) : PROMOTED_VOID;
-        System.out.println("info applying move "+move+" ["+piece+" x "+taken+" | "+promoted+"] (ignore)");
-
+    
         //Déplacement de la pièce (et prise de la pièce adverse)
         move(piece, from, to);
         move(taken, to, VOID);
@@ -142,12 +141,31 @@ public abstract class Bitboards extends Constants {
             promote(to, promoted);
         
         //Enregistrement
-        moves.add(move);
         moves_from.add(from);
         moves_to.add(to);
         moves_piece.add(piece);
         moves_taken.add(taken);
         moves_promoted.add(promoted);
+    }
+    public void apply(String move) {
+        apply(fromUCI(move.substring(0, 2)), fromUCI(move.substring(2, 4)), move.length() == 5 ? move.charAt(4) : PROMOTED_VOID);
+    }
+    public void apply(short move) {
+        apply(1L << (move & MOVE_FROM), 1L << ((move & MOVE_TO) >> 6), PROMOTED_VOID);
+    }
+
+    /**
+     * Indique le n° du tour.
+     */
+    public int turn() {
+        return moves_piece.size();
+    }
+
+    /**
+     * Indique la couleur du joueur qui doit jouer.
+     */
+    public boolean player_turn() {
+        return turn()%2 == 0 ? WHITE : BLACK;
     }
 
     /**
@@ -155,14 +173,12 @@ public abstract class Bitboards extends Constants {
      */
     public void revert() {
         //Récupération des données du coup
-        int turn = moves.size() - 1;
-        String move = moves.get(turn);
-        long from = moves_from.get(turn);
-        long to = moves_to.get(turn);
-        char piece = moves_piece.get(turn);
-        char taken = moves_taken.get(turn);
-        char promoted = moves_promoted.get(turn);
-        System.out.println("info reverting move "+move+" ["+piece+" x "+taken+" | "+promoted+"] (ignore)");
+        int index = turn()-1;
+        long from = moves_from.get(index);
+        long to = moves_to.get(index);
+        char piece = moves_piece.get(index);
+        char taken = moves_taken.get(index);
+        char promoted = moves_promoted.get(index);
         
         //Annulation du déplacement (et de la prise)
         move(piece, to, from);
@@ -173,12 +189,11 @@ public abstract class Bitboards extends Constants {
             demote(to, promoted);
     
         //Enregistrement
-        moves.remove(turn);
-        moves_from.remove(turn);
-        moves_to.remove(turn);
-        moves_piece.remove(turn);
-        moves_taken.remove(turn);
-        moves_promoted.remove(turn);
+        moves_from.remove(index);
+        moves_to.remove(index);
+        moves_piece.remove(index);
+        moves_taken.remove(index);
+        moves_promoted.remove(index);
     }
 
     /**
@@ -311,6 +326,16 @@ public abstract class Bitboards extends Constants {
         return Character.toString((char)('a'+ (i%8))) + Character.toString((char)('0' + ~~(i/8) + 1));
     }
 
+    /**
+     * Converti un coup en une chaîne UCI complète.
+     * @param m Coup
+     * @return
+     */
+    public static String toUCI(Move m) {
+        short move = m.move;
+        return toUCI(1L << (move & MOVE_FROM))+toUCI(1L << ((move & MOVE_TO) >> 6));
+    }
+
     /** 
      * Convertie une chaîne UCI en long
      * @param uci Chaîne UCI
@@ -318,5 +343,7 @@ public abstract class Bitboards extends Constants {
     public static long fromUCI(String uci) {
         return 1L << ((uci.charAt(0) - 'a') + 8*(uci.charAt(1) - '0' - 1));
     }
+
+    
 
 }

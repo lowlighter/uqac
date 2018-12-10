@@ -1,13 +1,21 @@
 import java.util.SortedSet; 
 import java.util.TreeSet;
+import java.util.List;
 
 /**
  * Contient les constantes pré-calculées pour les cases et types de pièces.
  */
-public abstract class BestMove {
+public abstract class BestMove{
 
-    public static void compute(Board state, int depth) {
-        alphabeta(state, depth);
+    /**
+     * Retourne le meilleur move.
+     * @param state Plateau
+     * @param depth Profondeur
+     * @return
+     */
+    public static String compute(Board state, int depth) {
+        Move best = alphabeta(state, depth);
+        return Board.toUCI(best);
     }
 
     /** Valeur de l'infini */
@@ -32,10 +40,14 @@ public abstract class BestMove {
     /** 
      * Enumère les successeurs possible de l'état actuel 
      * @param state Plateau
+     * //TODO : utilsier un sorted set //
      */
-    private static SortedSet<Move> successors(Board state) {
+    /*private static SortedSet<Move> successors(Board state) {
         SortedSet<Move> moves = new TreeSet<>();
         return moves;
+    }*/
+    private static List<Move> successors(Board state) {
+        return state.generator.get_legal_moves(state.player_turn());
     }
 
     /**
@@ -43,8 +55,21 @@ public abstract class BestMove {
      * @param state Plateau
      * @param depth Profondeur de récursion maximale
      */
-    private static int alphabeta(Board state, int depth) {
-        return maxvalue(state, -INFINITY, +INFINITY, depth);
+    private static Move alphabeta(Board state, int depth) {
+        Move best = null;
+        
+        //Récursion
+        int v = - INFINITY;
+        int alpha = -INFINITY, beta = +INFINITY;
+        for (Move successor: successors(state)) {
+            state.apply(successor.move);
+            v = Math.max(v, minvalue(state, alpha, beta, depth-1));
+            state.revert();
+            if (v > alpha) best = successor;
+            alpha = Math.max(alpha, v);
+        }
+
+        return best;
     }
 
     /**
@@ -61,9 +86,12 @@ public abstract class BestMove {
         
         //Récursion
         int v = - INFINITY;
-        for (Move move: successors(state)) {
+        for (Move successor: successors(state)) {
+            state.apply(successor.move);
             v = Math.max(v, minvalue(state, alpha, beta, depth-1));
+            state.revert();
             if (v >= beta) return v;
+            alpha = Math.max(alpha, v);
         }
         return v;
     }
@@ -82,9 +110,12 @@ public abstract class BestMove {
         
         //Récursion
         int v = + INFINITY;
-        for (Move move: successors(state)) {
+        for (Move successor: successors(state)) {
+            state.apply(successor.move);
             v = Math.min(v, maxvalue(state, alpha, beta, depth-1));
+            state.revert();
             if (v <= alpha) return v;
+            beta = Math.min(beta, v);
         }
         return v;
     }
