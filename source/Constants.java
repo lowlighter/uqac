@@ -92,50 +92,43 @@ public abstract class Constants {
 
     /** Lignes */
 
-    public static final long ROW_1 = 0b0000000000000000000000000000000000000000000000000000000011111111L;
-    public static final long ROW_2 = 0b0000000000000000000000000000000000000000000000001111111100000000L;
-    public static final long ROW_3 = 0b0000000000000000000000000000000000000000111111110000000000000000L;
-    public static final long ROW_4 = 0b0000000000000000000000000000000011111111000000000000000000000000L;
-    public static final long ROW_5 = 0b0000000000000000000000001111111100000000000000000000000000000000L;
-    public static final long ROW_6 = 0b0000000000000000111111110000000000000000000000000000000000000000L;
-    public static final long ROW_7 = 0b0000000011111111000000000000000000000000000000000000000000000000L;
-    public static final long ROW_8 = 0b1111111100000000000000000000000000000000000000000000000000000000L;
+    protected static final long ROW_1 = 0b0000000000000000000000000000000000000000000000000000000011111111L;
+    protected static final long ROW_2 = 0b0000000000000000000000000000000000000000000000001111111100000000L;
+    protected static final long ROW_3 = 0b0000000000000000000000000000000000000000111111110000000000000000L;
+    protected static final long ROW_4 = 0b0000000000000000000000000000000011111111000000000000000000000000L;
+    protected static final long ROW_5 = 0b0000000000000000000000001111111100000000000000000000000000000000L;
+    protected static final long ROW_6 = 0b0000000000000000111111110000000000000000000000000000000000000000L;
+    protected static final long ROW_7 = 0b0000000011111111000000000000000000000000000000000000000000000000L;
+    protected static final long ROW_8 = 0b1111111100000000000000000000000000000000000000000000000000000000L;
 
     /** Colonne  */
                                         
-    public static final long COLUMN_A = 0x101010101010101L;
-    public static final long COLUMN_B = 0x202020202020202L;
-    public static final long COLUMN_C = 0x404040404040404L;
-    public static final long COLUMN_D = 0x808080808080808L;
-    public static final long COLUMN_E = 0x1010101010101010L;
-    public static final long COLUMN_F = 0x2020202020202020L;
-    public static final long COLUMN_G = 0x4040404040404040L;
-    public static final long COLUMN_H = 0x8080808080808080L;
+    protected static final long COLUMN_A = 0x101010101010101L;
+    protected static final long COLUMN_B = 0x202020202020202L;
+    protected static final long COLUMN_C = 0x404040404040404L;
+    protected static final long COLUMN_D = 0x808080808080808L;
+    protected static final long COLUMN_E = 0x1010101010101010L;
+    protected static final long COLUMN_F = 0x2020202020202020L;
+    protected static final long COLUMN_G = 0x4040404040404040L;
+    protected static final long COLUMN_H = 0x8080808080808080L;
 
     /** Direction */
 
-    public static final int NORTH = 8;
-    public static final int SOUTH = -8;
-    public static final int EAST = 1;
-    public static final int WEST = -1;
+    protected static final int NORTH = 8;
+    protected static final int SOUTH = -8;
+    protected static final int EAST = 1;
+    protected static final int WEST = -1;
 
-    public static final int NORTH_WEST = NORTH + WEST;
-    public static final int NORTH_EAST = NORTH + EAST;
-    public static final int SOUTH_WEST = SOUTH + WEST;
-    public static final int SOUTH_EAST = SOUTH + EAST;
+    protected static final int NORTH_WEST = NORTH + WEST;
+    protected static final int NORTH_EAST = NORTH + EAST;
+    protected static final int SOUTH_WEST = SOUTH + WEST;
+    protected static final int SOUTH_EAST = SOUTH + EAST;
 
-
-    /** Bit shift for magic bitboard */
-
-
-    public static final int[] B_BISHOP = new int[64];
-
-    public static final int[] B_ROOK = new int[64];
 
 
     /** Magic numbers */
 
-    public static final long[] MAGIC_B = { 0x2910054208004104L, 0x2100630a7020180L, 0x5822022042000000L, 0x2ca804a100200020L, 0x204042200000900L,
+    protected static final long[] MAGIC_B = { 0x2910054208004104L, 0x2100630a7020180L, 0x5822022042000000L, 0x2ca804a100200020L, 0x204042200000900L,
         0x2002121024000002L, 0x80404104202000e8L, 0x812a020205010840L, 0x8005181184080048L, 0x1001c20208010101L, 0x1001080204002100L, 0x1810080489021800L,
         0x62040420010a00L, 0x5028043004300020L, 0xc0080a4402605002L, 0x8a00a0104220200L, 0x940000410821212L, 0x1808024a280210L, 0x40c0422080a0598L,
         0x4228020082004050L, 0x200800400e00100L, 0x20b001230021040L, 0x90a0201900c00L, 0x4940120a0a0108L, 0x20208050a42180L, 0x1004804b280200L,
@@ -147,7 +140,7 @@ public abstract class Constants {
         0x800633408100500L, 0x2404080a1410L, 0x138200122002900L };
 
 
-    public static final long[] MAGIC_R = { 0xa180022080400230L, 0x40100040022000L, 0x80088020001002L, 0x80080280841000L, 0x4200042010460008L,
+    protected static final long[] MAGIC_R = { 0xa180022080400230L, 0x40100040022000L, 0x80088020001002L, 0x80080280841000L, 0x4200042010460008L,
         0x4800a0003040080L, 0x400110082041008L, 0x8000a041000880L, 0x10138001a080c010L, 0x804008200480L, 0x10011012000c0L, 0x22004128102200L,
         0x200081201200cL, 0x202a001048460004L, 0x81000100420004L, 0x4000800380004500L, 0x208002904001L, 0x90004040026008L, 0x208808010002001L,
         0x2002020020704940L, 0x8048010008110005L, 0x6820808004002200L, 0xa80040008023011L, 0xb1460000811044L, 0x4204400080008ea0L, 0xb002400180200184L,
@@ -158,4 +151,16 @@ public abstract class Constants {
         0x10301802830400L, 0x332a4081140200L, 0x8080010a601241L, 0x1008010400021L, 0x4082001007241L, 0x211009001200509L, 0x8015001002441801L,
         0x801000804000603L, 0xc0900220024a401L, 0x1000200608243L };
 
+    /** Util */
+
+    protected void print_all_bits(long bb){
+        for(int i = 0; i < Long.numberOfLeadingZeros((long) bb); i++) {
+            System.out.print('0');
+        }
+        if(Long.numberOfLeadingZeros(bb) != 64) {
+            System.out.println(Long.toBinaryString((long) bb));
+        } else {
+            System.out.println(' ');
+        }
+    }
 }

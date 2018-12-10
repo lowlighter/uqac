@@ -250,6 +250,15 @@ public class Board extends Constants {
     }
 
     /**
+     * @param white - Couleur du camp du moteur
+     * Retourne l'indice la position du roi
+     */
+    public int get_king_position(boolean white) {
+        long king_pawns = (white) ? bb_wk : bb_bk;
+        return Long.numberOfTrailingZeros(king_pawns);
+    }
+
+    /**
      * Affiche le plateau de jeu.
      */
     public void print() {
