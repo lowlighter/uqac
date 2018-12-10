@@ -36,21 +36,6 @@ public class Board extends Bitboards {
         set_direction(white);
     }
 
-   
-    /**
-     * Déplace une pièce sur le bitboard associé.
-     * La légalité du coup n'est pas vérifiée !
-     * @param move - Coup (notation UCI)
-     */
-    public void move(String move) {
-        System.out.println("info applying move "+move+" (ignore)");
-        //Déplacement
-        move(fromUCI(move.substring(0, 2)), fromUCI(move.substring(2, 4)));
-        //Promotion
-        if (move.length() == 5) promote(fromUCI(move.substring(2, 4)), move.charAt(4));
-    }
-
-
     /**
      * Retourne un bit board representant les cases occupés par les pieces blanches
      */

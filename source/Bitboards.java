@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Méthodes pe
  */
@@ -29,12 +32,19 @@ public abstract class Bitboards extends Constants {
     /** Bitboard roi noirs. */
     public long bb_bk;
 
+    private List<String> moves = new ArrayList<String>();
+    private List<Long> moves_from = new ArrayList<>();
+    private List<Long> moves_to = new ArrayList<>();
+    private List<Character> moves_piece = new ArrayList<>();
+    private List<Character> moves_taken = new ArrayList<>();
+    private List<Character> moves_promoted = new ArrayList<>();
+
     /**
      * Met à 1 le bit d'une case.
      * @param bitboard Bitboard
      * @param cell Nom de la cellule
      */
-    protected long set(long bitboard, long cell) {
+    private long set(long bitboard, long cell) {
         return bitboard | cell;
     }
 
@@ -43,7 +53,7 @@ public abstract class Bitboards extends Constants {
      * @param bitboard Bitboard
      * @param cell Nom de la cellule
     */
-    protected boolean get(long bitboard, long cell) {
+    private boolean get(long bitboard, long cell) {
         return (bitboard & cell) != 0;
     }
 
@@ -52,7 +62,7 @@ public abstract class Bitboards extends Constants {
      * @param bitboard Bitboard
      * @param cell Nom de la cellule
      */
-    protected long clear(long bitboard, long cell) {
+    private long clear(long bitboard, long cell) {
         return bitboard & ~cell;
     }
 
@@ -62,15 +72,35 @@ public abstract class Bitboards extends Constants {
      * @param a Nom de la cellule a
      * @param b Nom de la cellule b
      */
-    protected long clearset(long bitboard, long a, long b) {
+    private long clearset(long bitboard, long a, long b) {
         return set(clear(bitboard, a), b);
+    }
+
+
+    /** 
+     * Met à jour la configuration du plateau
+     * @param in Liste de déplacements
+     */
+    public void position(String in) {
+        String[] input = in.split(" ");
+        for (int i = 0; i < input.length; i++) {
+            if (input[i].equals("moves")) continue;
+            if (input[i].equals("startpos")) { startpos(); continue; }
+            if (input[i].matches("[a-h][1-8][a-h][1-8][rnbq]?")) apply(input[i]);
+        }
     }
 
     /**
      * Réinitialise la configuration du plateau
      */
-    public void startpos() {
+    protected void startpos() {
         System.out.println("info applying startpos (ignore)");
+        moves.clear();
+        moves_from.clear();
+        moves_to.clear();
+        moves_piece.clear();
+        moves_taken.clear();
+        moves_promoted.clear();
 
         //Initialisation des pièces blanches
         bb_wp = 0b0000000000000000000000000000000000000000000000001111111100000000L;
@@ -88,17 +118,76 @@ public abstract class Bitboards extends Constants {
         bb_bq = 0b0000100000000000000000000000000000000000000000000000000000000000L;
         bb_bk = 0b0001000000000000000000000000000000000000000000000000000000000000L;
     }
-  
+
+    /**
+     * Joue un coup.
+     * La légalité du coup n'est pas vérifiée !
+     * @param move - Coup (notation UCI)
+     */
+    public void apply(String move) {
+        //Analyse du coup
+        long from = fromUCI(move.substring(0, 2));
+        long to = fromUCI(move.substring(2, 4));
+        char piece = at(from);
+        char taken = at(to);
+        char promoted = move.length() == 5 ? move.charAt(4) : PROMOTED_VOID;
+        System.out.println("info applying move "+move+" ["+piece+" x "+taken+" | "+promoted+"] (ignore)");
+
+        //Déplacement de la pièce (et prise de la pièce adverse)
+        move(piece, from, to);
+        move(taken, to, VOID);
+
+        //Promotion
+        if (promoted != PROMOTED_VOID) 
+            promote(to, promoted);
+        
+        //Enregistrement
+        moves.add(move);
+        moves_from.add(from);
+        moves_to.add(to);
+        moves_piece.add(piece);
+        moves_taken.add(taken);
+        moves_promoted.add(promoted);
+    }
+
+    /**
+     * Annule le dernier coup joué.
+     */
+    public void revert() {
+        //Récupération des données du coup
+        int turn = moves.size() - 1;
+        String move = moves.get(turn);
+        long from = moves_from.get(turn);
+        long to = moves_to.get(turn);
+        char piece = moves_piece.get(turn);
+        char taken = moves_taken.get(turn);
+        char promoted = moves_promoted.get(turn);
+        System.out.println("info reverting move "+move+" ["+piece+" x "+taken+" | "+promoted+"] (ignore)");
+        
+        //Annulation du déplacement (et de la prise)
+        move(piece, to, from);
+        move(taken, VOID, to);
+
+        //Annulation du la promotion
+        if (promoted != PROMOTED_VOID)
+            demote(to, promoted);
+    
+        //Enregistrement
+        moves.remove(turn);
+        moves_from.remove(turn);
+        moves_to.remove(turn);
+        moves_piece.remove(turn);
+        moves_taken.remove(turn);
+        moves_promoted.remove(turn);
+    }
+
     /**
      * Déplace une pièce sur le bitboard associé.
-     *
-     * La légalité du coup n'est pas vérifiée !
+     * @param piece Pièce
      * @param from Départ
      * @param to Arrivé
      */
-    public void move(long from, long to) {
-        char piece = at(from);
-        if (to != VOID) move(to, VOID);
+    private void move(char piece, long from, long to) {
         switch (piece) {
             case WHITE_PAWN:{ bb_wp = clearset(bb_wp, from, to); return; }
             case WHITE_ROOK:{ bb_wr = clearset(bb_wr, from, to); return; }
@@ -118,13 +207,13 @@ public abstract class Bitboards extends Constants {
     /**
      * Promotion d'un pion.
      * @param cell - Case où se situe le pion
-     * @param piece - Pièce où 
+     * @param piece - Promotion
      */
-    protected void promote(long cell, char piece) {
+    private void promote(long cell, char piece) {
         //Récupération du pion et suppression de celui-ci
         System.out.println("info applying promotion ("+piece+") (ignore)");
         char pawn = at(cell);
-        move(cell, VOID);
+        move(pawn, cell, VOID);
         
         //Promotion
         switch(pawn) {
@@ -148,10 +237,27 @@ public abstract class Bitboards extends Constants {
     }
 
     /**
+     * Rétrograde une pièce au rang de pion
+     * @param cell
+     * @param piece
+     */
+    private void demote(long cell, char piece) {
+        //Récupération du pion et suppression de celui-ci
+        System.out.println("info reverting promotion ("+piece+") (ignore)");
+        move(piece, cell, VOID);
+
+        //Demotion
+        if (color(piece) == WHITE)
+            bb_wp = set(bb_wp, cell);
+        else
+            bb_bp = set(bb_bp, cell);
+    }
+
+    /**
      * Retourne le contenu de la case indiquée.
      * @param cell
      */
-    protected char at(long cell) {
+    public char at(long cell) {
         if (get(bb_wp, cell)) return WHITE_PAWN;
         if (get(bb_wr, cell)) return WHITE_ROOK;
         if (get(bb_wn, cell)) return WHITE_KNIGHT;
@@ -165,6 +271,14 @@ public abstract class Bitboards extends Constants {
         if (get(bb_bq, cell)) return BLACK_QUEEN;
         if (get(bb_bk, cell)) return BLACK_KING;
         return EMPTY;
+    }
+
+    /**
+     * Retourne la couleur de la pièce.
+     * @param piece
+     */
+    public boolean color(char piece) {
+        return Character.isUpperCase(piece);
     }
 
     /**

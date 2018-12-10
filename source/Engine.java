@@ -16,7 +16,7 @@ public class Engine {
         //Flux d'entrée
         Scanner stdin = new Scanner(System.in);
         board = new Board(false);
-        
+
         //Boucle principale
         while (true) {
 
@@ -68,13 +68,7 @@ public class Engine {
      * @param in - état du plateau (e.g. : position startpos moves e2e4 e7e5 g1f3 b8c6)
      */
     private static void position(String in) {
-        //Récupération du dernier coup joué
-        String[] moves = in.split(" ");
-        String move = moves[moves.length-1];
-    
-        //Mise à jour du plateau
-        if (in.contains("moves")) { board.move(move); }
-        if (move.equals("startpos")) { board.startpos(); } 
+        board.position(in);
     }
 
     /**

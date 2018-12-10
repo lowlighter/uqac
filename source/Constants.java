@@ -3,6 +3,10 @@
  */
 public abstract class Constants {
 
+    /** Couleurs. */
+    protected static final boolean WHITE = true;
+    protected static final boolean BLACK = false;
+    
     /** Pièces. */
     protected static final char EMPTY = '.';
     protected static final char WHITE_PAWN = 'P';
@@ -17,6 +21,7 @@ public abstract class Constants {
     protected static final char BLACK_BISHOP = 'b'; 
     protected static final char BLACK_QUEEN = 'q';
     protected static final char BLACK_KING = 'k';
+    protected static final char PROMOTED_VOID = '-';
     protected static final char PROMOTED_ROOK = 'r';
     protected static final char PROMOTED_KNIGHT = 'n';
     protected static final char PROMOTED_BISHOP = 'b'; 
