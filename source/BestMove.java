@@ -6,7 +6,7 @@ import java.util.TreeSet;
  */
 public abstract class BestMove {
 
-    public static compute(Board state, int depth) {
+    public static void compute(Board state, int depth) {
         alphabeta(state, depth);
     }
 

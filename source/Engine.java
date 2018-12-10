@@ -16,9 +16,7 @@ public class Engine {
         //Flux d'entrée
         Scanner stdin = new Scanner(System.in);
         board = new Board(false);
-
-        System.out.println(board.toUCI(Board.C2));
-        System.out.println(board.fromUCI("c2"));
+        
         //Boucle principale
         while (true) {
 
@@ -84,7 +82,7 @@ public class Engine {
      * NB : la notation UCI requiert d'utiliser "bestmove " devant le coup à jouer.
      */
     private static void go() {
-        System.out.println("bestmove ");
+        board.bestmove();
     }
 
     /**
