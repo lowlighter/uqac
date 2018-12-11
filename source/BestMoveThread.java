@@ -23,7 +23,7 @@ class BestMoveThread implements Runnable {
 	 * Celui-ci est formatté de la façon suivante : uci@score (afin que le thread principal puisse déterminer le meilleur coup)
 	 */
     public void run() {
-		this.id = Thread.currentThread().getId() % BestMove.THREAD;
+		this.id = Thread.currentThread().getId() % (Math.max(BestMove.THREAD, 1));
 		//System.out.println("info thread "+id+" : started");
 		alphabeta(state);
 	}
@@ -144,8 +144,10 @@ class BestMoveThread implements Runnable {
 	 */
 	private int maxvalue(Board state, int alpha, int beta, int depth) {
 		//Etat terminal ou profondeur maximale atteinte
-		if ((terminal(state))||(depth <= 0)) 
+		if ((terminal(state))||(depth < 0)) {
+			//System.out.println("info eval "+state.moves.subList(starting_point, state.moves.size())+" | "+utility(state));
 			return utility(state);
+		}
 		
 		//Récursion
 		int v = - INFINITY;
@@ -169,8 +171,10 @@ class BestMoveThread implements Runnable {
 	 */
 	private int minvalue(Board state, int alpha, int beta, int depth) {
 		//Etat terminal ou profondeur maximale atteinte
-		if ((terminal(state))||(depth <= 0)) 
+		if ((terminal(state))||(depth < 0)) {
+			//System.out.println("info eval "+state.moves.subList(starting_point, state.moves.size())+" | "+utility(state));
 			return utility(state);
+		}
 		
 		//Récursion
 		int v = + INFINITY;

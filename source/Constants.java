@@ -26,6 +26,12 @@ public abstract class Constants {
     protected static final char PROMOTED_KNIGHT = 'n';
     protected static final char PROMOTED_BISHOP = 'b'; 
     protected static final char PROMOTED_QUEEN = 'q';
+    protected static final char ANY_PAWN = 'p';
+    protected static final char ANY_ROOK = 'r';
+    protected static final char ANY_KNIGHT = 'n';
+    protected static final char ANY_BISHOP = 'b'; 
+    protected static final char ANY_QUEEN = 'q';
+    protected static final char ANY_KING = 'k';
     
     /** Cases du plateau. */
     protected static final long VOID = 0L;

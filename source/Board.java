@@ -5,6 +5,8 @@ import java.util.List;
  */
 public class Board extends Bitboards {
 
+    //TODO : améliorer le clonage //
+
     /** Couleur */
     public boolean white;
 
