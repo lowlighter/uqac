@@ -102,7 +102,7 @@ public abstract class Bitboards extends Constants {
      * Réinitialise la configuration du plateau
      */
     protected void startpos() {
-        System.out.println("info applying startpos (ignore)");
+        //System.out.println("info applying startpos (ignore)");
         moves_from.clear();
         moves_to.clear();
         moves_piece.clear();
@@ -230,7 +230,7 @@ public abstract class Bitboards extends Constants {
      */
     private void promote(long cell, char piece) {
         //Récupération du pion et suppression de celui-ci
-        System.out.println("info applying promotion ("+piece+") (ignore)");
+        //System.out.println("info applying promotion ("+piece+") (ignore)");
         char pawn = at(cell);
         move(pawn, cell, VOID);
         
@@ -262,7 +262,7 @@ public abstract class Bitboards extends Constants {
      */
     private void demote(long cell, char piece) {
         //Récupération du pion et suppression de celui-ci
-        System.out.println("info reverting promotion ("+piece+") (ignore)");
+        //System.out.println("info reverting promotion ("+piece+") (ignore)");
         move(piece, cell, VOID);
 
         //Demotion

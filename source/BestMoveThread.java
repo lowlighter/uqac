@@ -1,10 +1,9 @@
 import java.util.SortedSet; 
 import java.util.TreeSet;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
-class BestMoveThread implements Callable<String> {
+class BestMoveThread implements Runnable {
 	
 	/**
 	 * Constructeur.
@@ -22,23 +21,19 @@ class BestMoveThread implements Callable<String> {
 	 * Recherche par alphabeta le meilleur coup.
 	 * Celui-ci est formatté de la façon suivante : uci@score (afin que le thread principal puisse déterminer le meilleur coup)
 	 */
-    public String call() throws Exception {
+    public void run() {
 		this.id = Thread.currentThread().getId() % BestMove.THREAD;
-		System.out.println("info thread "+id+" : started");
+		//System.out.println("info thread "+id+" : started");
 		alphabeta(state);
 		//System.out.println("info thread "+id+" : found "+best);
-        return best;
 	}
 
-
+	/** Meilleur coup trouvé jusqu'à présent. */
 	public String best = "@0";
 
 	/** Id du thread. */
 	public long id;
 
-	/** Référence vers la Promesse (permet de cancel le thread) */
-	public Future<String> future = null;
-	
 	/** Valeur de l'infini */
 	private static int INFINITY = Integer.MAX_VALUE;
 
@@ -50,7 +45,7 @@ class BestMoveThread implements Callable<String> {
 	 * @param state Plateau
 	 */
 	private boolean terminal(Board state) {
-		return BestMove.terminal(state) || ((future != null)&&(future.isCancelled()));
+		return BestMove.terminal(state);
 	}
 
 	/**
@@ -82,7 +77,7 @@ class BestMoveThread implements Callable<String> {
 	 */
 	private String alphabeta(Board state) {
 		best = "@0";
-		long time = System.currentTimeMillis();
+		//long time = System.currentTimeMillis();
 		int v = 0;
 		//Alpha beta (pour les blancs, il s'agit d'une version modifiée du maxvalue qui retient en mémoire le meilleur coup à jouer)
 		if (state.white) {
