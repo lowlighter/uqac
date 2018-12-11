@@ -2,6 +2,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
 import java.util.concurrent.Future;
+import java.util.Arrays;
 
 class BestMoveThread implements Runnable {
 	
@@ -25,11 +26,21 @@ class BestMoveThread implements Runnable {
 		this.id = Thread.currentThread().getId() % BestMove.THREAD;
 		//System.out.println("info thread "+id+" : started");
 		alphabeta(state);
-		//System.out.println("info thread "+id+" : found "+best);
 	}
 
 	/** Meilleur coup trouvé jusqu'à présent. */
-	public String best = "@0";
+	private String _best = "@0";
+
+	public String best() {
+		System.out.println("info thread "+id+" : best "+_best);
+		return _best;
+	}
+
+	private void best(Move successor, int score) {
+		if ((successor != null)&&(!BestMove.timeout())) {
+			_best = Board.toUCI(successor)+"@"+Math.abs(score);
+		}
+	}
 
 	/** Id du thread. */
 	public long id;
@@ -70,18 +81,21 @@ class BestMoveThread implements Runnable {
 		return state.generator.get_legal_moves(state.player_turn());
 	}
 
+	private int starting_point = 0;
+
 	/**
 	 * Alpha-beta minimax
 	 * @param state Plateau
 	 * @param depth Profondeur de récursion maximale
 	 */
-	private String alphabeta(Board state) {
-		best = "@0";
+	private void alphabeta(Board state) {
+		best(null, 0);
 		//long time = System.currentTimeMillis();
 		int v = 0;
+		starting_point = state.moves.size();
 		//Alpha beta (pour les blancs, il s'agit d'une version modifiée du maxvalue qui retient en mémoire le meilleur coup à jouer)
-		if (state.white) {
-			for (int depth = 2; depth < MAXDEPTH; depth++) {
+		if (state.player_turn() == state.WHITE) {
+			for (int depth = 1; depth <= MAXDEPTH; depth++) {
 				//Récursion
 				//System.out.println("info thread "+id+" : depth "+depth+" (started)");
 				v = - INFINITY;
@@ -89,8 +103,11 @@ class BestMoveThread implements Runnable {
 				for (Move successor: successors(state)) {
 					state.apply(successor.move);
 					v = Math.max(v, minvalue(state, alpha, beta, depth-1));
+					//state.print();
+					//state.dominance();
+					//System.out.println("info test "+Board.toUCI(successor)+" "+v);
 					state.revert();
-					if (v >= alpha) best = Board.toUCI(successor)+"@"+Math.abs(v);
+					if (v > alpha) best(successor, v);
 					alpha = Math.max(alpha, v);
 				}
 				//System.out.println("info thread "+id+" : depth "+depth+" (completed in "+(System.currentTimeMillis()-time)+" ms)");
@@ -98,23 +115,24 @@ class BestMoveThread implements Runnable {
 		}
 		//Alpha beta (pour les noirs, il s'agit d'une version modifiée du minvalue qui retient en mémoire le meilleur coup à jouer)
 		else {
-			for (int depth = 2; depth < MAXDEPTH; depth++) {
+			for (int depth = 1; depth <= MAXDEPTH; depth++) {
 				//Récursion
 				//System.out.println("info thread "+id+" : depth "+depth+" (started)");
 				v = + INFINITY;
 				int alpha = -INFINITY, beta = +INFINITY;
 				for (Move successor: successors(state)) {
 					state.apply(successor.move);
+					//state.print();
+					//state.dominance();
 					v = Math.min(v, maxvalue(state, alpha, beta, depth-1));
+					//System.out.println("info test "+Board.toUCI(successor)+" "+v);
 					state.revert();
-					if (v <= beta) best = Board.toUCI(successor)+"@"+Math.abs(v);
+					if (v < beta) best(successor, v);
 					beta = Math.min(beta, v);
 				}
 				//System.out.println("info thread "+id+" : depth "+depth+" (completed in "+(System.currentTimeMillis()-time)+" ms)");
 			}
 		}
-
-		return best;
 	}
 
 	/**
@@ -126,7 +144,7 @@ class BestMoveThread implements Runnable {
 	 */
 	private int maxvalue(Board state, int alpha, int beta, int depth) {
 		//Etat terminal ou profondeur maximale atteinte
-		if ((terminal(state))||(depth < 0)) 
+		if ((terminal(state))||(depth <= 0)) 
 			return utility(state);
 		
 		//Récursion
@@ -134,6 +152,7 @@ class BestMoveThread implements Runnable {
 		for (Move successor: successors(state)) {
 			state.apply(successor.move);
 			v = Math.max(v, minvalue(state, alpha, beta, depth-1));
+			//System.out.println("info max "+state.moves.subList(starting_point, state.moves.size())+" "+v);
 			state.revert();
 			if (v >= beta) return v;
 			alpha = Math.max(alpha, v);
@@ -150,7 +169,7 @@ class BestMoveThread implements Runnable {
 	 */
 	private int minvalue(Board state, int alpha, int beta, int depth) {
 		//Etat terminal ou profondeur maximale atteinte
-		if ((terminal(state))||(depth < 0)) 
+		if ((terminal(state))||(depth <= 0)) 
 			return utility(state);
 		
 		//Récursion
@@ -158,6 +177,7 @@ class BestMoveThread implements Runnable {
 		for (Move successor: successors(state)) {
 			state.apply(successor.move);
 			v = Math.min(v, maxvalue(state, alpha, beta, depth-1));
+			//System.out.println("info min "+state.moves.subList(starting_point, state.moves.size())+" "+v);
 			state.revert();
 			if (v <= alpha) return v;
 			beta = Math.min(beta, v);

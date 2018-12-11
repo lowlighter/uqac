@@ -4,8 +4,8 @@
 public abstract class Constants {
 
     /** Couleurs. */
-    protected static final boolean WHITE = true;
-    protected static final boolean BLACK = false;
+    static final boolean WHITE = true;
+    static final boolean BLACK = false;
 
     /** Pièces. */
     protected static final char EMPTY = '.';

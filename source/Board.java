@@ -1,3 +1,4 @@
+import java.util.List;
 /** 
  * Plateau de jeu.
  * Fonctionne avec des bitboards.
@@ -100,4 +101,25 @@ public class Board extends Bitboards {
         return Long.numberOfTrailingZeros(king_pawns);
     }
 
+
+    public void print_legal() {
+        List<Move> lmoves = generator.get_legal_moves(WHITE);
+        System.out.println("info legal moves (WHITE) : ");
+        StringBuilder sb = new StringBuilder();
+        for (Move lmove : lmoves) {
+            sb.append(at(1L << (lmove.move & MOVE_FROM))+"-"+Board.toUCI(lmove)+" ");
+        }
+        System.out.println(sb.toString());
+        lmoves = generator.get_legal_moves(BLACK);
+        System.out.println("info legal moves (BLACK) : ");
+        sb = new StringBuilder();
+        for (Move lmove : lmoves) {
+            sb.append(at(1L << (lmove.move & MOVE_FROM))+"-"+Board.toUCI(lmove)+" ");
+        }
+        System.out.println(sb.toString());
+    }
+
+    public void print_turn() {
+        System.out.println("info turn : "+(player_turn() == WHITE ? "WHITE" : "BLACK"));
+    }
 }

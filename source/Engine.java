@@ -15,10 +15,10 @@ public class Engine {
       
         //Flux d'entrée
         Scanner stdin = new Scanner(System.in);
-        board = new Board(false);
+        board = new Board(true);
 
         BestMove.init();
-
+        
         //Boucle principale
         while (true) {
 
@@ -88,6 +88,8 @@ public class Engine {
         String[] input = in.split(" ");
         if (input.length == 1) board.print();
         if ((input.length == 2)&&(input[1].equals("dominance"))) board.dominance();
+        if ((input.length == 2)&&(input[1].equals("legal"))) board.print_legal();
+        if ((input.length == 2)&&(input[1].equals("turn"))) board.print_turn();
     }
 
     /**

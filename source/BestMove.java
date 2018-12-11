@@ -19,13 +19,13 @@ import java.util.HashMap;
 public abstract class BestMove{
 
     /** Nombre de threads. */
-    static int THREAD = 7;
+    static int THREAD = 4;
 
     /** Temps max d'exécution des threads (en ms) */
-    static int TIMEOUT = 700;
+    static int TIMEOUT = 1000;
 
     /** Profondeur max */
-    static int MAXDEPTH = 10000;
+    static int MAXDEPTH = 7;
 
     /** Pool de threads. */
     private static ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD);
@@ -67,7 +67,7 @@ public abstract class BestMove{
     
         //Récupération de leur valeurs après le temps imparti
         for(BestMoveThread thread : threads) {
-            String[] move = thread.best.split("@");
+            String[] move = thread.best().split("@");
             if (move[0].length() > 0) {
                 int score = Integer.parseInt(move[1]);
                 System.out.println("info thread "+thread.id+" found : "+move[0]+" (valued at "+score+") (ignore)");
@@ -90,8 +90,12 @@ public abstract class BestMove{
 	 * @param state Plateau
 	 */
 	public static boolean terminal(Board state) {
-		return false || (System.currentTimeMillis() - time >= TIMEOUT);
-	}
+		return false || timeout();
+    }
+    
+    public static boolean timeout() {
+        return (System.currentTimeMillis() - time >= TIMEOUT);
+    }
 
 	/**
 	 * Retourne la valeur d'utilité de l'état
@@ -104,13 +108,11 @@ public abstract class BestMove{
 		+ 3 * Long.bitCount(state.bb_wn)
 		+ 3 * Long.bitCount(state.bb_wb)
 		+ 9 * Long.bitCount(state.bb_wq)
-		+ 1000 * Long.bitCount(state.bb_wk)
-		- 1 * Long.bitCount(state.bb_wp)
+		- 1 * Long.bitCount(state.bb_bp)
 		- 5 * Long.bitCount(state.bb_br)
 		- 3 * Long.bitCount(state.bb_bn)
 		- 3 * Long.bitCount(state.bb_bb)
 		- 9 * Long.bitCount(state.bb_bq)
-        - 1000 * Long.bitCount(state.bb_bk)
 		;
 	}
     

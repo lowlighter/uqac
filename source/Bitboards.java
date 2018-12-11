@@ -32,6 +32,8 @@ public abstract class Bitboards extends Constants {
     /** Bitboard roi noirs. */
     public long bb_bk;
 
+    /** Liste des moves (DEBUG). */
+    List<String> moves = new ArrayList<>();
     /** Liste des cases d'origines. */
     private List<Long> moves_from = new ArrayList<>();
     /** Liste des cases de déplacements. */
@@ -103,6 +105,7 @@ public abstract class Bitboards extends Constants {
      */
     protected void startpos() {
         //System.out.println("info applying startpos (ignore)");
+        moves.clear();
         moves_from.clear();
         moves_to.clear();
         moves_piece.clear();
@@ -145,6 +148,7 @@ public abstract class Bitboards extends Constants {
             promote(to, promoted);
         
         //Enregistrement
+        moves.add(toUCI(from)+toUCI(to));
         moves_from.add(from);
         moves_to.add(to);
         moves_piece.add(piece);
@@ -193,6 +197,7 @@ public abstract class Bitboards extends Constants {
             demote(to, promoted);
     
         //Enregistrement
+        moves.remove(index);
         moves_from.remove(index);
         moves_to.remove(index);
         moves_piece.remove(index);
@@ -309,7 +314,7 @@ public abstract class Bitboards extends Constants {
             for (int file = 0; file <= 7; file++) {
                 //Formattage
                 long i = 1L << (rank*8 + file);
-                if ((rank == 7)&&(file == 0)) { b.append("   a b c d e f g h\n  +----------------\n"); }
+                if ((rank == 7)&&(file == 0)) { b.append("    a b c d e f g h\n  +----------------\n"); }
                 if (file == 0) { b.append((rank+1)+" |"); }
                 b.append(" ");
                 b.append(at(i));
