@@ -43,6 +43,9 @@ public abstract class Bitboards extends Constants {
     /** Liste des promotions qui ont eu lieu. */
     private List<Character> moves_promoted = new ArrayList<>();
 
+    /** Notation du dernier coup joué (en entier tel qu'il est passé dans arena). */
+    protected String last_move = "";
+
     /**
      * Met à 1 le bit d'une case.
      * @param bitboard Bitboard
@@ -86,6 +89,7 @@ public abstract class Bitboards extends Constants {
      * @param in Liste de déplacements
      */
     public void position(String in) {
+        last_move = in;
         String[] input = in.split(" ");
         for (int i = 0; i < input.length; i++) {
             if (input[i].equals("moves")) continue;

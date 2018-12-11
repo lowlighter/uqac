@@ -12,8 +12,13 @@ public class Board extends Bitboards {
      * A voir comment on fera pour éviter de créer trop d'instance de Board pour les noeuds et si c'est couteux.
      */
     public Board(boolean is_white) {
-        init(is_white);
-        
+        init(is_white);   
+    }
+
+    public Board clone() {
+        Board b = new Board(this.white);
+        b.position(this.last_move);
+        return b;
     }
 
     public MoveGenerator generator;

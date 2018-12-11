@@ -17,6 +17,8 @@ public class Engine {
         Scanner stdin = new Scanner(System.in);
         board = new Board(false);
 
+        BestMove.init();
+
         //Boucle principale
         while (true) {
 
