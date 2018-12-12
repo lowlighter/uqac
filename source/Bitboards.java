@@ -132,13 +132,28 @@ public abstract class Bitboards extends Constants {
     /**
      * Joue un coup.
      * La légalité du coup n'est pas vérifiée !
+     * Le roque est géré directement selon le coup joué
      * @param move - Coup (notation UCI)
      */
     public void apply(long from, long to, char promoted) {
         //Analyse du coup
         char piece = at(from);
         char taken = at(to);
-    
+
+        //Gestion du roque 
+        if (piece == WHITE_KING) {
+            if ((from == E1)&&(to == G1)) 
+                move(WHITE_ROOK, H1, F1);
+            if ((from == E1)&&(to == C1))
+                move(WHITE_ROOK, A1, D1);
+        }
+        if (piece == BLACK_KING) {
+            if ((from == E8)&&(to == G8)) 
+                move(BLACK_ROOK, H8, F8);
+            if ((from == E8)&&(to == C8))
+                move(BLACK_ROOK, A8, D8);
+        }
+
         //Déplacement de la pièce (et prise de la pièce adverse)
         move(piece, from, to);
         move(taken, to, VOID);
@@ -159,7 +174,16 @@ public abstract class Bitboards extends Constants {
         apply(fromUCI(move.substring(0, 2)), fromUCI(move.substring(2, 4)), move.length() == 5 ? move.charAt(4) : PROMOTED_VOID);
     }
     public void apply(short move) {
-        apply(1L << (move & MOVE_FROM), 1L << ((move & MOVE_TO) >> 6), PROMOTED_VOID);
+        //Gestion de la promotion
+        char promote = PROMOTED_VOID;
+        if ((move & MOVE_PROMOTE) > 0) {
+            if ((move & MOVE_PROMOTE_QUEEN) > 0) promote = PROMOTED_QUEEN;
+            else if ((move & MOVE_PROMOTE_KNIGHT) > 0) promote = PROMOTED_KNIGHT;
+            else if ((move & MOVE_PROMOTE_ROOK) > 0) promote = PROMOTED_ROOK;
+            else if ((move & MOVE_PROMOTE_BISHOP) > 0) promote = PROMOTED_BISHOP;
+        }
+        //Application
+        apply(1L << (move & MOVE_FROM), 1L << ((move & MOVE_TO) >> 6), promote);
     }
 
     /**
