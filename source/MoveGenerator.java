@@ -174,7 +174,102 @@ public class MoveGenerator extends Constants {
     }
 
 
+    private void init_xray_matrix(){
 
+        for(int i=0; i<64; i++){
+            for(int j=0; j<64; j++){
+                if(i == j) { continue;}
+                int borne, pas;
+                int substract = j - i;  
+                int side;
+                int king_row = i / 8;
+                int king_col = i % 8;
+                int piece_row = j / 8;
+                int piece_col = j % 8;
+
+                if(king_col == piece_col){
+                    pas = (substract >0) ? 8 : -8;
+                    borne = (substract > 0) ? i + ((8 - king_row) * 8) : i - (king_row + 1) * 8;
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if (king_row == piece_row) {
+                    pas = (substract >0) ? 1 : -1;
+                    borne = (substract > 0) ? i + (8 - king_col) : i - (king_col + 1);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if(substract % 7 == 0 && king_col != piece_col){
+                    pas = (substract >0) ? 7 : -7;
+                    side = (king_col + king_row >= 8) ?  8 - king_row : king_col +1;
+                    borne = (substract > 0) ? i + (side * 7) : i - (side * 7);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+
+
+            }
+        }
+    }
+    /**  Bitboards de ligne/diagonales de cases de la direction roi-piece au bout de la ligne/diagonales */
+    private void init_xray_matrixx(){
+
+        for(int i=0; i<64; i++){
+            for(int j=0; j<64; j++){
+                if(i == j) { continue;}
+                int borne, pas;
+                int substract = j - i;  
+                int side;
+                int king_row = i / 8;
+                int king_col = i % 8;
+                int piece_row = j / 8;
+                int piece_col = j % 8;
+                
+
+                if(substract % 7 == 0 && king_col != piece_col){
+                    pas = (substract >0) ? 7 : -7;
+                    side = (king_col + king_row > 8) ?  8 - king_row : king_col +1;
+                    borne = (substract > 0) ? i + (side * 7) : i - (side * 7);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if(king_col == piece_col){
+                    pas = (substract >0) ? 8 : -8;
+                    borne = (substract > 0) ? i + ((8 - king_row) * 8) : i - (king_row + 1) * 8;
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if(substract % 9 == 0 && king_col != piece_col){
+                    pas = (substract >0) ? 9 : -9;
+                    side = (king_col - king_row < 0) ? king_row : king_col;
+                    borne = (substract > 0) ? i + ((8 - side) * 9) : i - ((8-side) * 9);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if (king_row == piece_row) {
+                    pas = (substract >0) ? 1 : -1;
+                    borne = (substract > 0) ? i + (8 - king_col) : i - (king_col + 1);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+                
+            }
+        }
+
+    }
     
     /***********************************************************************************************************************/
     /*************************************************** MOVE SELECTION ****************************************************/
@@ -250,22 +345,22 @@ public class MoveGenerator extends Constants {
 
         // PIECES PINNED
 
-        if(white) {
-            generate_white_pawn_moves(pawn & pinned, empty);
-            generate_white_pawn_attack(pawn & pinned, enemy & ~king);
-        } else {
-            generate_black_pawn_moves(pawn & pinned, empty);
-            generate_black_pawn_attack(pawn & pinned, enemy & ~king);
-        }
+        // if(white) {
+        //     generate_white_pawn_moves(pawn & pinned, empty);
+        //     generate_white_pawn_attack(pawn & pinned, enemy & ~king);
+        // } else {
+        //     generate_black_pawn_moves(pawn & pinned, empty);
+        //     generate_black_pawn_attack(pawn & pinned, enemy & ~king);
+        // }
 
-        generate_bishop_move_or_attack(bishop & pinned, empty);
-        generate_bishop_move_or_attack(bishop & pinned, enemy & ~king);
-        generate_rook_move_or_attack(rook & pinned, empty);
-        generate_rook_move_or_attack(rook & pinned, enemy & ~king);
-        generate_queen_move_or_attack(queen & pinned, empty);
-        generate_queen_move_or_attack(queen & pinned, enemy & ~king);
-        generate_knight_move(knight & pinned, empty);
-        generate_knight_attack(knight & pinned, enemy & ~king);
+        // generate_bishop_move_or_attack(bishop & pinned, empty);
+        // generate_bishop_move_or_attack(bishop & pinned, enemy & ~king);
+        // generate_rook_move_or_attack(rook & pinned, empty);
+        // generate_rook_move_or_attack(rook & pinned, enemy & ~king);
+        // generate_queen_move_or_attack(queen & pinned, empty);
+        // generate_queen_move_or_attack(queen & pinned, enemy & ~king);
+        // generate_knight_move(knight & pinned, empty);
+        // generate_knight_attack(knight & pinned, enemy & ~king);
 
     }
 
@@ -312,12 +407,12 @@ public class MoveGenerator extends Constants {
 
         // NON PINNED ATTACK
 
-        generate_bishop_move_or_attack(bishop & ~pinned, checking_piece);
-        generate_rook_move_or_attack(rook & ~pinned, checking_piece);
-        generate_queen_move_or_attack(queen & ~pinned, checking_piece);
-        generate_knight_attack(knight & ~pinned, checking_piece);
-        if(white){generate_white_pawn_attack(pawn & ~pinned, checking_piece);}
-        else{generate_black_pawn_attack(pawn & ~pinned, checking_piece);}
+        // generate_bishop_move_or_attack(bishop & ~pinned, checking_piece);
+        // generate_rook_move_or_attack(rook & ~pinned, checking_piece);
+        // generate_queen_move_or_attack(queen & ~pinned, checking_piece);
+        // generate_knight_attack(knight & ~pinned, checking_piece);
+        // if(white){generate_white_pawn_attack(pawn & ~pinned, checking_piece);}
+        // else{generate_black_pawn_attack(pawn & ~pinned, checking_piece);}
         
     }
 
