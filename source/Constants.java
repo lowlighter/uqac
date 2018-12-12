@@ -102,13 +102,15 @@ public abstract class Constants {
 
     /** Analyse des coups */
     
-    protected static final short MOVE_TO = 0b0000111111000000;
-    protected static final short MOVE_FROM =   0b0000000000111111;
-    protected static final short MOVE_PROMOTE = 0b0100000000000000;
-    protected static final short MOVE_PROMOTE_KNIGHT = 0b0100000000000000;
-    protected static final short MOVE_PROMOTE_ROOK = 0b0101000000000000;
-    protected static final short MOVE_PROMOTE_BISHOP = 0b0110000000000000;
-    protected static final short MOVE_PROMOTE_QUEEN = 0b0111000000000000;
+    protected static final short MOVE_TO =             0b0000111111000000;
+    protected static final short MOVE_FROM =           0b0000000000111111;
+    protected static final short MOVE_PROMOTE =        0b0100000000000000;
+    protected static final short MOVE_PROMOTE_KNIGHT = 0b0000000000000000;
+    protected static final short MOVE_PROMOTE_ROOK =   0b0001000000000000;
+    protected static final short MOVE_PROMOTE_BISHOP = 0b0010000000000000;
+    protected static final short MOVE_PROMOTE_QUEEN =  0b0011000000000000;
+    protected static final short MOVE_EN_PASSANT =     0b1000000000000000;
+    protected static final short MOVE_ROQUE =          0b1100000000000000;
 
     /** Lignes */
 
