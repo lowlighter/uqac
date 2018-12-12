@@ -104,7 +104,18 @@ public class Board extends Bitboards {
         return Long.numberOfTrailingZeros(king_pawns);
     }
 
+    /**
+     * Indique si la piece est flag
+     * @param piece
+     */
+    public void print_isflagged(String piece) {
+        System.out.println(flagged(piece.charAt(0), piece.length() == 3 ? fromUCI(piece.substring(1, 3)) : VOID) ? "yes" : "no");
+    }
 
+    /**
+     * Indique si un unique mouvement est légal
+     * @param move
+     */
     public void print_islegal(String move) {
         List<Move> lmoves = generator.get_legal_moves(color(at(fromUCI(move.substring(0, 2)))));
         List<String> slmoves = new ArrayList<>();
@@ -114,6 +125,9 @@ public class Board extends Bitboards {
         System.out.println(slmoves.contains(move) ? "yes" : "no");
     }
 
+    /**
+     * Affiche tous les mouvements légaux
+     */
     public void print_legal() {
         List<Move> lmoves = generator.get_legal_moves(WHITE);
         System.out.println("info legal moves (WHITE) : ");
@@ -131,6 +145,9 @@ public class Board extends Bitboards {
         System.out.println(sb.toString());
     }
 
+    /**
+     * Affiche le tour du jeu
+     */
     public void print_turn() {
         System.out.println("info turn : "+(player_turn() == WHITE ? "WHITE" : "BLACK"));
     }

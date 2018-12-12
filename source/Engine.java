@@ -18,7 +18,7 @@ public class Engine {
         board = new Board(true);
 
         BestMove.init();
-        
+     
         //Boucle principale
         while (true) {
 
@@ -91,6 +91,7 @@ public class Engine {
         if ((input.length == 2)&&(input[1].equals("legal"))) board.print_legal();
         if ((input.length == 2)&&(input[1].equals("turn"))) board.print_turn();
         if ((input.length == 3)&&(input[1].equals("islegal"))) board.print_islegal(input[2]);
+        if ((input.length == 3)&&(input[1].equals("isflagged"))) board.print_isflagged(input[2]);
     }
 
     /**

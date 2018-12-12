@@ -44,7 +44,26 @@ public abstract class Bitboards extends Constants {
     private List<Character> moves_taken = new ArrayList<>();
     /** Liste des promotions qui ont eu lieu. */
     private List<Character> moves_promoted = new ArrayList<>();
+    /** Liste des flags déclenché par un déplacement (e.g. le déplacement des tours pour le roque) */
+    private List<Long> moves_flags = new ArrayList<>();
 
+    /**
+     * Indique si la piece est flaggé
+     * Ici, cela indique si la pièce a effectué 
+     * @param piece
+     * @param origin
+     * @return
+     */
+    public boolean flagged(char piece, long origin) {
+        System.out.println(piece+" from "+toUCI(origin));
+
+        if ((piece == WHITE_ROOK)||(piece == BLACK_ROOK))
+            return moves_flags.indexOf(origin) >= 0;
+        if ((piece == WHITE_KING)||(piece == BLACK_KING))
+            return moves_piece.indexOf(piece) >= 0;
+        return false;
+    }
+    
     /** Notation du dernier coup joué (en entier tel qu'il est passé dans arena). */
     protected String last_move = "";
 
@@ -111,6 +130,7 @@ public abstract class Bitboards extends Constants {
         moves_piece.clear();
         moves_taken.clear();
         moves_promoted.clear();
+        moves_flags.clear();
 
         //Initialisation des pièces blanches
         bb_wp = 0b0000000000000000000000000000000000000000000000001111111100000000L;
@@ -139,6 +159,7 @@ public abstract class Bitboards extends Constants {
         //Analyse du coup
         char piece = at(from);
         char taken = at(to);
+        long flag = VOID;
 
         //Gestion du roque 
         if (piece == WHITE_KING) {
@@ -153,6 +174,10 @@ public abstract class Bitboards extends Constants {
             if ((from == E8)&&(to == C8))
                 move(BLACK_ROOK, A8, D8);
         }
+        if ((piece == WHITE_ROOK)&&(from == A1)) flag = A1;
+        if ((piece == WHITE_ROOK)&&(from == H1)) flag = H1;
+        if ((piece == BLACK_ROOK)&&(from == A8)) flag = A8;
+        if ((piece == BLACK_ROOK)&&(from == H1)) flag = H8;
 
         //Déplacement de la pièce (et prise de la pièce adverse)
         move(piece, from, to);
@@ -169,6 +194,7 @@ public abstract class Bitboards extends Constants {
         moves_piece.add(piece);
         moves_taken.add(taken);
         moves_promoted.add(promoted);
+        moves_flags.add(flag);
     }
     public void apply(String move) {
         apply(fromUCI(move.substring(0, 2)), fromUCI(move.substring(2, 4)), move.length() == 5 ? move.charAt(4) : PROMOTED_VOID);
@@ -227,6 +253,7 @@ public abstract class Bitboards extends Constants {
         moves_piece.remove(index);
         moves_taken.remove(index);
         moves_promoted.remove(index);
+        moves_flags.remove(index);
     }
 
     /**
