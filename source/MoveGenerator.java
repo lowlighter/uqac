@@ -18,6 +18,9 @@ public class MoveGenerator extends Constants {
     // Bitboards de ligne/diagonales de cases entre deux index
     private static final long[][] INTERCASE = new long[64][64];
 
+    // Bitboards de ligne/diagonales de cases de la direction roi-bout de la ligne/diagonales
+    private static final long[][] XRAY = new long[64][64];
+
     // Bit shift for magic bitboard
     private static final int[] B_BISHOP = new int[64];
     private static final int[] B_ROOK = new int[64];
@@ -34,8 +37,8 @@ public class MoveGenerator extends Constants {
     private long[] rook_bmask;
 
     // Combinaison des bloqueur possibles
-    private long[][] rook_blkb;
-    private long[][] bishop_blkb;
+    private long[][] rook_blkb = new long[64][];
+    private long[][] bishop_blkb = new long[64][];
 
     // Combinaison des mouvements possibles
     private long[][] rook_moveb= new long[64][];
@@ -58,6 +61,13 @@ public class MoveGenerator extends Constants {
     MoveGenerator(Board board) {
         this.board = board;
         init();
+        print_all_bits(XRAY[60][53]);
+        print_all_bits(XRAY[26][19]);
+        print_all_bits(XRAY[29][36]);
+        print_all_bits(XRAY[27][34]);
+        print_all_bits(XRAY[19][26]);
+        print_all_bits(XRAY[13][20]);
+        
     }
 
     
@@ -65,6 +75,7 @@ public class MoveGenerator extends Constants {
     private void init(){
 
         init_intercase_matrix();
+        init_xray_matrix();
         init_king_mask();
         init_knight_mask();
         init_magic();
@@ -81,12 +92,12 @@ public class MoveGenerator extends Constants {
 
         // BISHOP
         
-        bishop_blkb = init_blocker_board(bishop_bmask);
+        init_blocker_board(bishop_bmask, bishop_blkb);
         init_bishop_move_board();
 
         // ROOK
         
-        rook_blkb = init_blocker_board(rook_bmask);
+        init_blocker_board(rook_bmask, rook_blkb);
         init_rook_move_board();
 
     }
@@ -101,29 +112,26 @@ public class MoveGenerator extends Constants {
 
     
     /** Calculs tous les blocker boards possibles */
-    private long[][] init_blocker_board(long[] bmask) {
-
-		long[][] blocker_board = new long[64][];
+    private void init_blocker_board(long[] bmask, long[][] blocker_board) {
+   
 		for (int i = 0; i < 64; i++) {
 			int bits_count = (int) (1L << Long.bitCount(bmask[i]));
 			blocker_board[i] = new long[bits_count];
-
 			for (int j = 1; j < bits_count; j++) {
-				long mask = bmask[i];
-
-				for (int k = Integer.numberOfTrailingZeros(j); k < 32; k++) {
-					if (((1L << k) & j) != 0) {
+                long mask = bmask[i];
+                int k=0;
+                while(k < 32){
+                    if (((1 << k) & j) != 0) {
 						blocker_board[i][j] |= Long.lowestOneBit(mask);
-					}
-					mask &= mask - 1;
-				}
+                    }
+                    mask &= mask - 1;
+                    k++;
+                }
 			}
 		}
-
-		return blocker_board;
     }
 
-    /** Renvois la liste des mouvements possibles pour un tour */
+    /**  Matrice des Bitboards de ligne/diagonales entre deux pieces */
     private void init_intercase_matrix(){
 
         for(int i=0; i<64; i++){
@@ -132,7 +140,6 @@ public class MoveGenerator extends Constants {
                 if(i / NORTH == j / NORTH){
                     for(int k= i + EAST; k <= j - EAST; k += EAST){
                         INTERCASE[i][j] |= (1L << k);
-                        
                     }
                 }
 
@@ -164,6 +171,104 @@ public class MoveGenerator extends Constants {
                 INTERCASE[i][j] = INTERCASE[j][i];
             }
         }
+    }
+
+
+    private void init_xray_matrix(){
+
+        for(int i=0; i<64; i++){
+            for(int j=0; j<64; j++){
+                if(i == j) { continue;}
+                int borne, pas;
+                int substract = j - i;  
+                int side;
+                int king_row = i / 8;
+                int king_col = i % 8;
+                int piece_row = j / 8;
+                int piece_col = j % 8;
+
+                if(king_col == piece_col){
+                    pas = (substract >0) ? 8 : -8;
+                    borne = (substract > 0) ? i + ((8 - king_row) * 8) : i - (king_row + 1) * 8;
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if (king_row == piece_row) {
+                    pas = (substract >0) ? 1 : -1;
+                    borne = (substract > 0) ? i + (8 - king_col) : i - (king_col + 1);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if(substract % 7 == 0 && king_col != piece_col){
+                    pas = (substract >0) ? 7 : -7;
+                    side = (king_col + king_row >= 8) ?  8 - king_row : king_col +1;
+                    borne = (substract > 0) ? i + (side * 7) : i - (side * 7);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+
+
+            }
+        }
+    }
+    /**  Bitboards de ligne/diagonales de cases de la direction roi-piece au bout de la ligne/diagonales */
+    private void init_xray_matrixx(){
+
+        for(int i=0; i<64; i++){
+            for(int j=0; j<64; j++){
+                if(i == j) { continue;}
+                int borne, pas;
+                int substract = j - i;  
+                int side;
+                int king_row = i / 8;
+                int king_col = i % 8;
+                int piece_row = j / 8;
+                int piece_col = j % 8;
+                
+
+                if(substract % 7 == 0 && king_col != piece_col){
+                    pas = (substract >0) ? 7 : -7;
+                    side = (king_col + king_row > 8) ?  8 - king_row : king_col +1;
+                    borne = (substract > 0) ? i + (side * 7) : i - (side * 7);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if(king_col == piece_col){
+                    pas = (substract >0) ? 8 : -8;
+                    borne = (substract > 0) ? i + ((8 - king_row) * 8) : i - (king_row + 1) * 8;
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if(substract % 9 == 0 && king_col != piece_col){
+                    pas = (substract >0) ? 9 : -9;
+                    side = (king_col - king_row < 0) ? king_row : king_col;
+                    borne = (substract > 0) ? i + ((8 - side) * 9) : i - ((8-side) * 9);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+
+                if (king_row == piece_row) {
+                    pas = (substract >0) ? 1 : -1;
+                    borne = (substract > 0) ? i + (8 - king_col) : i - (king_col + 1);
+                    for(int k=i; k!= borne; k+=pas){
+                        XRAY[i][j] |= (1L << k);
+                    }
+                }
+                
+            }
+        }
+
     }
     
     /***********************************************************************************************************************/
@@ -233,25 +338,30 @@ public class MoveGenerator extends Constants {
         generate_rook_move_or_attack(rook & ~pinned, enemy & ~king);
         generate_queen_move_or_attack(queen & ~pinned, empty);
         generate_queen_move_or_attack(queen & ~pinned, enemy & ~king);
+        generate_knight_move(knight & ~pinned, empty);
+        generate_knight_attack(knight & ~pinned, enemy & ~king);
 
         king_moves(white);
 
         // PIECES PINNED
 
-        if(white) {
-            generate_white_pawn_moves(pawn & pinned, empty);
-            generate_white_pawn_attack(pawn & pinned, enemy & ~king);
-        } else {
-            generate_black_pawn_moves(pawn & pinned, empty);
-            generate_black_pawn_attack(pawn & pinned, enemy & ~king);
-        }
+        // if(white) {
+        //     generate_white_pawn_moves(pawn & pinned, empty);
+        //     generate_white_pawn_attack(pawn & pinned, enemy & ~king);
+        // } else {
+        //     generate_black_pawn_moves(pawn & pinned, empty);
+        //     generate_black_pawn_attack(pawn & pinned, enemy & ~king);
+        // }
 
-        generate_bishop_move_or_attack(bishop & pinned, empty);
-        generate_bishop_move_or_attack(bishop & pinned, enemy & ~king);
-        generate_rook_move_or_attack(rook & pinned, empty);
-        generate_rook_move_or_attack(rook & pinned, enemy & ~king);
-        generate_queen_move_or_attack(queen & pinned, empty);
-        generate_queen_move_or_attack(queen & pinned, enemy & ~king);
+        // generate_bishop_move_or_attack(bishop & pinned, empty);
+        // generate_bishop_move_or_attack(bishop & pinned, enemy & ~king);
+        // generate_rook_move_or_attack(rook & pinned, empty);
+        // generate_rook_move_or_attack(rook & pinned, enemy & ~king);
+        // generate_queen_move_or_attack(queen & pinned, empty);
+        // generate_queen_move_or_attack(queen & pinned, enemy & ~king);
+        // generate_knight_move(knight & pinned, empty);
+        // generate_knight_attack(knight & pinned, enemy & ~king);
+
     }
 
     /** Restriction des mouvements possibles pour s'enlever d'un echec
@@ -259,8 +369,9 @@ public class MoveGenerator extends Constants {
     */
     private void secure_king(boolean white, long checking_piece){
         long pinned = compute_pinned_pieces(white);
-        long pawn, rook, bishop, queen, king, knight;
+        long pawn, rook, bishop, queen, king, knight, enemy_knight;;
         long empty = board.get_empty();
+        
 
         if(white){
             pawn = board.bb_wp;
@@ -269,6 +380,7 @@ public class MoveGenerator extends Constants {
             queen = board.bb_wq;
             king = board.bb_wk;
             knight = board.bb_wn;
+            enemy_knight = board.bb_bn;
         } else {
             pawn = board.bb_bp;
             rook = board.bb_br;
@@ -276,6 +388,7 @@ public class MoveGenerator extends Constants {
             queen = board.bb_bq;
             king = board.bb_bk;
             knight = board.bb_bn;
+            enemy_knight = board.bb_wn;
         }
 
         // Mouvement & attaque du roi pour qu'ils se mettent lui même à l'abris
@@ -283,21 +396,23 @@ public class MoveGenerator extends Constants {
 
         // Si ce n'est pas un knight et qu'il y a une place pour s'interposer on calcul les mouvements pour s'interposer, sinon on ne le fait pas
         long spaces = INTERCASE[Long.numberOfTrailingZeros(checking_piece)][board.get_king_position(white)];
-        if((checking_piece & knight) != 0 &&  spaces != 0) {
+        if((checking_piece & enemy_knight) != 0 &&  spaces != 0) {
             generate_bishop_move_or_attack(bishop & ~pinned, empty & spaces);
             generate_rook_move_or_attack(rook & ~pinned, empty & spaces);
             generate_queen_move_or_attack(queen & ~pinned, empty & spaces);
+            generate_knight_move(knight & ~pinned, empty & spaces);
             if(white){generate_white_pawn_moves(pawn & ~pinned, empty & spaces);}
             else {generate_black_pawn_moves(pawn & ~pinned, empty & spaces);}
         }
 
         // NON PINNED ATTACK
 
-        generate_bishop_move_or_attack(bishop & ~pinned, checking_piece);
-        generate_rook_move_or_attack(rook & ~pinned, checking_piece);
-        generate_queen_move_or_attack(queen & ~pinned, checking_piece);
-        if(white){generate_white_pawn_attack(pawn & ~pinned, checking_piece);}
-        else{generate_black_pawn_attack(pawn & ~pinned, checking_piece);}
+        // generate_bishop_move_or_attack(bishop & ~pinned, checking_piece);
+        // generate_rook_move_or_attack(rook & ~pinned, checking_piece);
+        // generate_queen_move_or_attack(queen & ~pinned, checking_piece);
+        // generate_knight_attack(knight & ~pinned, checking_piece);
+        // if(white){generate_white_pawn_attack(pawn & ~pinned, checking_piece);}
+        // else{generate_black_pawn_attack(pawn & ~pinned, checking_piece);}
         
     }
 
@@ -517,8 +632,8 @@ public class MoveGenerator extends Constants {
      * @param pieces liste des pièces sur le board
      */
 
-    private long queen_movebb(int index, long pieces) {
-		return rook_movebb(index, pieces) & bishop_movebb(index, pieces);
+    public long queen_movebb(int index, long pieces) {
+		return rook_movebb(index, pieces) | bishop_movebb(index, pieces);
     }
 
 
@@ -567,7 +682,7 @@ public class MoveGenerator extends Constants {
 		for (int i = 0; i < 64; i++) {
 			rook_moveb[i] = new long[rook_blkb[i].length];
 			for (int j = 0; j < rook_blkb[i].length; j++) {
-				long new_move = 0;
+				long new_move = 0L;
                 int magic = (int) ((rook_blkb[i][j] * MAGIC_R[i]) >>> B_ROOK[i]);
                 
                 // Une fois un blocker atteint, on ne peut plus continuer le mouvement, alors on break
@@ -606,7 +721,7 @@ public class MoveGenerator extends Constants {
      * @param index indice de la case du rook
      * @param pieces liste des pièces sur le board
      */
-    private long rook_movebb(int index, long pieces) {
+    public long rook_movebb(int index, long pieces) {
 		return rook_moveb[index][(int) ((pieces & rook_bmask[index]) * MAGIC_R[index] >>> B_ROOK[index])];
     }
     
@@ -619,7 +734,8 @@ public class MoveGenerator extends Constants {
 
         while(pieces != 0) {
             int start = Long.numberOfTrailingZeros(pieces);
-            long new_moves = rook_movebb(start, board.global_occupancy()) & restriction;
+            long board_occ = board.global_occupancy();
+            long new_moves = rook_movebb(start, board_occ) & restriction;
             while(new_moves != 0){
                 int target = Long.numberOfTrailingZeros(new_moves);
                 moves.add(new Move(start + (target << 6)));
@@ -714,7 +830,7 @@ public class MoveGenerator extends Constants {
      * @param pieces liste des pièces sur le board
      */
 
-	private long bishop_movebb(int index, long pieces) {
+	public long bishop_movebb(int index, long pieces) {
 		return bishop_moveb[index][(int) ((pieces & bishop_bmask[index]) * MAGIC_B[index] >>> B_BISHOP[index])];
     }
     
@@ -727,7 +843,8 @@ public class MoveGenerator extends Constants {
 
         while(pieces != 0) {
             int start = Long.numberOfTrailingZeros(pieces);
-            long new_moves = bishop_movebb(start, board.global_occupancy()) & restriction;
+            long board_occ = board.global_occupancy();
+            long new_moves = bishop_movebb(start, board_occ) & restriction;
             while(new_moves != 0){
                 int target = Long.numberOfTrailingZeros(new_moves);
                 moves.add(new Move(start + (target << 6)));
@@ -890,9 +1007,8 @@ public class MoveGenerator extends Constants {
      */
 
     private long pawn_right_attack_bb(boolean white, long pawns){
-        return (white) ? (pawns >> NORTH_EAST) & ~COLUMN_A : (pawns << NORTH_EAST) & ~COLUMN_H;
+        return (white) ? (pawns << NORTH_EAST) & ~COLUMN_H : (pawns >> NORTH_EAST) & ~COLUMN_H;
     }
-
 
     /** Renvois sous forme d'un bitboard les attaques à gauche possibles des pions d'un joueur
      * @param white couleur du joueur dont c'est le tour
@@ -900,8 +1016,8 @@ public class MoveGenerator extends Constants {
      */
 
     private long pawn_left_attack_bb(boolean white, long pawns){
-        return (white) ? (pawns >> NORTH_WEST) & ~COLUMN_H : (pawns << NORTH_WEST) & ~COLUMN_A;
-    }
+        return (white) ?  (pawns << NORTH_WEST) & ~COLUMN_A : (pawns >> NORTH_WEST) & ~COLUMN_A;
+    }                                                              
     
 
 
@@ -1047,7 +1163,7 @@ public class MoveGenerator extends Constants {
 
          // GENERATION ATTAQUE GAUCHE
 
-        long new_pawn = (my_pawn >> NORTH_WEST) & enemy_pieces & ~COLUMN_H & ~last_row;
+        long new_pawn = (my_pawn >> NORTH_WEST) & enemy_pieces & ~COLUMN_A & ~last_row;
         for(int i= Long.numberOfTrailingZeros(new_pawn); i< 64; i++){
             if(((new_pawn>>i) & 1) != 0) {
                 moves.add(new Move((i+7) + (i<<6)));
@@ -1055,7 +1171,7 @@ public class MoveGenerator extends Constants {
         }
         // GENERATION ATTAQUE DROITE
 
-        new_pawn = (my_pawn >> NORTH_EAST) & enemy_pieces & ~COLUMN_A & ~last_row;
+        new_pawn = (my_pawn >> NORTH_EAST) & enemy_pieces & ~COLUMN_H & ~last_row;
         for(int i= Long.numberOfTrailingZeros(new_pawn); i< 64; i++){
             if(((new_pawn>>i) & 1) != 0) {
                 moves.add(new Move((i+9) + (i<<6)));
@@ -1064,7 +1180,7 @@ public class MoveGenerator extends Constants {
 
         // PROMOTION
 
-        new_pawn = (my_pawn >> NORTH_WEST) & enemy_pieces & ~COLUMN_H & last_row;
+        new_pawn = (my_pawn >> NORTH_WEST) & enemy_pieces & ~COLUMN_A & last_row;
         for(int i= Long.numberOfTrailingZeros(new_pawn); i< 64; i++){
             if(((new_pawn>>i) & 1) != 0) {
                 moves.add(new Move((i+7) + (i<<6) + (1<<14)));
@@ -1074,7 +1190,7 @@ public class MoveGenerator extends Constants {
             }
         }
 
-        new_pawn = (my_pawn >> NORTH_EAST) & enemy_pieces & ~COLUMN_A & last_row;
+        new_pawn = (my_pawn >> NORTH_EAST) & enemy_pieces & ~COLUMN_H & last_row;
         for(int i= Long.numberOfTrailingZeros(new_pawn); i< 64; i++){
             if(((new_pawn>>i) & 1) != 0) {
                 moves.add(new Move((i+9) + (i<<6) + (1<<14)));
