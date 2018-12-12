@@ -52,8 +52,7 @@
             let expected = asserts[test][0].trim()
             if (expected !== line) { 
               console.log(`\x1b[33m${`    Expected <${expected}> but got <${line}>`}\x1b[0m`)
-              ok = false ; 
-              break 
+              ok = false
             }
             asserts[test].shift()
           }
