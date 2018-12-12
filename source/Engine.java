@@ -18,7 +18,7 @@ public class Engine {
         board = new Board(true);
 
         BestMove.init();
-     
+    
         //Boucle principale
         while (true) {
 

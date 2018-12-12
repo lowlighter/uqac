@@ -55,8 +55,6 @@ public abstract class Bitboards extends Constants {
      * @return
      */
     public boolean flagged(char piece, long origin) {
-        System.out.println(piece+" from "+toUCI(origin));
-
         if ((piece == WHITE_ROOK)||(piece == BLACK_ROOK))
             return moves_flags.indexOf(origin) >= 0;
         if ((piece == WHITE_KING)||(piece == BLACK_KING))

@@ -108,8 +108,14 @@ public class Board extends Bitboards {
      * Indique si la piece est flag
      * @param piece
      */
-    public void print_isflagged(String piece) {
-        System.out.println(flagged(piece.charAt(0), piece.length() == 3 ? fromUCI(piece.substring(1, 3)) : VOID) ? "yes" : "no");
+    public void print_isflagged(String test) {
+        char piece = test.charAt(0);
+        long origin = VOID;
+        if (test.length() == 2) {
+            if (piece == WHITE_ROOK) origin = test.charAt(1) == 'a' ? A1 : H1;
+            if (piece == BLACK_ROOK) origin = test.charAt(1) == 'a' ? A8 : H8;
+        }
+        System.out.println(flagged(piece, origin) ? "yes" : "no");
     }
 
     /**
