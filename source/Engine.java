@@ -90,6 +90,7 @@ public class Engine {
         if ((input.length == 2)&&(input[1].equals("dominance"))) board.dominance();
         if ((input.length == 2)&&(input[1].equals("legal"))) board.print_legal();
         if ((input.length == 2)&&(input[1].equals("turn"))) board.print_turn();
+        if ((input.length == 3)&&(input[1].equals("islegal"))) board.print_islegal(input[2]);
     }
 
     /**

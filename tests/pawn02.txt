@@ -1,4 +1,3 @@
->>> position startpos
 >>> position startpos moves e7e6
 >>> print
 

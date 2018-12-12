@@ -100,9 +100,17 @@ public abstract class Constants {
     protected static final long G8 = (1L << 62); 
     protected static final long H8 = (1L << 63);
 
-
-    protected static final short MOVE_TO = 0b0000111111000000;
-    protected static final short MOVE_FROM =   0b0000000000111111;
+    /** Analyse des coups */
+    
+    protected static final short MOVE_TO =             (short) 0b0000111111000000;
+    protected static final short MOVE_FROM =           (short) 0b0000000000111111;
+    protected static final short MOVE_PROMOTE =        (short) 0b0100000000000000;
+    protected static final short MOVE_PROMOTE_KNIGHT = (short) 0b0000000000000000;
+    protected static final short MOVE_PROMOTE_ROOK =   (short) 0b0001000000000000;
+    protected static final short MOVE_PROMOTE_BISHOP = (short) 0b0010000000000000;
+    protected static final short MOVE_PROMOTE_QUEEN =  (short) 0b0011000000000000;
+    protected static final short MOVE_EN_PASSANT =     (short) 0b1000000000000000;
+    protected static final short MOVE_CASTLING =       (short) 0b1100000000000000;
 
     /** Lignes */
 
