@@ -1,5 +1,3 @@
->>> position startpos
->>> position startpos moves b2b4
 >>> position startpos moves b2b4 c7c5
 >>> position startpos moves b2b4
 >>> print
