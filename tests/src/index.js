@@ -3,7 +3,10 @@
   const fs = require("fs")
   const path = require("path")
   const {chunksToLinesAsync, chomp} = require("@rauschma/stringio")
-  
+
+//Verbose
+  const verbose = process.argv.length > 3 ? process.argv[3] === "-v" : false
+
 //Récupération des fichiers de tests
   const tests = {}, asserts = {}
   fs
@@ -47,7 +50,7 @@
       //Vérification de la sortie
         let ok = true
         while (asserts[test].length) {
-          console.log(`    \x1b[90m${line}\x1b[0m`)
+          if ((line.length)&&(verbose)) console.log(`    \x1b[90m${line}\x1b[0m`)
           if ((!/ignore/.test(line))&&(line.length)) {
             let expected = asserts[test][0].trim()
             if (expected !== line) { 
@@ -56,12 +59,14 @@
             }
             asserts[test].shift()
           }
+          if (!asserts[test].length) break
           line = yield false
         }
 
       //Résultat
         ok ? console.log(`\x1b[32m${"    > OK"}\x1b[0m`) : console.log(`\x1b[31m${"    > KO"}\x1b[0m`)
         success += ok
+        if (verbose) console.log("");
     }
 
     //Résultat final
