@@ -1,0 +1,5 @@
+>>> position startpos moves e2e4 e7e5 f1c4 h7h5 g1h3 g7g5 e1e2 f7f5 e2e1 d7d5 
+>>> print isflagged K
+
+# ASSERT
+yes

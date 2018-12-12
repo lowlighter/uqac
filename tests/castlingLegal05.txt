@@ -1,0 +1,6 @@
+>>> position startpos moves e2e4 e7e5 f1c4 h7h5 g1h3 g7g5 h1g1 f7f5 g1h1 d7d5 
+>>> print islegal e1g1
+>>> print isflagged ra1/ra8/Rh1/Rh8/k/K
+
+# ASSERT
+no
