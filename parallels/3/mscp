@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for u in {1..15}
+do
+ scp $1 server$u:$1
+done
