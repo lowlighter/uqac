@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 /** 
  * Plateau de jeu.
  * Fonctionne avec des bitboards.
@@ -103,6 +104,15 @@ public class Board extends Bitboards {
         return Long.numberOfTrailingZeros(king_pawns);
     }
 
+
+    public void print_islegal(String move) {
+        List<Move> lmoves = generator.get_legal_moves(color(at(fromUCI(move.substring(0, 2)))));
+        List<String> slmoves = new ArrayList<>();
+        for (Move lmove : lmoves) {
+            slmoves.add(Board.toUCI(lmove));
+        }
+        System.out.println(slmoves.contains(move) ? "yes" : "no");
+    }
 
     public void print_legal() {
         List<Move> lmoves = generator.get_legal_moves(WHITE);
