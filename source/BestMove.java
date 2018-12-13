@@ -122,7 +122,7 @@ public abstract class BestMove extends Constants {
                 score += color * -51 * week_queen(c,color,state);
             // roques
 
-            score += piece_mg(piece,color,c,state);
+            score += color * piece_mg(piece,color,c,state);
         }
 
         return score;
@@ -140,7 +140,32 @@ public abstract class BestMove extends Constants {
             v += nOutPost[bishop_knight_outpost(c, color, state)];
         if(piece == ANY_BISHOP)
             v += bOutPost[bishop_knight_outpost(c, color, state)];
+        if(piece == ANY_ROOK)
+            v += rook_on_pawn(c, color, state);
+
         return v;
+    }
+
+    private static int rook_on_pawn(int c, int color, Board state) {
+        int col = c%8;
+        int ligne = c/8;
+        int v = 0;
+
+	    if(color == 1) {
+	        if(ligne < 3) return 0;
+	        for(int x = 0; x < 8; ++x) {
+	            if((0b1L << (ligne*8+x) & state.bb_bp) > 0) v++;
+	            if((0b1L << (x*8+col) & state.bb_bp) > 0) v++;
+            }
+        }
+	    else {
+            if(ligne > 4) return 0;
+            for(int x = 0; x < 8; ++x) {
+                if((0b1L << (ligne*8+x) & state.bb_wp) > 0) v++;
+                if((0b1L << (x*8+col) & state.bb_wp) > 0) v++;
+            }
+        }
+	    return v;
     }
 
     private static int bishop_knight_outpost( int c, int color, Board state) {
