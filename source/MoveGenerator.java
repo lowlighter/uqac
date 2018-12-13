@@ -400,7 +400,14 @@ public class MoveGenerator extends Constants {
             else {generate_black_pawn_moves(pawn & ~pinned, empty & spaces);}
         }
 
-        // NON PINNED ATTACK
+
+        // PINNED ATTACK
+            generate_bishop_move_or_attack(bishop & ~pinned, checking_piece);
+            generate_rook_move_or_attack(rook & ~pinned, checking_piece);
+            generate_queen_move_or_attack(queen & ~pinned, checking_piece);
+            generate_knight_attack(knight & ~pinned, checking_piece);
+        
+        //  PINNED ATTACK
 
         while(pinned != 0){
             int pinned_pos= Long.numberOfTrailingZeros(pinned);
