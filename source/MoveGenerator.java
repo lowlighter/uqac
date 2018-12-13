@@ -351,9 +351,6 @@ public class MoveGenerator extends Constants {
         
             pinned &= pinned -1;
         }
-        
-
-
 
     }
 
@@ -391,7 +388,10 @@ public class MoveGenerator extends Constants {
 
         // Si ce n'est pas un knight et qu'il y a une place pour s'interposer on calcul les mouvements pour s'interposer, sinon on ne le fait pas
         long spaces = INTERCASE[Long.numberOfTrailingZeros(checking_piece)][board.get_king_position(white)];
-        if((checking_piece & enemy_knight) != 0 &&  spaces != 0) {
+       
+        
+
+        if((checking_piece & enemy_knight) == 0 && (spaces != 0)) {
             generate_bishop_move_or_attack(bishop & ~pinned, empty & spaces);
             generate_rook_move_or_attack(rook & ~pinned, empty & spaces);
             generate_queen_move_or_attack(queen & ~pinned, empty & spaces);
@@ -399,7 +399,6 @@ public class MoveGenerator extends Constants {
             if(white){generate_white_pawn_moves(pawn & ~pinned, empty & spaces);}
             else {generate_black_pawn_moves(pawn & ~pinned, empty & spaces);}
         }
-
 
         // PINNED ATTACK
             generate_bishop_move_or_attack(bishop & ~pinned, checking_piece);
@@ -617,12 +616,13 @@ public class MoveGenerator extends Constants {
         int king_pos = board.get_king_position(white);
         long enemy_pawns = (white) ? board.bb_bp : board.bb_wp;
         long enemy_knights = (white) ? board.bb_bn : board.bb_wn;
-        long enemy_rooks = (white) ? board.bb_bn : board.bb_wn;
-        long enemy_bishops = (white) ? board.bb_bn : board.bb_wn;
-        long enemy_queens = (white) ? board.bb_bn : board.bb_wn;
+        long enemy_rooks = (white) ? board.bb_br : board.bb_wr;
+        long enemy_bishops = (white) ? board.bb_bb : board.bb_wb;
+        long enemy_queens = (white) ? board.bb_bq : board.bb_wq;
         long enemy_pieces = enemy_pawns | enemy_knights | enemy_rooks | enemy_queens | enemy_bishops;
         long empty = board.get_empty();
         long enemy_attack = 0L;
+        long board_no_king = board.global_occupancy() & ~(1L<<king_pos);
         
         // On determine les cases potentiellement attaque par l'ennemi pour ne pas s'y deplacer
         enemy_attack |= pawn_right_attack_bb(!white, enemy_pawns);
@@ -630,7 +630,7 @@ public class MoveGenerator extends Constants {
         enemy_attack |= knight_attack_bb(enemy_knights);
 
         // Pour les pieces sliding on enleve le roi, afin d'eviter que le roi soit en echec après le mouvement à cause de la même sliding piece
-        enemy_attack |= slide_attack_bb(enemy_rooks, enemy_bishops, enemy_queens, board.global_occupancy() & ~(1<<king_pos));
+        enemy_attack |= slide_attack_bb(enemy_rooks, enemy_bishops, enemy_queens, board_no_king);
 
         // MOUVEMENTS EN CASE NON ATTAQUEE & VIDE
         long king_move = king_mask[king_pos];
@@ -1069,7 +1069,7 @@ public class MoveGenerator extends Constants {
 
         // GENERATION MOUVEMENT DOUBLE
 
-        new_pawn = (my_pawn << 2 * NORTH) & empty & restriction & (restriction << NORTH) & (empty << NORTH) & double_row;
+        new_pawn = (my_pawn << 2 * NORTH) & empty & restriction & (empty << NORTH) & double_row;
         for(int i= Long.numberOfTrailingZeros(new_pawn); i< 64; i++){
             if(((new_pawn>>i) & 1) != 0) {
                 moves.add(new Move((i-16) + (i<<6)));
@@ -1156,7 +1156,7 @@ public class MoveGenerator extends Constants {
 
         // GENERATION MOUVEMENT DOUBLE
 
-        new_pawn = (my_pawn >> 2 * NORTH) & restriction & empty & (restriction >> NORTH) & (empty >> NORTH) & double_row;
+        new_pawn = (my_pawn >> 2 * NORTH) & restriction & empty & (empty >> NORTH) & double_row;
         for(int i= Long.numberOfTrailingZeros(new_pawn); i< 64; i++){
             if(((new_pawn>>i) & 1) != 0) {
                 moves.add(new Move((i+16) + (i<<6)));
