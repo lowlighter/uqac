@@ -19,7 +19,7 @@ import java.util.HashMap;
 public abstract class BestMove extends Constants {
 
     /** Nombre de threads. */
-    static int THREAD = 0;
+    static int THREAD = 7;
 
     /** Temps max d'exécution des threads (en ms) */
     static int TIMEOUT = 900;

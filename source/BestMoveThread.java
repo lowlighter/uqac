@@ -17,14 +17,15 @@ class BestMoveThread implements Runnable {
 	/** Copie du plateau. */
 	private Board state;
 
+	private int nbthreads = BestMove.THREAD+1;
+
 	/**
 	 * Appel du thread.
 	 * Recherche par alphabeta le meilleur coup.
 	 * Celui-ci est formatté de la façon suivante : uci@score (afin que le thread principal puisse déterminer le meilleur coup)
 	 */
-    public void run() {
-		this.id = Thread.currentThread().getId() % (Math.max(BestMove.THREAD, 1));
-		//System.out.println("info thread "+id+" : started");
+  public void run() {
+		this.id = ((int)Thread.currentThread().getId()) % nbthreads;
 		alphabeta(state);
 	}
 
@@ -32,7 +33,7 @@ class BestMoveThread implements Runnable {
 	private String _best = "@0";
 
 	public String best() {
-		System.out.println("info thread "+id+" : best "+_best);
+		System.out.println("info thread "+id+" : "+_best+" (ignore)");
 		return _best;
 	}
 
@@ -43,7 +44,7 @@ class BestMoveThread implements Runnable {
 	}
 
 	/** Id du thread. */
-	public long id;
+	public int id;
 
 	/** Valeur de l'infini */
 	private static int INFINITY = Integer.MAX_VALUE;
@@ -90,47 +91,47 @@ class BestMoveThread implements Runnable {
 	 */
 	private void alphabeta(Board state) {
 		best(null, 0);
-		//long time = System.currentTimeMillis();
-		int v = 0;
+		long time = System.currentTimeMillis();
+		int v = 0; 
+		Move successor;
 		starting_point = state.moves.size();
 		//Alpha beta (pour les blancs, il s'agit d'une version modifiée du maxvalue qui retient en mémoire le meilleur coup à jouer)
 		if (state.player_turn() == state.WHITE) {
 			for (int depth = 1; depth <= MAXDEPTH; depth++) {
 				//Récursion
-				//System.out.println("info thread "+id+" : depth "+depth+" (started)");
 				v = - INFINITY;
 				int alpha = -INFINITY, beta = +INFINITY;
-				for (Move successor: successors(state)) {
+				List<Move> lsuccessors = successors(state);
+				int size = lsuccessors.size(), chunk = (int) Math.ceil(size/nbthreads);
+				for (int i = id*chunk; i < Math.min((id+1)*chunk+1, size); i++) {  
+					successor = lsuccessors.get(i);                                      
 					state.apply(successor.move);
 					v = Math.max(v, minvalue(state, alpha, beta, depth-1));
-					//state.print();
-					//state.dominance();
-					//System.out.println("info test "+Board.toUCI(successor)+" "+v);
 					state.revert();
 					if (v > alpha) best(successor, v);
 					alpha = Math.max(alpha, v);
 				}
-				//System.out.println("info thread "+id+" : depth "+depth+" (completed in "+(System.currentTimeMillis()-time)+" ms)");
+				if (BestMove.timeout()) break;
+				System.out.println("info thread "+id+" : depth "+depth+" - nodes "+id*chunk+" to "+Math.min((id+1)*chunk, size)+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)");
 			}
 		}
 		//Alpha beta (pour les noirs, il s'agit d'une version modifiée du minvalue qui retient en mémoire le meilleur coup à jouer)
 		else {
 			for (int depth = 1; depth <= MAXDEPTH; depth++) {
 				//Récursion
-				//System.out.println("info thread "+id+" : depth "+depth+" (started)");
 				v = + INFINITY;
 				int alpha = -INFINITY, beta = +INFINITY;
-				for (Move successor: successors(state)) {
-					state.apply(successor.move);
-					//state.print();
-					//state.dominance();
+				List<Move> lsuccessors = successors(state);
+				int size = lsuccessors.size(), chunk = (int) Math.ceil(size/nbthreads);
+				for (int i = id*chunk; i < Math.min((id+1)*chunk+1, size); i++) {    
+					successor = lsuccessors.get(i);         
 					v = Math.min(v, maxvalue(state, alpha, beta, depth-1));
-					//System.out.println("info test "+Board.toUCI(successor)+" "+v);
 					state.revert();
 					if (v < beta) best(successor, v);
 					beta = Math.min(beta, v);
 				}
-				//System.out.println("info thread "+id+" : depth "+depth+" (completed in "+(System.currentTimeMillis()-time)+" ms)");
+				if (BestMove.timeout()) break;
+				System.out.println("info thread "+id+" : depth "+depth+" - nodes "+id*chunk+" to "+Math.min((id+1)*chunk, size)+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)");
 			}
 		}
 	}
@@ -145,7 +146,6 @@ class BestMoveThread implements Runnable {
 	private int maxvalue(Board state, int alpha, int beta, int depth) {
 		//Etat terminal ou profondeur maximale atteinte
 		if ((terminal(state))||(depth < 0)) {
-			//System.out.println("info eval "+state.moves.subList(starting_point, state.moves.size())+" | "+utility(state));
 			return utility(state);
 		}
 		
@@ -154,7 +154,6 @@ class BestMoveThread implements Runnable {
 		for (Move successor: successors(state)) {
 			state.apply(successor.move);
 			v = Math.max(v, minvalue(state, alpha, beta, depth-1));
-			//System.out.println("info max "+state.moves.subList(starting_point, state.moves.size())+" "+v);
 			state.revert();
 			if (v >= beta) return v;
 			alpha = Math.max(alpha, v);
@@ -172,7 +171,6 @@ class BestMoveThread implements Runnable {
 	private int minvalue(Board state, int alpha, int beta, int depth) {
 		//Etat terminal ou profondeur maximale atteinte
 		if ((terminal(state))||(depth < 0)) {
-			//System.out.println("info eval "+state.moves.subList(starting_point, state.moves.size())+" | "+utility(state));
 			return utility(state);
 		}
 		
@@ -181,7 +179,6 @@ class BestMoveThread implements Runnable {
 		for (Move successor: successors(state)) {
 			state.apply(successor.move);
 			v = Math.min(v, maxvalue(state, alpha, beta, depth-1));
-			//System.out.println("info min "+state.moves.subList(starting_point, state.moves.size())+" "+v);
 			state.revert();
 			if (v <= alpha) return v;
 			beta = Math.min(beta, v);

@@ -19,6 +19,9 @@ public class Board extends Bitboards {
         init(is_white);   
     }
 
+    /**
+     * Clone le board.
+     */
     public Board clone() {
         Board b = new Board(this.white);
         b.position(this.last_move);
@@ -27,14 +30,11 @@ public class Board extends Bitboards {
 
     public MoveGenerator generator;
 
+    /**
+     * Retourne le meilleur move à jouer
+     */
     public void bestmove() {
         System.out.println("bestmove "+BestMove.compute(this));
-    }
-
-    public void dominance() {
-        int u = BestMove.utility(this);
-        System.out.println("Dominance : "+u+(u>=0 ? " (WHITE)" : " (BLACK)"));
-        System.out.println("");
     }
 
     /**
@@ -156,5 +156,14 @@ public class Board extends Bitboards {
      */
     public void print_turn() {
         System.out.println("info turn : "+(player_turn() == WHITE ? "WHITE" : "BLACK"));
+    }
+
+    /**
+     * Affiche le score utilité
+     */
+    public void print_utility() {
+        int u = BestMove.utility(this);
+        System.out.println("Score : "+u+(u>=0 ? " (WHITE)" : " (BLACK)"));
+        System.out.println("");
     }
 }

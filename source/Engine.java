@@ -43,8 +43,8 @@ public class Engine {
      * Affiche les informations sur le moteur de jeu.
      */
     private static void uci() {
-        System.out.println("id name Kasparov");
-        System.out.println("id author ???");
+        System.out.println("id name Thanos");
+        System.out.println("id author TheAvengers");
         System.out.println("uciok");
     }
 
@@ -87,7 +87,7 @@ public class Engine {
     private static void print(String in) {
         String[] input = in.split(" ");
         if (input.length == 1) board.print();
-        if ((input.length == 2)&&(input[1].equals("dominance"))) board.dominance();
+        if ((input.length == 2)&&(input[1].equals("utility"))) board.print_utility();
         if ((input.length == 2)&&(input[1].equals("legal"))) board.print_legal();
         if ((input.length == 2)&&(input[1].equals("turn"))) board.print_turn();
         if ((input.length == 3)&&(input[1].equals("islegal"))) board.print_islegal(input[2]);
