@@ -112,15 +112,321 @@ public abstract class BestMove extends Constants {
             
             score += color * ut_val.get(p);
             score += color * ut_mob.get(p)[7- ~~(c/8)][Math.min(c%8, 7-c%8)];
+            // pions
+            if(piece == ANY_PAWN)
+                score += color * pawn_mg(c,p,state);
+            // pièces
+
+            // roques
+
         }
 
-            
         return score;
         //bonus[i][7 - square.y][Math.min(square.x, 7 - square.x)];
         
         //King danger
 	}
-    
+
+
+
+    /**
+     * calcule l'utilité d'un pion mid game
+     * @param c position du pion
+     * @param color couleur de la piece
+     * @param state plateau
+     * @return utilite du pion
+     */
+    private static int pawn_mg(int c, int color, Board state) {
+	    int v = 0;
+	    v -= isolated(c,color, state) ? 5 : 0;
+	    v -= backward(c,color, state) ? 9 : 0;
+	    v += connected(c,color, state) ? co_bonus(c,color, state) : 0;
+
+	    return v;
+    }
+
+    /**
+     * verifie si pion isolé
+     * @param c position du pion
+     * @param color couleur de la piece
+     * @param state plateau
+     * @return vrai si isolé
+     */
+    private static boolean isolated(int c, int color, Board state) {
+
+        // verifie si pion a un pion allié dans une colonne adjacente
+        int col = c%8;
+        // si colonne A
+        if(color == 1) {
+            if(col == 0)
+                for(int l = 0 ; l < 7 ; ++l) {
+                    if(((0b1L << ((col+(8*l))+1)) & state.bb_wp) > 0) {
+                        return false;
+                    }
+                }
+                // ou H
+            else if(col == 7)
+                for(int l = 0 ; l < 7 ; ++l) {
+                    if(((0b1L << ((col+(8*l))-1)) & state.bb_wp) > 0) {
+                        return false;
+                    }
+                }
+            else
+                for(int l = 0 ; l < 7 ; ++l) {
+                    if(((0b101L << ((col+(8*l))-1)) & state.bb_wp) > 0) {
+                        return false;
+                    }
+                }
+        }
+        // pion noir
+        else {
+            if(col == 0)
+                for(int l = 1 ; l < 8 ; ++l) {
+                    if(((0b1L << ((col+(8*l))+1)) & state.bb_bp) > 0) {
+                        return false;
+                    }
+                }
+                // ou H
+            else if(col == 7)
+                for(int l = 1 ; l < 8 ; ++l) {
+                    if(((0b1L << ((col+(8*l))-1)) & state.bb_bp) > 0) {
+                        return false;
+                    }
+                }
+            else
+                for(int l = 1 ; l < 8 ; ++l) {
+                    if(((0b101L << ((col+(8*l))-1)) & state.bb_bp) > 0) {
+                        return false;
+                    }
+                }
+        }
+        return true;
+    }
+
+    /**
+     * verifie si il a une case adjacente contenant un pion de meme couleur
+     * @param c position du pion
+     * @param color couleur de la piece
+     * @param state plateau
+     * @return vrai si pion allier dans une case adjacente
+     */
+    private static boolean backward(int c, int color, Board state) {
+        // si pas de cases adj (bord adverse du plateau)
+            //return sum(pos, backward);
+        int col = c%8;
+        int ligne = c/8;
+        if(color == 1) {
+            // check si il est derriere des pions de la meme couleur
+            if(col == 0)
+                for(int l = 0 ; l <= ligne ; ++l) {
+                    if(((0b1L << ((col+(8*l))+1)) & state.bb_wp) > 0) {
+                        return false;
+                    }
+                }
+                // ou H
+            else if(col == 7)
+                for(int l = 0 ; l <= ligne ; ++l) {
+                    if(((0b1L << ((col+(8*l))-1)) & state.bb_wp) > 0) {
+                        return false;
+                    }
+                }
+            else
+                for(int l = 0 ; l <= ligne ; ++l) {
+                    if(((0b101L << ((col+(8*l))-1)) & state.bb_wp) > 0) {
+                        return false;
+                    }
+                }
+
+            if(isolated(c,color,state)) return false;
+
+            // verifie danger
+            if(ligne > 1) {
+
+                if(col == 0) {
+                    if(((0b1L << ((c)-15)) & state.bb_bp) > 0) {
+                        return true;
+                    }
+                }
+                // ou H
+                else if(col == 7) {
+                    if(((0b1L << ((c)-17)) & state.bb_bp) > 0) {
+                        return true;
+                    }
+                }
+                else
+                    if(((0b101L << ((c)-15)) & state.bb_bp) > 0) {
+                        return true;
+                    }
+            }
+            return false;
+        }
+        // pion noir
+        else {
+            // check si il est derriere des pions de la meme couleur
+            if(col == 0)
+                for(int l = 7 ; l >= ligne ; --l) {
+                    if(((0b1L << ((col+(8*l))+1)) & state.bb_bp) > 0) {
+                        return false;
+                    }
+                }
+                // ou H
+            else if(col == 7)
+                for(int l = 7 ; l >= ligne ; --l) {
+                    if(((0b1L << ((col+(8*l))-1)) & state.bb_bp) > 0) {
+                        return false;
+                    }
+                }
+            else
+                for(int l = 7 ; l >= ligne ; --l) {
+                    if(((0b101L << ((col+(8*l))-1)) & state.bb_bp) > 0) {
+                        return false;
+                    }
+                }
+
+            if(isolated(c,color,state)) return false;
+
+            // verifie danger
+            if(ligne < 6) {
+                if(col == 0) {
+                    if(((0b1L << ((c)+17)) & state.bb_wp) > 0) {
+                        return true;
+                    }
+                }
+                // ou H
+                else if(col == 7) {
+                    if(((0b1L << ((c)+15)) & state.bb_wp) > 0) {
+                        return true;
+                    }
+                }
+                else
+                if(((0b101L << ((c)+15)) & state.bb_wp) > 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    /**
+     * verifie si le pions est lié à d'autres
+     * @param c position du pion
+     * @param color couleur de la piece
+     * @param state plateau
+     * @return vrai si lié
+     */
+    private static boolean connected(int c, int color, Board state) {
+	    if(supported(c,color,state) != 0 || phalanx(c,color,state)) return true;
+	    return false;
+    }
+
+    /**
+     * retourne le nombre de pions alliers qui supportent le pion c
+     * @param c position du pion
+     * @param state plateau
+     * @return nombre de pions
+     */
+    private static int supported(int c, int color, Board state) {
+        int col = c%8;
+        if(color == 1) {
+            if(col == 0)
+                return ((((0b1L << ((c)+9)) & state.bb_wp) > 0)? 1 : 0);
+            else if(col == 7)
+                return ((((0b1L << ((c)+7)) & state.bb_wp) > 0)? 1 : 0);
+            else
+                return ((((0b1L << ((c)+7)) & state.bb_wp) > 0)? 1 : 0)
+                        + ((((0b1L << ((c)+9)) & state.bb_wp) > 0)? 1 : 0);
+        }
+        else {
+            if(col == 0)
+                return ((((0b1L << ((c)-7)) & state.bb_bp) > 0)? 1 : 0);
+            else if(col == 7)
+                return ((((0b1L << ((c)-9)) & state.bb_bp) > 0)? 1 : 0);
+            else
+                return ((((0b1L << ((c)-7)) & state.bb_bp) > 0)? 1 : 0)
+                        + ((((0b1L << ((c)-9)) & state.bb_bp) > 0)? 1 : 0) ;
+        }
+    }
+
+    /**
+     * verifie si un pion voisin est sur une case du meme rang
+     * @param c position du pion
+     * @param color couleur de la piece
+     * @param state plateau
+     * @return booleen
+     */
+    private static boolean phalanx(int c, int color, Board state) {
+        int col = c%8;
+        if(color == 1) {
+            if(col != 0 && (((0b1L << ((c)-1)) & state.bb_wp) > 0))
+                return true;
+            if(col != 7 && (((0b1L << ((c)+1)) & state.bb_wp) > 0))
+                return true;
+        }
+        else {
+            if(col != 0 && (((0b1L << ((c)-1)) & state.bb_bp) > 0))
+                return true;
+            if(col != 7 && (((0b1L << ((c)+1)) & state.bb_bp) > 0))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * calcule le bonus en fonction des liaisons du pion
+     * @param c position du pion
+     * @param color couleur de la piece
+     * @param state plateau
+     * @return bonus pour le pion
+     */
+    private static int co_bonus(int c, int color, Board state) {
+
+        int ligne = c%8;
+
+        if(ligne < 1 || ligne > 6) return 0;
+        int v = 0;
+        // blanc
+        if(color == 1) {
+            int bonus[] = {330, 175, 100, 65, 18, 24, 13, 0};
+            v = bonus[ligne];
+            v += ( phalanx(c,color,state) ? (bonus[ligne-1] - bonus[ligne])>>1 : 0);
+            v >>= opposed(c, color, state);
+            v += 17*supported(c,color,state);
+        }
+        // noir
+        else {
+            int bonus[] = {0, 13, 24, 18, 65, 100, 175, 330};
+            v = bonus[ligne];
+            v += ( phalanx(c,color,state) ? (bonus[ligne+1] - bonus[ligne])>>1 : 0);
+            v >>= opposed(c, color, state);
+            v += 17*supported(c,color,state);
+        }
+
+        return v;
+    }
+
+    /**
+     * indique si un pion adverse se trouve devant
+     * @param c position du pion
+     * @param color couleur de la piece
+     * @param state plateau
+     * @return 0 si faux, 1 si vrai
+     */
+    private static int opposed(int c, int color, Board state) {
+        int ligne = c/8;
+        int col = c%8;
+
+        if(color == 1) {
+            for(int l = 0; l < ligne; ++l)
+                if(((0b1L << (col+(l*8))) & state.bb_bp) > 0) return 1;
+        }
+        else {
+            for(int l = 7; l > ligne; --l)
+                if(((0b1L << (col+(l*8))) & state.bb_wp) > 0) return 1;
+        }
+        return 0;
+    }
+
+
 
     /**
      * Instantie les threads et autre trucs utilitaires.
