@@ -47,6 +47,9 @@ public abstract class Bitboards extends Constants {
     /** Liste des flags déclenché par un déplacement (e.g. le déplacement des tours pour le roque) */
     private List<Long> moves_flags = new ArrayList<>();
 
+    public boolean black_castled = false;
+    public boolean white_castled = false;
+
     /**
      * Indique si la piece est flaggé
      * Ici, cela indique si la pièce a effectué 
@@ -129,6 +132,8 @@ public abstract class Bitboards extends Constants {
         moves_taken.clear();
         moves_promoted.clear();
         moves_flags.clear();
+        black_castled = false;
+        white_castled = false;
 
         //Initialisation des pièces blanches
         bb_wp = 0b0000000000000000000000000000000000000000000000001111111100000000L;
@@ -162,15 +167,15 @@ public abstract class Bitboards extends Constants {
         //Gestion du roque 
         if (piece == WHITE_KING) {
             if ((from == E1)&&(to == G1)) 
-                move(WHITE_ROOK, H1, F1);
+                { move(WHITE_ROOK, H1, F1); white_castled = true; }
             if ((from == E1)&&(to == C1))
-                move(WHITE_ROOK, A1, D1);
+                { move(WHITE_ROOK, A1, D1); white_castled = true; }
         }
         if (piece == BLACK_KING) {
             if ((from == E8)&&(to == G8)) 
-                move(BLACK_ROOK, H8, F8);
+                { move(BLACK_ROOK, H8, F8); black_castled = true; }
             if ((from == E8)&&(to == C8))
-                move(BLACK_ROOK, A8, D8);
+                { move(BLACK_ROOK, A8, D8); black_castled = true; }
         }
         if ((piece == WHITE_ROOK)&&(from == A1)) flag = A1;
         if ((piece == WHITE_ROOK)&&(from == H1)) flag = H1;
@@ -214,7 +219,7 @@ public abstract class Bitboards extends Constants {
      * Indique le n° du tour.
      */
     public int turn() {
-        return moves_piece.size();
+        return moves.size();
     }
 
     /**
@@ -236,6 +241,20 @@ public abstract class Bitboards extends Constants {
         char taken = moves_taken.get(index);
         char promoted = moves_promoted.get(index);
         
+        //Gestion du roque 
+        if (piece == WHITE_KING) {
+            if ((from == E1)&&(to == G1)) 
+                { move(WHITE_ROOK, F1, H1); white_castled = false; }
+            if ((from == E1)&&(to == C1))
+                { move(WHITE_ROOK, D1, A1); white_castled = false; }
+        }
+        if (piece == BLACK_KING) {
+            if ((from == E8)&&(to == G8)) 
+                { move(BLACK_ROOK, F8, H8); black_castled = false; }
+            if ((from == E8)&&(to == C8))
+                { move(BLACK_ROOK, D8, A8); black_castled = false; }
+        }
+
         //Annulation du déplacement (et de la prise)
         move(piece, to, from);
         move(taken, VOID, to);
