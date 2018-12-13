@@ -33,7 +33,7 @@ class BestMoveThread implements Runnable {
 	private String _best = "@0";
 
 	public String best() {
-		System.out.println("info thread "+id+" : "+_best+" (ignore)");
+		//System.out.println("info thread "+id+" : "+_best+" (ignore)");
 		return _best;
 	}
 
