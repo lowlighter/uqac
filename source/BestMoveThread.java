@@ -95,14 +95,15 @@ class BestMoveThread implements Runnable {
 		int v = 0; 
 		Move lsuccessor;
 		starting_point = state.moves.size();
+		List<Move> lsuccessors = successors(state);
+		int size = lsuccessors.size(), chunk = (int) Math.ceil(size/nbthreads);
+		String info = "";
 		//Alpha beta (pour les blancs, il s'agit d'une version modifiée du maxvalue qui retient en mémoire le meilleur coup à jouer)
 		if (state.player_turn() == state.WHITE) {
 			for (int depth = 1; depth <= MAXDEPTH; depth++) {
 				//Récursion
 				v = - INFINITY;
 				int alpha = -INFINITY, beta = +INFINITY;
-				List<Move> lsuccessors = successors(state);
-				int size = lsuccessors.size(), chunk = (int) Math.ceil(size/nbthreads);
 				for (int i = id*chunk; i < Math.min((id+1)*chunk+1, size); i++) {  
 					lsuccessor = lsuccessors.get(i);                                      
 					state.apply(lsuccessor.move);
@@ -111,8 +112,8 @@ class BestMoveThread implements Runnable {
 					if (v > alpha) best(lsuccessor, v);
 					alpha = Math.max(alpha, v);
 				}
+				info = "info thread "+id+" : depth "+depth+" - nodes "+id*chunk+" to "+Math.min((id+1)*chunk+1, size)+" of "+size+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)";
 				if (BestMove.timeout()) break;
-				System.out.println("info thread "+id+" : depth "+depth+" - nodes "+id*chunk+" to "+Math.min((id+1)*chunk, size)+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)");
 			}
 		}
 		//Alpha beta (pour les noirs, il s'agit d'une version modifiée du minvalue qui retient en mémoire le meilleur coup à jouer)
@@ -121,8 +122,6 @@ class BestMoveThread implements Runnable {
 				//Récursion
 				v = + INFINITY;
 				int alpha = -INFINITY, beta = +INFINITY;
-				List<Move> lsuccessors = successors(state);
-				int size = lsuccessors.size(), chunk = (int) Math.ceil(size/nbthreads);
 				for (int i = id*chunk; i < Math.min((id+1)*chunk+1, size); i++) {    
 					lsuccessor = lsuccessors.get(i);   
 					state.apply(lsuccessor.move);      
@@ -131,11 +130,14 @@ class BestMoveThread implements Runnable {
 					if (v < beta) best(lsuccessor, v);
 					beta = Math.min(beta, v);
 				}
+				info = "info thread "+id+" : depth "+depth+" - nodes "+id*chunk+" to "+Math.min((id+1)*chunk+1, size)+" of "+size+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)";
 				if (BestMove.timeout()) break;
-				System.out.println("info thread "+id+" : depth "+depth+" - nodes "+id*chunk+" to "+Math.min((id+1)*chunk, size)+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)");
 			}
 		}
+
+		System.out.println(info);
 	}
+	
 
 	/**
 	 * Maxvalue - Alpha-beta
