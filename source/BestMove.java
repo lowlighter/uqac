@@ -104,26 +104,29 @@ public abstract class BestMove extends Constants {
 
         int score = 0;
 
-        for (int c = 0; c < 64; c++) {
-            char piece = state.at(1L << c);
-            if (piece == EMPTY) continue;
-            int color = Character.isLowerCase(piece) ? -1 : +1; 
-            char p = Character.toLowerCase(piece);
+//        for (int c = 0; c < 64; c++) {
+//            char piece = state.at(1L << c);
+//            if (piece == EMPTY) continue;
+//            int color = Character.isLowerCase(piece) ? -1 : +1;
+//            char p = Character.toLowerCase(piece);
+//
+//
+//            score += color * ut_val.get(p);
+//            score += color * ut_mob.get(p)[7- ~~(c/8)][Math.min(c%8, 7-c%8)];
+//            // pions
+//            if(piece == ANY_PAWN)
+//                score += color * pawn_mg(c,color,state);
+//            // pièces
+//
+//            if(piece == ANY_QUEEN)
+//                score += color * -51 * week_queen(c,color,state);
+//            // roques
+//
+//            score += color * piece_mg(piece,color,c,state);
+//        }
 
-            
-            score += color * ut_val.get(p);
-            score += color * ut_mob.get(p)[7- ~~(c/8)][Math.min(c%8, 7-c%8)];
-            // pions
-            if(piece == ANY_PAWN)
-                score += color * pawn_mg(c,color,state);
-            // pièces
-
-            if(piece == ANY_QUEEN)
-                score += color * -51 * week_queen(c,color,state);
-            // roques
-
-            score += color * piece_mg(piece,color,c,state);
-        }
+        Evaluation eval = new Evaluation();
+        score = eval.eval(state);
 
         return score;
         //bonus[i][7 - square.y][Math.min(square.x, 7 - square.x)];
