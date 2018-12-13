@@ -93,7 +93,7 @@ class BestMoveThread implements Runnable {
 		best(null, 0);
 		long time = System.currentTimeMillis();
 		int v = 0; 
-		Move successor;
+		Move lsuccessor;
 		starting_point = state.moves.size();
 		//Alpha beta (pour les blancs, il s'agit d'une version modifiée du maxvalue qui retient en mémoire le meilleur coup à jouer)
 		if (state.player_turn() == state.WHITE) {
@@ -104,11 +104,11 @@ class BestMoveThread implements Runnable {
 				List<Move> lsuccessors = successors(state);
 				int size = lsuccessors.size(), chunk = (int) Math.ceil(size/nbthreads);
 				for (int i = id*chunk; i < Math.min((id+1)*chunk+1, size); i++) {  
-					successor = lsuccessors.get(i);                                      
-					state.apply(successor.move);
+					lsuccessor = lsuccessors.get(i);                                      
+					state.apply(lsuccessor.move);
 					v = Math.max(v, minvalue(state, alpha, beta, depth-1));
 					state.revert();
-					if (v > alpha) best(successor, v);
+					if (v > alpha) best(lsuccessor, v);
 					alpha = Math.max(alpha, v);
 				}
 				if (BestMove.timeout()) break;
@@ -124,10 +124,11 @@ class BestMoveThread implements Runnable {
 				List<Move> lsuccessors = successors(state);
 				int size = lsuccessors.size(), chunk = (int) Math.ceil(size/nbthreads);
 				for (int i = id*chunk; i < Math.min((id+1)*chunk+1, size); i++) {    
-					successor = lsuccessors.get(i);         
+					lsuccessor = lsuccessors.get(i);   
+					state.apply(lsuccessor.move);      
 					v = Math.min(v, maxvalue(state, alpha, beta, depth-1));
 					state.revert();
-					if (v < beta) best(successor, v);
+					if (v < beta) best(lsuccessor, v);
 					beta = Math.min(beta, v);
 				}
 				if (BestMove.timeout()) break;
