@@ -22,10 +22,10 @@ public abstract class BestMove extends Constants {
     static int THREAD = 7;
 
     /** Temps max d'exécution des threads (en ms) */
-    static int TIMEOUT = 900;
+    static int TIMEOUT = 1250;
 
     /** Profondeur max */
-    static int MAXDEPTH = 10000;
+    static int MAXDEPTH = 100;
 
     /** Pool de threads. */
     private static ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Math.max(THREAD, 1));
@@ -65,6 +65,7 @@ public abstract class BestMove extends Constants {
     
         //Récupération de leur valeurs après le temps imparti
         for(BestMoveThread thread : threads) {
+            if (thread.best() == null) continue;
             String[] move = thread.best().split("@");
             if (move[0].length() > 0) {
                 int score = Integer.parseInt(move[1]);
@@ -114,10 +115,14 @@ public abstract class BestMove extends Constants {
             score += color * ut_mob.get(p)[7- ~~(c/8)][Math.min(c%8, 7-c%8)];
             // pions
             if(piece == ANY_PAWN)
-                score += color * pawn_mg(c,p,state);
+                score += color * pawn_mg(c,color,state);
             // pièces
 
+            if(piece == ANY_QUEEN)
+                score += color * -51 * week_queen(c,color,state);
+            // roques
 
+            score += piece_mg(piece,color,c,state);
         }
 
         return score;
@@ -126,7 +131,7 @@ public abstract class BestMove extends Constants {
         //King danger
 	}
 
-    private static int piece_mg(int piece, int color, int c, char p, Board state) {
+    private static int piece_mg(int piece, int color, int c, Board state) {
         int v = 0;
 
         int nOutPost[] = {0,22,36,44,72};
@@ -553,6 +558,29 @@ public abstract class BestMove extends Constants {
     }
 
 
+    private static int week_queen(int c, int color, Board state) {
+        int y = c/8;
+        int x = c%8;
+        
+        for (int i = 0; i < 8; i++) {
+          int ix = (i + ((i > 3) ? 1 : 0)) % 3 - 1;
+          int iy = (((i + ((i > 3) ? 1 : 0)) / 3) << 0) - 1;
+          int count = 0;
+          for (int d = 1; d < 8; d++) {
+            char b = state.at(1L << (Math.max(0, Math.min(7, y + d*iy)) + 8*Math.max(0, Math.min(7, x + d*ix))));
+            if (color == 1) {
+                if (b == BLACK_ROOK && (ix == 0 || iy == 0) && count == 1) return 1;
+                if (b == BLACK_BISHOP && (ix != 0 && iy != 0) && count == 1) return 1;
+            }
+            else {
+                if (b == WHITE_ROOK && (ix == 0 || iy == 0) && count == 1) return 1;
+                if (b == WHITE_BISHOP && (ix != 0 && iy != 0) && count == 1) return 1;
+            }
+            if (b != EMPTY) count++;
+          }
+        }
+        return 0;
+      }
 
     /**
      * Instantie les threads et autre trucs utilitaires.
@@ -586,4 +614,6 @@ public abstract class BestMove extends Constants {
     
 
 }
+
+
 
