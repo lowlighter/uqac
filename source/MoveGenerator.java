@@ -405,6 +405,8 @@ public class MoveGenerator extends Constants {
             generate_rook_move_or_attack(rook & ~pinned, checking_piece);
             generate_queen_move_or_attack(queen & ~pinned, checking_piece);
             generate_knight_attack(knight & ~pinned, checking_piece);
+            if(white){generate_white_pawn_attack(pawn & ~pinned, checking_piece);}
+            else {generate_black_pawn_attack(pawn & ~pinned, checking_piece);}
         
         //  PINNED ATTACK
 
