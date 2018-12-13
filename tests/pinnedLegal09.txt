@@ -1,4 +1,4 @@
->>> position startpos moves d2d4 c7c5 a2a4 e7e6 d8a5 
+>>> position startpos moves d2d4 c7c5 a2a4 e7e6 a4a5 d8a5 
 >>> print islegal b2b4
 
 # ASSERT
