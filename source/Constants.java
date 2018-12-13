@@ -173,7 +173,20 @@ public abstract class Constants {
         0x10301802830400L, 0x332a4081140200L, 0x8080010a601241L, 0x1008010400021L, 0x4082001007241L, 0x211009001200509L, 0x8015001002441801L,
         0x801000804000603L, 0xc0900220024a401L, 0x1000200608243L };
 
-    /** Util */
+    /** Rook Spot */
+
+    protected static final long[] W_CASPOT = {A1, H1};
+    protected static final long[] B_CASPOT = {A8, H8};
+
+    protected static final int[] W_ICASPOT = {0, 7};
+    protected static final int[] B_ICASPOT = {56, 63};
+
+    protected static final int[] W_LCASPOT = {2, 6};
+    protected static final int[] B_LCASPOT = {58, 62};
+
+    protected static final long[] W_SCASPOT = {B1 | C1 | D1, F1 | G1};
+    protected static final long[] B_SCASPOT = {B8 | C8 | D8, F8 | G8};
+    /** Util **/
 
     protected void print_all_bits(long bb){
         for(int i = 0; i < Long.numberOfLeadingZeros((long) bb); i++) {
