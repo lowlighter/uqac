@@ -15,7 +15,7 @@ public class Engine {
       
         //Flux d'entrée
         Scanner stdin = new Scanner(System.in);
-        board = new Board(true);
+        board = new Board();
 
         BestMove.init();
     
@@ -59,7 +59,7 @@ public class Engine {
      * Méthode appelée lorsqu'une nouvelle partie d'échec démarre.
      */
     private static void ucinewgame() {
-        board.init(true);
+        board.init();
     }
 
     /** Plateau de jeu. */

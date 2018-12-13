@@ -8,22 +8,19 @@ public class Board extends Bitboards {
 
     //TODO : améliorer le clonage //
 
-    /** Couleur */
-    public boolean white;
-
     /**
      * Crée un nouveau plateau de jeu.
      * A voir comment on fera pour éviter de créer trop d'instance de Board pour les noeuds et si c'est couteux.
      */
-    public Board(boolean is_white) {
-        init(is_white);   
+    public Board() {
+        init();   
     }
 
     /**
      * Clone le board.
      */
     public Board clone() {
-        Board b = new Board(this.white);
+        Board b = new Board();
         b.position(this.last_move);
         return b;
     }
@@ -40,15 +37,9 @@ public class Board extends Bitboards {
     /**
      * Initialise les bitboards à la position initiale.
      */
-    public void init(boolean is_white) {
+    public void init() {
         //Initialisation du plateau
         startpos();
-
-        // Initialisation de la couleur
-        white = is_white;
-
-        // Initialisation des directions
-        set_direction(white);
 
         generator =  new MoveGenerator(this);
     }
@@ -86,14 +77,6 @@ public class Board extends Bitboards {
      * Retourne un bit board representant les cases occupés par tout les pions d'une couleur
      */
     public long get_pawns(boolean white) { return (white) ? bb_wp : bb_bp; }
-
-
-    /**
-     * @param white - Couleur du camp du moteur
-     * Set les directions en fonction de notre couleur
-     */
-    public void set_direction(boolean white) {
-    }
 
     /**
      * @param white - Couleur du camp du moteur
