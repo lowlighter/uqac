@@ -61,22 +61,6 @@ public class MoveGenerator extends Constants {
     MoveGenerator(Board board) {
         this.board = board;
         init();
-        // print_all_bits(XRAY[60][53]);
-        // print_all_bits(XRAY[26][19]);
-        // print_all_bits(XRAY[29][36]);
-        // print_all_bits(XRAY[27][34]);
-        // print_all_bits(XRAY[19][26]);
-        // print_all_bits(XRAY[2][9]);
-
-        // System.out.println("-------------------");
-
-        // print_all_bits(XRAY[0][9]);
-        // print_all_bits(XRAY[9][18]);
-        // print_all_bits(XRAY[27][18]);
-        // print_all_bits(XRAY[33][42]);
-        // print_all_bits(XRAY[59][50]);
-        // print_all_bits(XRAY[13][22]);
-        // print_all_bits(XRAY[23][14]);
     }
 
     
@@ -182,7 +166,7 @@ public class MoveGenerator extends Constants {
         }
     }
 
-
+/**  Matrice des Bitboards de ligne/diagonales/colonnes direction roi-piece */
     private void init_xray_matrix(){
 
         for(int i=0; i<64; i++){
@@ -260,7 +244,7 @@ public class MoveGenerator extends Constants {
                 break;
             // Uniquement le roi peut bouger/attaquer pour s'enlever de l'echec
             default:
-                king_moves(white);
+                king_moves(white, checking_pieces);
                 break;
         }
 
@@ -310,7 +294,7 @@ public class MoveGenerator extends Constants {
         generate_knight_move(knight & ~pinned, empty);
         generate_knight_attack(knight & ~pinned, enemy & ~enemy_king);
 
-        king_moves(white);
+        king_moves(white, 0L);
 
         // PIECES PINNED
 
@@ -384,7 +368,7 @@ public class MoveGenerator extends Constants {
         }
 
         // Mouvement & attaque du roi pour qu'ils se mettent lui même à l'abris
-        king_moves(white);
+        king_moves(white, checking_piece);
 
         // Si ce n'est pas un knight et qu'il y a une place pour s'interposer on calcul les mouvements pour s'interposer, sinon on ne le fait pas
         long spaces = INTERCASE[Long.numberOfTrailingZeros(checking_piece)][board.get_king_position(white)];
@@ -400,7 +384,7 @@ public class MoveGenerator extends Constants {
             else {generate_black_pawn_moves(pawn & ~pinned, empty & spaces);}
         }
 
-        // PINNED ATTACK
+        // NON - PINNED ATTACK
             generate_bishop_move_or_attack(bishop & ~pinned, checking_piece);
             generate_rook_move_or_attack(rook & ~pinned, checking_piece);
             generate_queen_move_or_attack(queen & ~pinned, checking_piece);
@@ -613,7 +597,7 @@ public class MoveGenerator extends Constants {
     /** Calcul la liste des mouvements possibles pour le roi
     * @param white couleur du joueur qui doit jouer
     */
-    private void king_moves(boolean white){
+    private void king_moves(boolean white, long checking){
 
         int king_pos = board.get_king_position(white);
         long enemy_pawns = (white) ? board.bb_bp : board.bb_wp;
@@ -624,7 +608,10 @@ public class MoveGenerator extends Constants {
         long enemy_pieces = enemy_pawns | enemy_knights | enemy_rooks | enemy_queens | enemy_bishops;
         long empty = board.get_empty();
         long enemy_attack = 0L;
-        long board_no_king = board.global_occupancy() & ~(1L<<king_pos);
+        long king = (1L<<king_pos);
+        long board_no_king = board.global_occupancy() & ~king;
+        char king_kind = (white) ? WHITE_KING : BLACK_KING;
+        
         
         // On determine les cases potentiellement attaque par l'ennemi pour ne pas s'y deplacer
         enemy_attack |= pawn_right_attack_bb(!white, enemy_pawns);
@@ -648,6 +635,26 @@ public class MoveGenerator extends Constants {
         for(int i=Long.numberOfTrailingZeros(options); i<64; i++){
             if(((options>>i) & 1) != 0){
                 moves.add(new Move(king_pos + (i<<6)));
+            }
+        }
+
+
+        // ROQUE
+        if(checking == 0 && !board.flagged(king_kind, king)) {
+            long friendly_rook = (white) ? board.bb_wr : board.bb_br;
+            char rook_kind = (white) ? WHITE_ROOK : BLACK_ROOK;
+            long[] spots = (white) ? W_CASPOT : B_CASPOT;
+            long[] compare = (white) ? W_SCASPOT: B_SCASPOT;
+            int[] spots_pos = (white) ? W_ICASPOT : B_ICASPOT;
+            int[] landing = (white) ? W_LCASPOT : B_LCASPOT;
+            for(int i=0; i<2; i++){
+                if((friendly_rook & spots[i]) != 0){
+                    if(!board.flagged(rook_kind, spots[i])){
+                        if((INTERCASE[king_pos][spots_pos[i]] & empty & ~enemy_attack) == compare[i]){
+                            moves.add(new Move(king_pos + (landing[i]<<6) + (3 << 14)));
+                        }
+                    }
+                }
             }
         }
     }
