@@ -344,6 +344,10 @@ public abstract class Bitboards extends Constants {
         return EMPTY;
     }
 
+    public char at(long cell, boolean lower) {
+        return Character.toLowerCase(at(cell));
+    }
+
     /**
      * Retourne la couleur de la pièce.
      * @param piece
