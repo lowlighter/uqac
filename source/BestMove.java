@@ -22,10 +22,10 @@ public abstract class BestMove extends Constants {
     static int THREAD = 7;
 
     /** Temps max d'exécution des threads (en ms) */
-    static int TIMEOUT = 1250;
+    static int TIMEOUT = 900;
 
     /** Profondeur max */
-    static int MAXDEPTH = 100;
+    static int MAXDEPTH = 10000;
 
     /** Pool de threads. */
     private static ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Math.max(THREAD, 1));
@@ -65,7 +65,6 @@ public abstract class BestMove extends Constants {
     
         //Récupération de leur valeurs après le temps imparti
         for(BestMoveThread thread : threads) {
-            if (thread.best() == null) continue;
             String[] move = thread.best().split("@");
             if (move[0].length() > 0) {
                 int score = Integer.parseInt(move[1]);
@@ -115,11 +114,9 @@ public abstract class BestMove extends Constants {
             score += color * ut_mob.get(p)[7- ~~(c/8)][Math.min(c%8, 7-c%8)];
             // pions
             if(piece == ANY_PAWN)
-                score += color * pawn_mg(c,color,state);
+                score += color * pawn_mg(c,p,state);
             // pièces
-            if(piece == ANY_QUEEN)
-                score += color * -51 * week_queen(c,color,state);
-            // roques
+
 
         }
 
@@ -129,6 +126,133 @@ public abstract class BestMove extends Constants {
         //King danger
 	}
 
+    private static int piece_mg(int piece, int color, int c, char p, Board state) {
+        int v = 0;
+
+        int nOutPost[] = {0,22,36,44,72};
+        int bOutPost[] = {0,9,15,18,30};
+        if(piece == ANY_KNIGHT)
+            v += nOutPost[bishop_knight_outpost(c, color, state)];
+        if(piece == ANY_BISHOP)
+            v += bOutPost[bishop_knight_outpost(c, color, state)];
+        return v;
+    }
+
+    private static int bishop_knight_outpost( int c, int color, Board state) {
+        int col = c%8;
+
+        int support = 0;
+        int reachable = 0;
+
+        if(!outpost(c,color,state)) {
+            reachable = reachable_outpost(c,color,state);
+            if(reachable == 0) return 0;
+            support = (reachable > 1? 1 : 0);
+        } else {
+            if(color == 1) {
+                if(col != 0 && ((0b1L << ((c)+7)) & state.bb_wp) > 0)
+                    support = 1;
+                else if(col != 7 && ((0b1L << ((c)+9)) & state.bb_wp) > 0)
+                    support = 1;
+            }
+            else {
+                if(col != 0 && ((0b1L << ((c)-9)) & state.bb_bp) > 0)
+                    support = 1;
+                else if(col != 7 && ((0b1L << ((c)-7)) & state.bb_bp) > 0)
+                    support = 1;
+            }
+        }
+
+        return (support != 0 ? 2 : 1) + 2 * (reachable != 0 ? 0 : 1);
+    }
+
+
+    /**
+     * methode pour le cavalier et le fou
+     * @param c position du pion
+     * @param color couleur de la piece
+     * @param state plateau
+     * @return vrai si outpost
+     */
+    private static boolean outpost(int c, int color, Board state) {
+        int ligne = c/8;
+        int col = c%8;
+        if(color == 1) {
+            if (ligne > 4 ||ligne < 2) return false;
+            for (int y = 0; y < ligne ; ++y) {
+                if(col != 0 && ((0b1L << ((c)-1)) & state.bb_wp) > 0) return false;
+                else if(col != 7 && ((0b1L << ((c)+1)) & state.bb_wp) > 0) return false;
+            }
+        }
+        else {
+            if (ligne < 3 ||ligne > 5) return false;
+            for (int y = 0; y < ligne ; ++y) {
+                if(col != 0 && ((0b1L << ((c)-1)) & state.bb_bp) > 0) return false;
+                else if(col != 7 && ((0b1L << ((c)+1)) & state.bb_bp) > 0) return false;
+            }
+        }
+        return true;
+    }
+
+    private static int reachable_outpost(int c, int color, Board state) {
+        int col = c%8;
+        int v = 0;
+        if(color == 1)
+            for(int x=0 ; x < 8 ; ++x) {
+                for(int l = 3; l < 6; ++l) {
+                    if(((((0b1L << c) & state.bb_wn) > 0) && "PNBRQK".indexOf(state.at(0b1L << (l*8+x))) < 0
+                            && knight_attack(color, c, x, l, state) != 0)
+                        || ((((0b1L << c) & state.bb_wb) > 0) && "PNBRQK".indexOf(state.at(0b1L << (l*8+x))) < 0
+                            && bishop_attack(color, c, x, l, state) != 0) ) {
+                        int pos = l*8+x;
+                        int support = (x != 0 && ((0b1L << pos-9) & state.bb_wp)> 0 ? 1 : 0) + (x != 7 && ((0b1L << pos-7) & state.bb_wp)> 0 ? 1 : 0);
+                        v = Math.max(v,support);
+                    }
+                }
+            }
+        else
+            for(int x=0 ; x < 8 ; ++x) {
+                for(int l = 3; l < 6; ++l) {
+                    if(((((0b1L << c) & state.bb_bn) > 0) && "pnbrqk".indexOf(state.at(0b1L << (l*8+x))) < 0
+                            && knight_attack(color, c, x, l, state) != 0)
+                        || ((((0b1L << c) & state.bb_bb) > 0) && "pnbrqk".indexOf(state.at(0b1L << (l*8+x))) < 0
+                            && bishop_attack(color, c, x, l, state) != 0) ){
+                        int pos = l*8+x;
+                        int support = (x != 0 && ((0b1L << pos+7) & state.bb_bp)> 0 ? 1 : 0) + (x != 7 && ((0b1L << pos+9) & state.bb_bp)> 0 ? 1 : 0);
+                        v = Math.max(v,support);
+                    }
+                }
+            }
+
+        return v;
+    }
+
+    private static int knight_attack(int color, int c, int x, int l, Board state) {
+        int v = 0;
+
+        for (int i = 0; i < 8; i++) {
+            int ix = ((i > 3 ? 1 : 0) + 1) * (((i % 4) > 1  ? 1 : 0) * 2 - 1);
+            int iy = (2 - (i > 3 ? 1 : 0)) * ((i % 2 == 0 ? 1 : 0) * 2 - 1);
+            if((iy*8+ix < 64 && ((0b1L << (iy*8+ix)) & (color == 1 ? state.bb_wn : state.bb_bn)) > 0) && c == x+l*8+iy*8+ix) v++;
+        }
+
+        return v;
+    }
+
+    private static int bishop_attack(int color, int c, int x, int l, Board state) {
+        int v = 0;
+
+        for(int i = 0 ; i < 4 ; i++) {
+            int ix = ((i > 1 ? 1:0) * 2 - 1);
+            int iy = ((i % 2 == 0 ? 1:0) * 2 - 1);
+            for(int d=1 ; d<8 ; d++) {
+                int pos = x+l*8+(iy+d)*8+ix+d;
+                if((pos < 64 && ((0b1L << pos) & (color == 1 ? state.bb_wb : state.bb_bn)) > 0) && c == pos)
+                    v++;
+            }
+        }
+        return v;
+    }
 
 
     /**
@@ -354,7 +478,7 @@ public abstract class BestMove extends Constants {
      * @param c position du pion
      * @param color couleur de la piece
      * @param state plateau
-     * @return booleen
+     * @return vrai si voisin
      */
     private static boolean phalanx(int c, int color, Board state) {
         int col = c%8;
@@ -429,29 +553,6 @@ public abstract class BestMove extends Constants {
     }
 
 
-    private static int week_queen(int c, int color, Board state) {
-        int y = c/8;
-        int x = c%8;
-        
-        for (int i = 0; i < 8; i++) {
-          int ix = (i + ((i > 3) ? 1 : 0)) % 3 - 1;
-          int iy = (((i + ((i > 3) ? 1 : 0)) / 3) << 0) - 1;
-          int count = 0;
-          for (int d = 1; d < 8; d++) {
-            char b = state.at(1L << (Math.max(0, Math.min(7, y + d*iy)) + 8*Math.max(0, Math.min(7, x + d*ix))));
-            if (color == 1) {
-                if (b == BLACK_ROOK && (ix == 0 || iy == 0) && count == 1) return 1;
-                if (b == BLACK_BISHOP && (ix != 0 && iy != 0) && count == 1) return 1;
-            }
-            else {
-                if (b == WHITE_ROOK && (ix == 0 || iy == 0) && count == 1) return 1;
-                if (b == WHITE_BISHOP && (ix != 0 && iy != 0) && count == 1) return 1;
-            }
-            if (b != EMPTY) count++;
-          }
-        }
-        return 0;
-      }
 
     /**
      * Instantie les threads et autre trucs utilitaires.
@@ -485,6 +586,4 @@ public abstract class BestMove extends Constants {
     
 
 }
-
-
 
