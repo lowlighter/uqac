@@ -22,10 +22,10 @@ public abstract class BestMove extends Constants {
     static int THREAD = 7;
 
     /** Temps max d'exécution des threads (en ms) */
-    static int TIMEOUT = 900;
+    static int TIMEOUT = 1250;
 
     /** Profondeur max */
-    static int MAXDEPTH = 10000;
+    static int MAXDEPTH = 100;
 
     /** Pool de threads. */
     private static ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Math.max(THREAD, 1));
@@ -65,6 +65,7 @@ public abstract class BestMove extends Constants {
     
         //Récupération de leur valeurs après le temps imparti
         for(BestMoveThread thread : threads) {
+            if (thread.best() == null) continue;
             String[] move = thread.best().split("@");
             if (move[0].length() > 0) {
                 int score = Integer.parseInt(move[1]);
@@ -426,6 +427,7 @@ public abstract class BestMove extends Constants {
         return 0;
     }
 
+    
 
 
     /**

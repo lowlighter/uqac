@@ -3,6 +3,7 @@ import java.util.TreeSet;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.Arrays;
+import java.util.Collections;
 
 class BestMoveThread implements Runnable {
 	
@@ -37,9 +38,17 @@ class BestMoveThread implements Runnable {
 		return _best;
 	}
 
+	private int _best_score;
+
 	private void best(Move successor, int score) {
-		if ((successor != null)&&(!BestMove.timeout())) {
-			_best = Board.toUCI(successor)+"@"+Math.abs(score);
+		int lscore = Math.abs(score);
+		if ((successor != null)&&(lscore < INFINITY)&&((lscore > _best_score)||(_best == null))&&(!BestMove.timeout())) {
+			_best_score = lscore;
+			_best = Board.toUCI(successor)+"@"+lscore;
+		}
+		if (successor == null) {
+			_best_score = 0;
+			_best = null;
 		}
 	}
 
@@ -96,23 +105,25 @@ class BestMoveThread implements Runnable {
 		Move lsuccessor;
 		starting_point = state.moves.size();
 		List<Move> lsuccessors = successors(state);
-		int size = lsuccessors.size(), chunk = (int) Math.ceil(size/nbthreads);
+		
+		Collections.shuffle(lsuccessors);
+
 		String info = "";
 		//Alpha beta (pour les blancs, il s'agit d'une version modifiée du maxvalue qui retient en mémoire le meilleur coup à jouer)
-		if (state.player_turn() == state.WHITE) {
+		if (state.player_turn() == Board.WHITE) {
 			for (int depth = 1; depth <= MAXDEPTH; depth++) {
 				//Récursion
 				v = - INFINITY;
 				int alpha = -INFINITY, beta = +INFINITY;
-				for (int i = id*chunk; i < Math.min((id+1)*chunk+1, size); i++) {  
+				for (int i = 0; i < lsuccessors.size(); i++) {  
 					lsuccessor = lsuccessors.get(i);                                      
 					state.apply(lsuccessor.move);
 					v = Math.max(v, minvalue(state, alpha, beta, depth-1));
 					state.revert();
-					if (v > alpha) best(lsuccessor, v);
+					best(lsuccessor, v);
 					alpha = Math.max(alpha, v);
 				}
-				info = "info thread "+id+" : depth "+depth+" - nodes "+id*chunk+" to "+Math.min((id+1)*chunk+1, size)+" of "+size+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)";
+				info = "info thread "+id+" : depth "+depth+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)";
 				if (BestMove.timeout()) break;
 			}
 		}
@@ -122,15 +133,15 @@ class BestMoveThread implements Runnable {
 				//Récursion
 				v = + INFINITY;
 				int alpha = -INFINITY, beta = +INFINITY;
-				for (int i = id*chunk; i < Math.min((id+1)*chunk+1, size); i++) {    
+				for (int i = 0; i < lsuccessors.size(); i++) {    
 					lsuccessor = lsuccessors.get(i);   
 					state.apply(lsuccessor.move);      
 					v = Math.min(v, maxvalue(state, alpha, beta, depth-1));
 					state.revert();
-					if (v < beta) best(lsuccessor, v);
+					best(lsuccessor, v);
 					beta = Math.min(beta, v);
 				}
-				info = "info thread "+id+" : depth "+depth+" - nodes "+id*chunk+" to "+Math.min((id+1)*chunk+1, size)+" of "+size+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)";
+				info = "info thread "+id+" : depth "+depth+" (completed in "+(System.currentTimeMillis()-time)+" ms) (ignore)";
 				if (BestMove.timeout()) break;
 			}
 		}
@@ -149,14 +160,14 @@ class BestMoveThread implements Runnable {
 	private int maxvalue(Board state, int alpha, int beta, int depth) {
 		//Etat terminal ou profondeur maximale atteinte
 		if ((terminal(state))||(depth < 0)) {
-			return utility(state);
+			return BestMove.timeout() ? +INFINITY : utility(state);
 		}
 		
 		//Récursion
 		int v = - INFINITY;
 		for (Move successor: successors(state)) {
 			state.apply(successor.move);
-			v = Math.max(v, minvalue(state, alpha, beta, depth-1));
+			v = Math.max(v, minvalue(state, alpha, beta, depth-1));        
 			state.revert();
 			if (v >= beta) return v;
 			alpha = Math.max(alpha, v);
@@ -174,14 +185,14 @@ class BestMoveThread implements Runnable {
 	private int minvalue(Board state, int alpha, int beta, int depth) {
 		//Etat terminal ou profondeur maximale atteinte
 		if ((terminal(state))||(depth < 0)) {
-			return utility(state);
+			return BestMove.timeout() ? -INFINITY : utility(state);
 		}
 		
 		//Récursion
 		int v = + INFINITY;
 		for (Move successor: successors(state)) {
 			state.apply(successor.move);
-			v = Math.min(v, maxvalue(state, alpha, beta, depth-1));
+			v = Math.min(v, maxvalue(state, alpha, beta, depth-1));     
 			state.revert();
 			if (v <= alpha) return v;
 			beta = Math.min(beta, v);
