@@ -1,0 +1,14 @@
+>>> position startpos moves e2e4 e7e5 f1d3 h7h5 g1f3 a7a5 e1g1
+>>> print
+
+# ASSERT
+    a b c d e f g h
+  +----------------
+8 | r n b q k b n r
+7 | . p p p . p p .
+6 | . . . . . . . .
+5 | p . . . p . . p
+4 | . . . . P . . .
+3 | . . . B . N . .
+2 | P P P P . P P P
+1 | R N B Q . R K .

@@ -1,0 +1,7 @@
+>>> position startpos moves e2e4 e7e5 f1c4 h7h5 g1h3 g7g5 h1g1 
+>>> position startpos moves e2e4 e7e5 f1c4 h7h5 g1h3 g7g5 
+>>> position startpos moves e2e4 e7e5 f1c4 h7h5 g1h3 g7g5 g2g4
+>>> print isflagged Rh
+
+# ASSERT
+no

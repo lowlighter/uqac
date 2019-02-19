@@ -1,0 +1,5 @@
+>>> position startpos moves d2d4 c7c5 a2a4 e7e6 a4a5 d8a5 
+>>> print islegal b1c3
+
+# ASSERT
+yes
