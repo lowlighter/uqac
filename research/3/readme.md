@@ -1,1 +1,1 @@
-Introduction à un sujet de recherche sur la [Génération procédurale de contenu personnalisé pour créer une expérience de jeu adaptée au style de jeu et aux traits de personnalité du joueur](https://github.com/lowlighter/uqac/blob/master/research/2/introduction.pdf).
+Introduction à un sujet de recherche sur la [Génération procédurale de contenu personnalisé pour créer une expérience de jeu adaptée au style de jeu et aux traits de personnalité du joueur](https://github.com/lowlighter/uqac/blob/master/research/3/state_of_the_art.pdf).
