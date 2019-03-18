@@ -11,12 +11,12 @@
   * [Moteur de jeu d'échec](https://github.com/lowlighter/uqac/tree/master/ai/4)
   
 * 🗃 **[Bases de données réparties](https://github.com/lowlighter/uqac/tree/master/database)**
-  * Apache spark et Scala (1)
+  * [Apache spark et Scala (1)](https://github.com/lowlighter/uqac/tree/master/database/1)
   * Apache spark et Scala (2)
   
 * 📉 **[Métaheuristiques en optimisation](https://github.com/lowlighter/uqac/tree/master/metaheuristics)**
-  * Descente par gradient
-  * Recherche par tabous et recuit simulé
+  * [Descente par gradient](https://github.com/lowlighter/uqac/tree/master/metaheuristics/1)
+  * [Recherche par tabous et recuit simulé](https://github.com/lowlighter/uqac/tree/master/metaheuristics/2)
   * Algorithme génétique
   * Algorithme Impérialiste ★
   
