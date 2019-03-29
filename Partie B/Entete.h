@@ -11,11 +11,12 @@
 #include <cmath>
 #include <vector>
 #include <limits>
+#include <algorithm>
+
 using namespace std;
 
-enum eProb	{ALPINE, BANANE};
+enum eProb	{ALPINE, BANANE, MAXSAT};
 
-/* POUR TRAITER MAXSAT: ENLEVER LES COMMENTAIRES ET RETIRER L'AUTRE ENREGISTREMENT DE tProblem
 struct tClause
 {
 	int NbVar;									//Nombre de variables (litteraux) dans la clause
@@ -32,8 +33,9 @@ struct tProblem									//**Définition du problème de MAXSAT:
 	std::string Nom;							//**Nom du fichier de données
 	int NbClause;								//**Nbre de clauses indiqués dans le fichier
 	std::vector <tClause> Clause;				//**Définition des NbClause (Longueur, poids, détails). NB: Tableaux de 0 à NbClause-1.
-};*/
+};
 
+/*
 struct tProblem									//**Définition pour fonction continue:
 {
 	eProb	Fonction;							//**Nom de la fonction ou du problème à traiter
@@ -41,6 +43,7 @@ struct tProblem									//**Définition pour fonction continue:
 	double	Xmin;								//**Domaine des variables: valeur minimale 
 	double	Xmax;								//**Domaine des variables: valeur maximale
 };
+*/
 
 struct tPosition								//**Définition de la position d'une particule: 
 {
