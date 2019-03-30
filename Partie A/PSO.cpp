@@ -180,7 +180,7 @@ void EvaluationPosition(tPosition &Pos, tProblem unProb, tPSO &unPSO)
 					valeur += 100*xd*xd;
 				}
 				break;
-		case  CPMIN:
+		case  CPMIN: // CPMIN, min 0.6735263 en x= 0.4553560
 			for (d = 0; d<unProb.D; d++) valeur+= champMagnetique(Pos.X[d]);
 			break;
 		default: valeur = FLT_MAX;
@@ -332,6 +332,7 @@ void AfficherResultats (tPosition uneBest, tProblem unProb, tPSO unPSO)
 	{
 		case ALPINE: cout << "ALPINE"; break;
 		case BANANE: cout << "BANANE"; break;
+		case CPMIN: cout << "CPMIN"; break;
 		default: cout << " a definir...";
 	}
 	cout << endl; 
@@ -362,12 +363,14 @@ void LibererMemoireFinPgm (std::vector<tParticule> &unEssaim, tProblem unProb, t
 	unEssaim.clear();
 }
 
-
+//**-----------------------------------------------------------------------
+//**Calcul le champ entre les deux stations
 double champMagnetique(double x) {
 	double cp_a = exp(-1*x) * (1 + sin(10*x));
 	double cp_b = exp(-1 * abs(2.7 - x)) * (1 + sin(10 * abs(2.7 - x)));
 	return cp_a + cp_b;
 }
+
 //**-----------------------------------------------------------------------
 //**Lecture du Fichier probleme MAXSAT et initialiation de la structure Problem
 /* ### POUR MAXSAT
