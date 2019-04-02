@@ -17,13 +17,17 @@
 * 📉 **[Métaheuristiques en optimisation](https://github.com/lowlighter/uqac/tree/master/metaheuristics)**
   * [Descente par gradient](https://github.com/lowlighter/uqac/tree/master/metaheuristics/1)
   * [Recherche par tabous et recuit simulé](https://github.com/lowlighter/uqac/tree/master/metaheuristics/2)
-  * Algorithme génétique
+  * [Algorithme génétique](https://github.com/lowlighter/uqac/tree/master/metaheuristics/2)
+    * [Présentation de la consanguinité, ERC et des castes](https://github.com/lowlighter/uqac/blob/master/metaheuristics/3/Pr%C3%A9sentation.pdf)
   * Algorithme Impérialiste ★
+    * Présentation de l'algorithme
   
 * 📊 **[Informatique appliqué et optimisation](https://github.com/lowlighter/uqac/tree/master/optimization)**
   * [Formulation, résolution et interprétation](https://github.com/lowlighter/uqac/blob/master/optimization/1/Rapport.pdf)
   * [Langage de modélisation et analyse post-optimale](https://github.com/lowlighter/uqac/blob/master/optimization/2/Rapport.pdf)
-  * Prog. Linéaire en nombres entiers et optimisation multi-objectifs
+  * [Prog. Linéaire en nombres entiers et optimisation multi-objectifs](https://github.com/lowlighter/uqac/blob/master/optimization/3/Rapport.pdf)
+  * Optimisation par essaim particulaire
+  * Simulation
   
 * 💻 **[Architectures parallèles](https://github.com/lowlighter/uqac/tree/master/parallels)**
   * [Fusion séquentielle et parallèle](https://github.com/lowlighter/uqac/tree/master/parallels/2)
