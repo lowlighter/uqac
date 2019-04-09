@@ -21,13 +21,13 @@
     * [Présentation de la consanguinité, ERC et des castes](https://github.com/lowlighter/uqac/blob/master/metaheuristics/3/Pr%C3%A9sentation.pdf)
   * Algorithme Impérialiste ★
     * Présentation de l'algorithme
-  
+      
 * 📊 **[Informatique appliqué et optimisation](https://github.com/lowlighter/uqac/tree/master/optimization)**
   * [Formulation, résolution et interprétation](https://github.com/lowlighter/uqac/blob/master/optimization/1/Rapport.pdf)
   * [Langage de modélisation et analyse post-optimale](https://github.com/lowlighter/uqac/blob/master/optimization/2/Rapport.pdf)
   * [Prog. Linéaire en nombres entiers et optimisation multi-objectifs](https://github.com/lowlighter/uqac/blob/master/optimization/3/Rapport.pdf)
-  * Optimisation par essaim particulaire
-  * Simulation
+  * [Optimisation par essaim particulaire](https://github.com/lowlighter/uqac/blob/master/optimization/4)
+  * [Simulation](https://github.com/lowlighter/uqac/blob/master/optimization/5)
   
 * 💻 **[Architectures parallèles](https://github.com/lowlighter/uqac/tree/master/parallels)**
   * [Fusion séquentielle et parallèle](https://github.com/lowlighter/uqac/tree/master/parallels/2)
@@ -46,6 +46,12 @@
   * [Rapport de recherche sur l'ED-PCG](https://github.com/lowlighter/uqac/blob/master/research/2/introduction.pdf)
   * [État de l'art sur l'ED-PCG](https://github.com/lowlighter/uqac/blob/master/research/3/state_of_the_art.pdf)
   * [Rédaction sous LaTex](https://github.com/lowlighter/uqac/blob/master/research/A/Latex.pdf)
+
+* 🧠 **Apprentissage machine**
+  * *(prochainement)*
+  
+* 💠 **Virtualisation**
+  * *(prochainement)*
 
 ## Précautions d'usages
 
