@@ -11,8 +11,8 @@
   * [Moteur de jeu d'échec](https://github.com/lowlighter/uqac/tree/master/ai/4)
   
 * 🗃 **[Bases de données réparties](https://github.com/lowlighter/uqac/tree/master/database)**
-  * [Apache spark et Scala (1)](https://github.com/lowlighter/uqac/tree/master/database/1)
-  * Apache spark et Scala (2)
+  * [Manipulations de RDD et algorithme du PageRank](https://github.com/lowlighter/uqac/tree/master/database/1)
+  * Moteur de recherche et simulateur de combats ★
   
 * 📉 **[Métaheuristiques en optimisation](https://github.com/lowlighter/uqac/tree/master/metaheuristics)**
   * [Descente par gradient](https://github.com/lowlighter/uqac/tree/master/metaheuristics/1)
