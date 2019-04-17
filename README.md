@@ -17,7 +17,7 @@
 * 📉 **[Métaheuristiques en optimisation](https://github.com/lowlighter/uqac/tree/master/metaheuristics)**
   * [Descente par gradient](https://github.com/lowlighter/uqac/tree/master/metaheuristics/1)
   * [Recherche par tabous et recuit simulé](https://github.com/lowlighter/uqac/tree/master/metaheuristics/2)
-  * [Algorithme génétique](https://github.com/lowlighter/uqac/tree/master/metaheuristics/2)
+  * [Algorithme génétique](https://github.com/lowlighter/uqac/tree/master/metaheuristics/3)
     * [Présentation de la consanguinité, ERC et des castes](https://github.com/lowlighter/uqac/blob/master/metaheuristics/3/Pr%C3%A9sentation.pdf)
   * Algorithme Impérialiste ★
     * Présentation de l'algorithme
