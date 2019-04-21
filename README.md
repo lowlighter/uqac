@@ -12,7 +12,8 @@
   
 * 🗃 **[Bases de données réparties](https://github.com/lowlighter/uqac/tree/master/database)**
   * [Manipulations de RDD et algorithme du PageRank](https://github.com/lowlighter/uqac/tree/master/database/1)
-  * Moteur de recherche et simulateur de combats ★
+  * [Moteur de recherche de sorts *Pathfinder* ★](https://scala.lecoq.io/) 
+    * *NB : L'app est hébergée sur un serveur Heroku gratuit. La première connexion au serveur peut donc être très lente, le temps que l'app soit chargée de nouveau en mémoire dans le dyno (~1 min).*
   
 * 📉 **[Métaheuristiques en optimisation](https://github.com/lowlighter/uqac/tree/master/metaheuristics)**
   * [Descente par gradient](https://github.com/lowlighter/uqac/tree/master/metaheuristics/1)
