@@ -1,0 +1,86 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+      <div id="graph-heatmap"></div>
+    <div id="graph"></div>
+  </main>
+  <div id="ui">
+    <div class="debug">
+      <div class="header"><h4>iter: {{ iteration }} | Best: {{ best.cost.toFixed(2) }} ({{ best.variables.map(v => v.toFixed(2)).join(", ") }})</h4></div>
+      <div v-for="log in debug.logs" v-bind:class="{[log.type]:true}"> {{ log.text }} </div>
+    </div>
+    <div class="commands">
+      <h4> Commands: </h4>
+      <div class="buttons">
+        <button @click="start()">Start</button>
+        <button @click="step()">Step</button>
+        <button @click="stop()" :disabled="!algo || !running">Stop</button>
+        <button @click="reset()" :disabled="!algo">Reset</button>
+      </div>
+      <label> 
+        Test function: 
+        <select name="opti_func" @change="set_test()" v-model="objective" :disabled="algo">
+          <option v-for="option in test_functions" v-bind:value="option">{{option.name}}</option>
+        </select>
+      </label>
+      <div>
+        <div class="bar">
+          <div v-for="empire in empires" :style="{width:100*(empire.x+1)/parameters.nb_countries+'%', 'background-color':empire.color}"></div>
+        </div>
+      </div>
+    </div>
+    <div class="parameters">
+      <h4> Parameters: </h4>
+      <label> 
+        Nb. countries: 
+        <input type="number" v-model="parameters.nb_countries">
+      </label>
+      <label> 
+        Nb. imperialist: 
+        <input type="number" v-model="parameters.nb_imperialists">
+      </label>
+      <label> 
+        Assim. (direction β): 
+        <input type="number" v-model="parameters.assimilation_direction">
+      </label>
+      <label> 
+        Assim. (deviation φ): 
+        <input type="number" v-model="parameters.assimilation_deviation">
+      </label>
+      <label> 
+        Revolutions rate: 
+        <input type="number" v-model="parameters.revolution_rate">
+      </label>
+      <label> 
+        Revolutions scale: 
+        <input type="number" v-model="parameters.revolution_scale">
+      </label>
+      <label> 
+        Colonies power (ξ): 
+        <input type="number" v-model="parameters.colonies_power">
+      </label>
+      <label> 
+        Competition epochs: 
+        <input type="number" v-model="parameters.influency_epoch">
+      </label>
+    </div>
+  </div>
+
+  <script src="lib/plotly.min.js"></script>
+  <script src="lib/vue.min.js"></script>
+  <script src="lib/noise.min.js"></script>
+  <script src="src/country.js"></script>
+  <script src="src/world.js"></script>
+  <script src="src/ica.js"></script>
+  <script src="src/objective.js"></script>
+  <script src="src/logger.js"></script>
+  <script src="misc.js"></script>
+
+</body>
+
+</html>
