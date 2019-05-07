@@ -12,15 +12,16 @@
   
 * 🗃 **[Bases de données réparties](https://github.com/lowlighter/uqac/tree/master/database)**
   * [Manipulations de RDD et algorithme du PageRank](https://github.com/lowlighter/uqac/tree/master/database/1)
-  * Moteur de recherche et simulateur de combats ★
+  * [Moteur de recherche de sorts *Pathfinder* ★](https://scala.lecoq.io/) 
+    * *NB : L'app est hébergée sur un serveur Heroku gratuit. La première connexion au serveur peut donc être très lente, le temps que l'app soit chargée de nouveau en mémoire dans le dyno (~1 min).*
   
 * 📉 **[Métaheuristiques en optimisation](https://github.com/lowlighter/uqac/tree/master/metaheuristics)**
   * [Descente par gradient](https://github.com/lowlighter/uqac/tree/master/metaheuristics/1)
   * [Recherche par tabous et recuit simulé](https://github.com/lowlighter/uqac/tree/master/metaheuristics/2)
   * [Algorithme génétique](https://github.com/lowlighter/uqac/tree/master/metaheuristics/3)
     * [Présentation de la consanguinité, ERC et des castes](https://github.com/lowlighter/uqac/blob/master/metaheuristics/3/Pr%C3%A9sentation.pdf)
-  * Algorithme Impérialiste ★
-    * Présentation de l'algorithme
+  * [Algorithme Impérialiste ★](https://lecoq.io/access/5005d70afd47a09d181c918c16ca0c4346c3b70c/uqac/mh/)
+    * [Présentation de l'algorithme](https://github.com/lowlighter/uqac/blob/master/metaheuristics/4/Pr%C3%A9sentation.pdf)
       
 * 📊 **[Informatique appliqué et optimisation](https://github.com/lowlighter/uqac/tree/master/optimization)**
   * [Formulation, résolution et interprétation](https://github.com/lowlighter/uqac/blob/master/optimization/1/Rapport.pdf)
