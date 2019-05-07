@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Pathfinder Combat</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <style>
+
+           .battle > * {
+               position: absolute;
+               width: 600;
+               height: 600;
+               top:300;
+               left: 300;
+           }
+
+            .circle {
+                border-radius: 50%;
+                width: 10px;
+                height: 10px;
+                background: blue;
+            }    
+        </style>
+
+        <main id="app">
+
+        
+            <transition-group tag="div" class="battle">
+                
+                <div v-for="m in monsters" :key="m.data.id" :style="{transform:`translate(${m.data.x}px, ${m.data.y}px)`}">
+                    {{ m.name }}
+                    <div class="circle"></div>
+                </div>
+            </transition-group>
+
+        </main>
+        <script src="axios.min.js"></script>
+        <script src="vue.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

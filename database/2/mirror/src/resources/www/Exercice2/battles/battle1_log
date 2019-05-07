@@ -1,0 +1,218 @@
+== Turn    1 ========================================                                              
+Solar (0) moves towards Double Axe Fury (1) | 0;0;0 -> 49;-3;0                                     
+Double Axe Fury (1) moves towards Solar (0) | 130;-20;0 -> 91;-17;0                                
+Double Axe Fury (2) moves towards Solar (0) | 130;-5;0 -> 91;-5;0                                  
+Double Axe Fury (3) moves towards Solar (0) | 130;10;0 -> 91;10;0                                  
+Double Axe Fury (4) moves towards Solar (0) | 130;25;0 -> 91;21;0                                  
+Orc Worg Rider (5) moves towards Solar (0) | 110;-50;0 -> 92;-42;0                                 
+Orc Worg Rider (6) moves towards Solar (0) | 110;-40;0 -> 92;-34;0                                 
+Orc Worg Rider (7) moves towards Solar (0) | 110;-30;0 -> 91;-25;0                                 
+Orc Worg Rider (8) moves towards Solar (0) | 110;-20;0 -> 91;-17;0                                 
+Orc Worg Rider (9) moves towards Solar (0) | 110;-10;0 -> 91;-10;0                                 
+Orc Worg Rider (10) moves towards Solar (0) | 110;0;0 -> 90;0;0                                    
+Orc Worg Rider (11) moves towards Solar (0) | 110;10;0 -> 91;10;0                                  
+Orc Worg Rider (12) moves towards Solar (0) | 110;20;0 -> 91;17;0                                  
+Orc Worg Rider (13) moves towards Solar (0) | 110;30;0 -> 91;25;0                                  
+War Lord (14) moves towards Solar (0) | 150;0;0 -> 120;0;0                                         
+saved data from turn 1                                                                             
+== Turn    2 ========================================                                              
+Orc Worg Rider (12) attacks Solar (0) | miss (6 < 44)                                              
+Double Axe Fury (1) attacks Solar (0) | miss (33 < 44)| 12 damage (20!)| miss (15 < 44)            
+Orc Worg Rider (13) attacks Solar (0) | 3 damage (20!)                                             
+Orc Worg Rider (6) attacks Solar (0) | miss (12 < 44)                                              
+Double Axe Fury (3) attacks Solar (0) | miss (24 < 44)| miss (24 < 44)| miss (23 < 44)             
+Orc Worg Rider (5) attacks Solar (0) | miss (17 < 44)                                              
+Orc Worg Rider (9) attacks Solar (0) | miss (20 < 44)                                              
+Double Axe Fury (4) attacks Solar (0) | miss (30 < 44)| miss (21 < 44)| miss (29 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (16 < 44)                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (6 < 44)                                               
+Orc Worg Rider (10) attacks Solar (0) | miss (17 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (22 < 44)                                             
+War Lord (14) attacks Solar (0) | miss (29 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (26 < 44)| miss (23 < 44)| miss (22 < 44)             
+Solar (0) attacks Orc Worg Rider (12) | 21 damage | 20 damage | 24 damage | 19 damage              
+saved data from turn 2                                                                             
+== Turn    3 ========================================                                              
+Double Axe Fury (1) attacks Solar (0) | miss (22 < 44)| miss (25 < 44)| miss (26 < 44)             
+Orc Worg Rider (13) attacks Solar (0) | 6 damage (20!)                                             
+Orc Worg Rider (6) attacks Solar (0) | miss (14 < 44)                                              
+Double Axe Fury (3) attacks Solar (0) | miss (30 < 44)| miss (17 < 44)| miss (21 < 44)             
+Orc Worg Rider (5) attacks Solar (0) | miss (5 < 44)                                               
+Orc Worg Rider (9) attacks Solar (0) | miss (5 < 44)                                               
+Double Axe Fury (4) attacks Solar (0) | miss (30 < 44)| miss (18 < 44)| miss (24 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (12 < 44)                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (5 < 44)                                               
+Orc Worg Rider (10) attacks Solar (0) | miss (11 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (12 < 44)                                             
+War Lord (14) attacks Solar (0) | 10 damage (20!)                                                  
+Double Axe Fury (2) attacks Solar (0) | miss (32 < 44)| miss (13 < 44)| miss (12 < 44)             
+Solar (0) attacks Double Axe Fury (1) | 24 damage | 25 damage | 19 damage | 21 damage              
+saved data from turn 3                                                                             
+== Turn    4 ========================================                                              
+Double Axe Fury (1) attacks Solar (0) | miss (24 < 44)| miss (17 < 44)| miss (20 < 44)             
+Orc Worg Rider (13) attacks Solar (0) | miss (5 < 44)                                              
+Orc Worg Rider (6) attacks Solar (0) | miss (18 < 44)                                              
+Double Axe Fury (3) attacks Solar (0) | miss (17 < 44)| miss (26 < 44)| miss (11 < 44)             
+Orc Worg Rider (5) attacks Solar (0) | miss (14 < 44)                                              
+Orc Worg Rider (9) attacks Solar (0) | miss (6 < 44)                                               
+Double Axe Fury (4) attacks Solar (0) | miss (23 < 44)| miss (17 < 44)| miss (21 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (8 < 44)                                               
+Orc Worg Rider (7) attacks Solar (0) | miss (14 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (11 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (9 < 44)                                              
+War Lord (14) attacks Solar (0) | miss (25 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (24 < 44)| 12 damage (20!)| miss (23 < 44)            
+Solar (0) attacks Double Axe Fury (1) | 22 damage | 19 damage | 19 damage | 18 damage              
+saved data from turn 4                                                                             
+== Turn    5 ========================================                                              
+Orc Worg Rider (13) attacks Solar (0) | miss (19 < 44)                                             
+Orc Worg Rider (6) attacks Solar (0) | miss (18 < 44)                                              
+Double Axe Fury (3) attacks Solar (0) | miss (19 < 44)| miss (26 < 44)| miss (14 < 44)             
+Orc Worg Rider (5) attacks Solar (0) | miss (8 < 44)                                               
+Orc Worg Rider (9) attacks Solar (0) | miss (6 < 44)                                               
+Double Axe Fury (4) attacks Solar (0) | miss (29 < 44)| miss (27 < 44)| miss (28 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (9 < 44)                                               
+Orc Worg Rider (7) attacks Solar (0) | miss (13 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (11 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (9 < 44)                                              
+War Lord (14) attacks Solar (0) | miss (20 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (24 < 44)| 13 damage (20!)| miss (29 < 44)            
+Solar (0) attacks Orc Worg Rider (13) | 22 damage | 19 damage | 22 damage | 17 damage              
+saved data from turn 5                                                                             
+== Turn    6 ========================================                                              
+Orc Worg Rider (6) attacks Solar (0) | miss (23 < 44)                                              
+Double Axe Fury (3) attacks Solar (0) | miss (35 < 44)| miss (27 < 44)| miss (17 < 44)             
+Orc Worg Rider (5) attacks Solar (0) | miss (7 < 44)                                               
+Orc Worg Rider (9) attacks Solar (0) | miss (11 < 44)                                              
+Double Axe Fury (4) attacks Solar (0) | miss (26 < 44)| miss (23 < 44)| miss (24 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (15 < 44)                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (14 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (5 < 44)                                              
+Orc Worg Rider (11) attacks Solar (0) | miss (6 < 44)                                              
+War Lord (14) attacks Solar (0) | miss (31 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (23 < 44)| 12 damage (20!)| miss (16 < 44)            
+Solar (0) attacks Orc Worg Rider (6) | 25 damage | 19 damage | 17 damage | 24 damage               
+saved data from turn 6                                                                             
+== Turn    7 ========================================                                              
+Double Axe Fury (3) attacks Solar (0) | miss (28 < 44)| miss (28 < 44)| miss (23 < 44)             
+Orc Worg Rider (5) attacks Solar (0) | miss (12 < 44)                                              
+Orc Worg Rider (9) attacks Solar (0) | miss (20 < 44)                                              
+Double Axe Fury (4) attacks Solar (0) | miss (25 < 44)| miss (26 < 44)| miss (26 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (14 < 44)                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (13 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (16 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (10 < 44)                                             
+War Lord (14) attacks Solar (0) | miss (35 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (24 < 44)| miss (17 < 44)| 8 damage (20!)             
+Solar (0) attacks Double Axe Fury (3) | 19 damage | 25 damage | 19 damage | 19 damage              
+saved data from turn 7                                                                             
+== Turn    8 ========================================                                              
+Double Axe Fury (3) attacks Solar (0) | miss (28 < 44)| miss (16 < 44)| miss (20 < 44)             
+Orc Worg Rider (5) attacks Solar (0) | 5 damage (20!)                                              
+Orc Worg Rider (9) attacks Solar (0) | miss (22 < 44)                                              
+Double Axe Fury (4) attacks Solar (0) | miss (28 < 44)| miss (13 < 44)| miss (27 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (13 < 44)                                              
+Orc Worg Rider (7) attacks Solar (0) | 3 damage (20!)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (16 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (17 < 44)                                             
+War Lord (14) attacks Solar (0) | miss (34 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (29 < 44)| miss (26 < 44)| miss (29 < 44)             
+Solar (0) attacks Double Axe Fury (3) | 20 damage | 20 damage | 23 damage | 24 damage              
+saved data from turn 8                                                                             
+== Turn    9 ========================================                                              
+Orc Worg Rider (5) attacks Solar (0) | miss (7 < 44)                                               
+Orc Worg Rider (9) attacks Solar (0) | miss (15 < 44)                                              
+Double Axe Fury (4) attacks Solar (0) | miss (33 < 44)| miss (28 < 44)| miss (27 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (21 < 44)                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (13 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (21 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (16 < 44)                                             
+War Lord (14) attacks Solar (0) | miss (25 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (35 < 44)| miss (30 < 44)| miss (16 < 44)             
+Solar (0) attacks Orc Worg Rider (5) | 20 damage | 20 damage | 23 damage | 18 damage               
+saved data from turn 9                                                                             
+== Turn   10 ========================================                                              
+Orc Worg Rider (9) attacks Solar (0) | miss (14 < 44)                                              
+Double Axe Fury (4) attacks Solar (0) | miss (33 < 44)| miss (14 < 44)| miss (14 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (16 < 44)                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (22 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (12 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (10 < 44)                                             
+War Lord (14) attacks Solar (0) | miss (27 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (20 < 44)| miss (19 < 44)| miss (15 < 44)             
+Solar (0) attacks Orc Worg Rider (9) | 22 damage | 19 damage (20!)| 22 damage | 19 damage          
+saved data from turn 10                                                                            
+== Turn   11 ========================================                                              
+Double Axe Fury (4) attacks Solar (0) | miss (35 < 44)| miss (13 < 44)| miss (15 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (20 < 44)                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (10 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (10 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (9 < 44)                                              
+War Lord (14) attacks Solar (0) | miss (20 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (34 < 44)| miss (13 < 44)| miss (21 < 44)             
+Solar (0) attacks Double Axe Fury (4) | 17 damage | 21 damage | 22 damage | 21 damage              
+saved data from turn 11                                                                            
+== Turn   12 ========================================                                              
+Double Axe Fury (4) attacks Solar (0) | miss (20 < 44)| miss (14 < 44)| miss (20 < 44)             
+Orc Worg Rider (8) attacks Solar (0) | miss (15 < 44)                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (21 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (23 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (7 < 44)                                              
+War Lord (14) attacks Solar (0) | miss (20 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (26 < 44)| miss (20 < 44)| miss (24 < 44)             
+Solar (0) attacks Double Axe Fury (4) | 26 damage | 19 damage | 23 damage | 18 damage              
+saved data from turn 12                                                                            
+== Turn   13 ========================================                                              
+Orc Worg Rider (8) attacks Solar (0) | 5 damage (20!)                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (15 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (10 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (7 < 44)                                              
+War Lord (14) attacks Solar (0) | miss (24 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (32 < 44)| miss (20 < 44)| miss (20 < 44)             
+Solar (0) attacks Orc Worg Rider (8) | 20 damage | 26 damage | 20 damage | 20 damage               
+saved data from turn 13                                                                            
+== Turn   14 ========================================                                              
+Orc Worg Rider (7) attacks Solar (0) | miss (15 < 44)                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (9 < 44)                                              
+Orc Worg Rider (11) attacks Solar (0) | miss (13 < 44)                                             
+War Lord (14) attacks Solar (0) | miss (30 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (30 < 44)| miss (12 < 44)| miss (19 < 44)             
+Solar (0) attacks Orc Worg Rider (7) | 21 damage | 24 damage | 19 damage | 21 damage               
+saved data from turn 14                                                                            
+== Turn   15 ========================================                                              
+Orc Worg Rider (10) attacks Solar (0) | miss (19 < 44)                                             
+Orc Worg Rider (11) attacks Solar (0) | miss (8 < 44)                                              
+War Lord (14) attacks Solar (0) | miss (38 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (25 < 44)| miss (18 < 44)| miss (16 < 44)             
+Solar (0) attacks Orc Worg Rider (10) | 20 damage | 20 damage | 19 damage | 22 damage              
+saved data from turn 15                                                                            
+== Turn   16 ========================================                                              
+Orc Worg Rider (11) attacks Solar (0) | miss (13 < 44)                                             
+War Lord (14) attacks Solar (0) | miss (25 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | 8 damage (20!)| miss (21 < 44)| miss (26 < 44)             
+Solar (0) attacks Orc Worg Rider (11) | 26 damage | 21 damage | 17 damage | 17 damage              
+saved data from turn 16                                                                            
+== Turn   17 ========================================                                              
+War Lord (14) attacks Solar (0) | miss (31 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (32 < 44)| miss (18 < 44)| miss (14 < 44)             
+Solar (0) attacks War Lord (14) | 22 damage | 20 damage | 21 damage | miss (26 < 27)               
+saved data from turn 17                                                                            
+== Turn   18 ========================================                                              
+War Lord (14) attacks Solar (0) | miss (31 < 44)                                                   
+Double Axe Fury (2) attacks Solar (0) | 7 damage (20!)| miss (22 < 44)| miss (20 < 44)             
+Solar (0) attacks War Lord (14) | 22 damage | 21 damage | 26 damage | miss (25 < 27)               
+saved data from turn 18                                                                            
+== Turn   19 ========================================                                              
+War Lord (14) attacks Solar (0) | 9 damage (20!)                                                   
+Double Axe Fury (2) attacks Solar (0) | miss (25 < 44)| miss (19 < 44)| miss (27 < 44)             
+Solar (0) attacks War Lord (14) | 23 damage | 24 damage | 18 damage | 23 damage                    
+saved data from turn 19                                                                            
+== Turn   20 ========================================                                              
+Double Axe Fury (2) attacks Solar (0) | miss (18 < 44)| miss (24 < 44)| miss (22 < 44)             
+Solar (0) attacks Double Axe Fury (2) | 24 damage | 22 damage | 20 damage | 22 damage              
+saved data from turn 20                                                                            
+== Turn   21 ========================================                                              
+Double Axe Fury (2) attacks Solar (0) | miss (31 < 44)| miss (13 < 44)| miss (24 < 44)             
+Solar (0) attacks Double Axe Fury (2) | 23 damage | 18 damage | 21 damage | 18 damage              
+Team 1 has won the battle                                                                          
+saved data from turn 21                                                                            

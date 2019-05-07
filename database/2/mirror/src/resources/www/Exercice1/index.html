@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <title>Pathfinder</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/png" href="favicon.png">
+    </head>
+    <body>
+
+        <video class="background" src="particles.webm" autoplay muted loop playsinline></video>
+
+        <div class="credits">
+            <a href="https://paizo.com/community/blog/v5748dyo5lk68?Art-of-the-Damned">Artwork: Paizo</a>
+        </div>
+
+        <main id="app">
+            <template>
+                <div class="search" :class="{disabled:Number.isFinite(pending.start)}">
+                    <img src="logo.png">
+                    <div class="query">
+                        <input type="text" name="query" v-model="query.name" placeholder="Search something !" autocomplete="off" @keyup.enter="submit()" @keyup="delayed_submit()">
+                        <button @click="submit()">🔍</button>
+                    </div>
+
+                    <div class="advanced" :class="{extend:query.advanced && init}">
+                        <div class="name" @click="query.advanced = !query.advanced">Advanced search {{ query.advanced ? "⯆" : "⯈" }}</div>
+
+                        <div class="filters">
+                            <div class="name">Level:</div>
+                            <div class="filter" v-for="filter in levels" @click="q('levels', filter)" :class="{active:query.levels.includes(filter)}">{{ filter }}</div>
+                        </div>
+
+                        <div class="filters">
+                            <div class="name">Components:</div>
+                            <div class="filter" v-for="filter in components" @click="q('components', filter)" :class="{active:query.components.includes(filter)}">{{ format("spell.components", filter) }}</div>
+                        </div>
+
+                        <div class="filters">
+                            <div class="name">Classes:</div>
+                            <div class="filter" v-for="filter in classes" @click="q('classes', filter)" :class="{active:query.classes.includes(filter)}">{{ format("text", filter) }}</div>
+                        </div>
+
+                        <div class="filters">
+                            <div class="name">Schools:</div>
+                            <div class="filter" v-for="filter in schools" @click="q('schools', filter)" :class="{active:query.schools.includes(filter)}">{{ format("text", filter) }}</div>
+                        </div>
+
+                        <div class="filters">
+                            <div class="name">Keywords:</div>
+                            <textarea class="filter" :class="{active:query.misc}" v-model="query.misc" placeholder="Search in description by keywords (may take a little bit more time than classic queries)" @keyup.enter="submit()" @keypress.enter="$event.preventDefault()"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <transition name="slide">
+                    <div class="results" v-if="response">
+                        <h1 class="container">
+                            {{ results.length > query.limit ? query.limit+"+" : results.length.toString() }} results<br>
+                            <small>{{ Math.min(results.length, query.limit) }} of about {{ response.n }} results ({{ (pending.complete/1000).toFixed(2) }} seconds)</small>
+                        </h1>
+                        <transition-group name="list" tag="div">
+                            <div v-for="result in results" class="result container" :key="result.name">
+                                <div class="title"><h2>{{ format('spell.name', result.name) }}</h2><a v-bind:href="result.url">🔗</a></div>
+                                <h4>Components : {{ format('spell.components', result.components) }}</h4>
+                                <p v-html="result.description"></p>
+                                <details class="details">
+                                    <summary>Details</summary>
+                                    <ul>
+                                        <li v-for="(value, prop) in result" v-if="!/^(?:name|components|description|url|monsters|keywords)$/.test(prop)"><b>{{ prop }}</b> : {{ value }}</li>
+                                    </ul>
+                                </details>
+                                <details class="details" v-if="result.monsters.length">
+                                    <summary>Monsters which have this spell ({{ result.monsters.length }})</summary>
+                                    <ul>
+                                        <li v-for="monster in result.monsters" class="monster">
+                                            <b><a v-bind:href="monster.url">{{ format('text', monster.name) }}</a></b>
+                                            <ul>
+                                                <li v-for="(value, prop) in monster" v-if="!/^(?:name|url|keywords)$/.test(prop)"><b>{{ format('text', prop) }}</b> : {{ value }}</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </details>
+                            </div>
+                        </transition-group>
+                        <div class="container more" @click="query.limit += 10;submit()" v-if="query.limit < response.n">
+                            See more results
+                        </div>
+                    </div>
+                </transition>
+
+                <footer>
+                    <div class="indicator" :class="[connected ? 'online' : 'offline']"></div>
+                    {{ connected ? "Connected to server" : "Not connected to server" }}
+                </footer>
+            </template>
+        </main>
+
+
+        <script src="vue.min.js"></script>
+        <script src="porter.stemmer.min.js"></script>
+        <script src="script.js"></script>
+
+    </body>
+</html>
