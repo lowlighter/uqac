@@ -9,6 +9,11 @@
   * [Résolution d'un Sudoku par CSP ★](https://lecoq.io/access/5005d70afd47a09d181c918c16ca0c4346c3b70c/uqac/ai/2/)
   * [Agent logique ★](https://lecoq.io/access/5005d70afd47a09d181c918c16ca0c4346c3b70c/uqac/ai/3/)
   * [Moteur de jeu d'échec](https://github.com/lowlighter/uqac/tree/master/ai/4)
+ 
+* 🧠 **[Apprentissage machine](https://github.com/lowlighter/uqac/tree/master/machinelearning)**
+  * *(prochainement)*
+  * [Snippets](https://github.com/lowlighter/uqac/tree/master/machinelearning/snippets)
+    * [Exemples sur le dataset Iris](https://github.com/lowlighter/uqac/blob/master/machinelearning/snippets/Examples.ipynb)
   
 * 🗃 **[Bases de données réparties](https://github.com/lowlighter/uqac/tree/master/database)**
   * [Manipulations de RDD et algorithme du PageRank](https://github.com/lowlighter/uqac/tree/master/database/1)
@@ -47,9 +52,6 @@
   * [Rapport de recherche sur l'ED-PCG](https://github.com/lowlighter/uqac/blob/master/research/2/introduction.pdf)
   * [État de l'art sur l'ED-PCG](https://github.com/lowlighter/uqac/blob/master/research/3/state_of_the_art.pdf)
   * [Rédaction sous LaTex](https://github.com/lowlighter/uqac/blob/master/research/A/Latex.pdf)
-
-* 🧠 **Apprentissage machine**
-  * *(prochainement)*
   
 * 💠 **Virtualisation**
   * *(prochainement)*
