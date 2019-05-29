@@ -3,9 +3,9 @@
 _____
 # Niveau 1
 
-Historiquement, la transmission des données se faisait via le réseau électrique, avec même câble pour les utilisateurs. La différence de potentiel pour transmettre les données. L'inconvénient d'une telle méthode est que les données sont lisibles par tout le monde, qu'un seul utilisateur à la fois peut occuper le canal et également les problèmes d'écho avec les fréquences élevées selon la longueur du câble...
+Historiquement, la transmission des données se faisait via le réseau électrique, avec le même câble pour les utilisateurs. La différence de potentiel était utilisée pour transmettre les données. L'inconvénient d'une telle méthode est que les données sont lisibles par tout le monde et qu'un seul utilisateur à la fois peut occuper le canal. Il y a également des problèmes d'écho qui apparaissent avec les fréquences élevées selon la longueur du câble...
 
-Néanmoins le besoin étant de réaliser des communications asynchrones, ceci à mener à l'élaboration de stratégies d'adressage (quoi/qui, où, pourquoi).
+Néanmoins le besoin étant de réaliser des communications asynchrones, ceci à mené à l'élaboration de stratégies d'adressage (quoi/qui, où, pourquoi) et à ce qu'on connait aujourd'hui.
 
 # Niveau 2 
 ## La commutation
