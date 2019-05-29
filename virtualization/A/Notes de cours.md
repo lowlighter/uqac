@@ -28,11 +28,11 @@ Le switch lit l'entête de la trame puis se base sur le contenu de sa table de c
 
 Celle-ci est construite au fur et à mesure que les équipements communiquent, en associant l'adresse MAC source à un n° de prise. Il est possible d'avoir une prise associée à plusieurs adresses MAC, notamment dans le cas où un autre switch se trouve sur celle-ci.
 
-Si trame avec une adresse MAC de destination n'est pas dans la table, la trame unicast est traité comme une trame broadcast et est diffusé sur l'ensemble des prises du switch (fallback).
+Si une trame avec une adresse MAC de destination n'est pas dans la table, la trame unicast est traitée comme une trame broadcast et est diffusée sur l'ensemble des prises du switch (fallback) sauf évidemment celle d'où provient la trame.
 
-Le *Spanning Tree Protocol* permet d'éviter les problèmes liés aux boucles présente dans la topologie du réseau.
+Le *Spanning Tree Protocol* permet d'éviter les problèmes liés aux boucles présentes dans la topologie du réseau.
 
-Le switch possède une mémoire afin de constituer une file d'attente d'entrée et de sortie pour chaque prise. Il est également possible de réémettre les trames avant la fin de transmission (d'où l'antériorité de l'adresse MAC de destination) à condition de renoncer au CRC (qui permet de détecter les erreurs de transmission).
+Le switch possède une mémoire afin de constituer une file d'attente d'entrée et de sortie pour chaque prise. Il est également possible de réémettre les trames avant la fin de transmission (d'où l'antériorité de l'adresse MAC de destination dans les trames) à condition de renoncer au CRC (qui permet de détecter les erreurs de transmission).
 
 ### À noter : 
 - Un switch n'a pas besoin d'adresse MAC 
@@ -43,20 +43,20 @@ Le switch possède une mémoire afin de constituer une file d'attente d'entrée 
 
 ## Les VLANs
 
-Les VLANs permettent de réaliser une segmentation des supports de communication. Ces segments sont isolés les uns des autres, par conséquent chaque segement est situé sur un réseau différent. L'utilisation d'un routeur permet rendre la séparation perméable. 
+Les VLANs permettent de réaliser une segmentation des supports de communication. Ces segments sont isolés les uns des autres, par conséquent chaque segment est situé sur un réseau différent. L'utilisation d'un routeur permet rendre la séparation perméable. 
 
 L'avantage est de pouvoir créer des ensembles d'équipement cohérents (comme des groupes de travail) et plus sécuritaire (identification et gestion des droits, limite l'accès aux trames de broadcast). Le support de communication étant logique et non physique, le réseau n'est plus tributaire de l'emplacement physique. Au passage on fait également une économie de matériel.
 
-Les équipements terminaux ignorent leur appartenance à un VLAN, ils continuent d'utiliser le protocole ethernet. Dans ce cas, le n° VLAN peut être associé soit à la prise du switch (statique), soit sur l'adresse MAC de l'équipement ou via une authentification (dynamique).
+La plupart des équipements terminaux ignorent leur appartenance à un VLAN, et continuent d'utiliser le protocole ethernet. Dans ce cas, le n° VLAN peut être associé soit à la prise du switch (statique), soit sur l'adresse MAC de l'équipement ou via une authentification (dynamique).
 
-Généralement les switchs et le routeur sont reliés par des liens trunk (i.e. où l'étiquettage des trames est activé, par exemple 802.1q) ce qui facilite la commutation des trames pour chaque VLAN.
+Généralement les switchs et le routeur sont reliés par des liens trunk (i.e. protocole où l'étiquettage des trames est activé, par exemple 802.1q) ce qui facilite la commutation des trames pour chaque VLAN.
 
 
 # Niveau 3 
 ## Le routage
 
 ### L'adresse IP
-L'adresse IP est une adresse "logique" qui permet à la fois d'identifier le réseau (et donc le support de communication) ainsi que l'équipement. Les adresses IPv4 sont constitués de 4 octets et les adresses IPv6 de 16 octets. 
+L'adresse IP est une adresse "logique" et "absolue" qui permet à la fois d'identifier le réseau (et donc le support de communication) ainsi que l'équipement. Les adresses IPv4 sont constitués de 4 octets et les adresses IPv6 de 16 octets. 
 
 Une adresse est associée à un masque de sous-réseau qui permet de déterminer à partir de l'adresse ip l'adresse réseau. Par exemple l'adresse ip de l'équipement `178.108.223.14` avec le masque `/24 (255.255.255.0)` donne le réseau `178.108.223.0`.
 
@@ -70,7 +70,7 @@ Une adresse IP ne permet pas de connaître l'utilité d'un équipement. Dans la 
 ### Le protocole IP
 Le protocole IP permet d'interconnecter des supports de communication entre eux et sans les confondre. Essentiellement, l'objectif est de propager des données d'un support de communication à un autre. 
 
-Bien que le routage est similaire par certains aspects à la commutation, il ne faut absolument pas les confondre car leur utilité et leurs objectifs sont fondamentalement différents.
+Bien que le routage soit similaire par certains aspects à la commutation, il ne faut absolument pas les confondre car leur utilité et leurs objectifs sont fondamentalement différents.
 
 L'IP est un système hiérarchique composé de 3 niveaux :
 - Global, régie par le découpage en 5 zones de l'IANA
@@ -79,7 +79,7 @@ L'IP est un système hiérarchique composé de 3 niveaux :
 
 L'un des prérequis pour le fonctionnement d'IP est de garder une cohérence géographique, afin de faciliter le routage et l'agrégation de routes.
 
-L'agrégation de routes permet d'exploiter la syntaxe IP pour désigner une plage d'adresses, avec certaines restrictions suivantes (plage continue, puissance de 2, etc.). Par exemple `192.168.0.0/24` et `192.168.1.0/24` peuvent être agrégées en `192.168.0.0/23` (en décalant le masque de sous-réseau), contrairement à `192.168.10.0/24` et `192.168.20.0/24` qui ne peuvent pas être agrégées. 
+L'agrégation de routes permet d'exploiter la syntaxe IP pour désigner une plage d'adresses en shiftant le masque de sous-réseau, avec certaines restrictions (plage continue, puissance de 2, etc.). Par exemple `192.168.0.0/24` et `192.168.1.0/24` peuvent être agrégées en `192.168.0.0/23` (en décalant le masque de sous-réseau de 1), contrairement à `192.168.10.0/24` et `192.168.20.0/24` qui ne peuvent pas être agrégées. 
 
 ### Le routeur
 Le routeur doit être connecté sur un support de communication et se comporte comme un ordinateur (contrairement au switch, un routeur a forcément au moins une adresse MAC). Le routeur retire l'entête ethernet, la détruit, traite le paquet ip pour assurer le transport du support de communication source à celui de destination, puis réencapsule les données dans une autre trame.
@@ -100,26 +100,26 @@ Si l'ip de destination se trouve sur le réseau, il peut communiquer via etherne
 
 Pour connaitre l'adresse MAC d'un équipement associé à une adresse ip, on peut utiliser ARP. Cela consiste à envoyer une requête broadcast limité au réseau local (i.e. qui ne traverse pas le routeur) et d'attendre la réponse du détenteur de l'ip cible qui répondra avec son adresse MAC.
 
-La paserelle par défaut est désigné par son ip (et non son adresse MAC) en raison de la fiabilité de l'adresse logique (l'adresse MAC étant associé à une carte réseau, si celle-ci tombe en panne le routage ne fonctionnera plus).
+La paserelle par défaut est désignée par son ip (et non par son adresse MAC) en raison de la fiabilité de l'adresse logique (l'adresse MAC étant associée à une carte réseau, si celle-ci tombe en panne le routage ne fonctionnera plus).
 
 #### La table du routeur
-La *découverte locale* permet de construire la table de routage d'un routeur. Pour la compléter, on peut utiliser du routage statique (i.e. à la main) ou dynamique avec un protocole de routage (comme OSPF ou RIP, ou encore BGP en bordure d'opérateur) pour permettre aux routeurs proches de partager leurs table de routage. Les routeurs ne partagent que les réseaux pour lequels il a une route, et ne partage que sa meilleure route.
+La *découverte locale* permet de construire la table de routage d'un routeur. Pour la compléter, on peut utiliser du routage statique (i.e. à la main) ou dynamique avec un protocole de routage (comme OSPF ou RIP, ou encore BGP en bordure d'opérateur) pour permettre aux routeurs proches de partager leurs table de routage. Les routeurs ne partagent que les réseaux pour lequels ils ont une route, et ne partage que leurs meilleure routes.
 
-De base, il n'est pas possible d'imposer un point de passage si le prochain saut n'est pas un équipement voisin direct. Il n'y a aucune garantit qu'un voisin direct l'enverra au point de passage. Pour atteindre cet objectif, on peut par exemple utiliser un modèle de routage étendu.
+De base, il n'est pas possible d'imposer un point de passage si le prochain saut n'est pas un équipement voisin direct. Il n'y a aucune garantie qu'un voisin direct l'enverra au point de passage voulu. Pour atteindre cet objectif, on peut par exemple utiliser un modèle de routage étendu.
 
 En routage, la redondance est voulue car elle permet d'acheminer le traffic même en cas de panne ou de changement. Les routeurs transmettrent une mesure de la qualité de la connexion lors des annonces de routage (nombre de saut, débit, taille du réseau, etc.) ce qui permet d'obtenir une table plus complète et favoriser les meilleures routes. Le temps entre chaque annonce et le nombre de routes à mémoriser est un choix important pour un routeur.
 
 Généralement le routeur ne contient qu'une seule table de routage, mais il peut en posséder plusieurs (e.g. routage récursif, VPN MPLS)...
 
 ### À noter :
-- Un routeur n'a pas besoin d'ip au sens fonctionnel (son adresse MAC pourrait suffire), néanmoins cela empêcherai de réaliser la découverte locale et la résistance aux pannes seraient moins robustes.
+- Un routeur n'a pas besoin d'ip au sens fonctionnel (son adresse MAC pourrait suffire), néanmoins cela empêcherait de réaliser la découverte locale et la résistance aux pannes seraient moins robuste.
 - L'IPv6 a été établie non pas pour palier au manque d'adresse d'IPv4, mais essentiellement à cause du manque de cohérence géographique d'IPv4 (e.g. délocalisation d'entreprises, etc.). Une table de routage IPv4 de premier niveau contient environ 800 000 entrées.
 
 ## La translation (NAT)
 
-La translation permet de connecter des réseaux privés à des réseaux publiques. Pour réaliser cette opération, les paquets transitent par un routeur capable de translation (généralement un pare-feu) qui se charge d'altérer les paquets ip pour qu'ils soient amenés à leur destination.
+La translation permet d'interconnecter des réseaux privés à des réseaux publiques. Pour réaliser cette opération, les paquets transitent par un routeur capable de translation (généralement un pare-feu) qui se charge d'altérer les paquets ip pour qu'ils soient amenés à leur destination.
 
-Ceci est réaliser grâce à l'*identification de connexion* composé des adresses ip source et de destination ainsi que des ports tcp/udp source et de destination choisi par l'OS de l'équipement.
+Ceci est réalisé grâce à l'*identification de connexion*, composé des adresses ip source et de destination ainsi que des ports tcp/udp source et de destination choisi par l'OS de l'équipement.
 
 Exemple de translation (en minuscules les adresses privées, en majuscule les adresses publiques) :
 
@@ -141,7 +141,7 @@ La translation, outre la résolution du problème d'épuisement des adresses ip 
 |Inverse|Faire croire qu'un client public est privé|ip source d'une requête entrante|ip destination d'une réponse sortante
 |Inverse|Faire croire qu'un serveur public est privé|ip source d'une requête sortante|ip destination d'une réponse entrante
 
-# Résume et précisions niveaux 1/2
+# Résumé et précisions niveaux 1/2
 
 Règles de base :
 - 1 support de communication = 1 réseau
@@ -165,15 +165,15 @@ C'est le switch qui sépare en différents VLANs, c'est le routeur qui autorise 
 
 ### Les machines virtuelles (VMs) et containers
 
-L'OS hôte exploite le matériel physique. On parle d'hyperviseur s'il est spécialement conçu pour l'exploitation du matériel pour le bénéfice d'autres OS invités. A ne pas confondre avec des moniteurs de VM qui permet la création de VM (celui-ci étant vu par l'OS hôte comme un simple programme et donc limité par les ressources attribués par l'OS hôte pour le moniteur).
+L'OS hôte exploite le matériel physique. On parle d'hyperviseur s'il est spécialement conçu pour l'exploitation du matériel pour le bénéfice d'autres OS invités. A ne pas confondre avec un moniteur de VM qui permet la création de VM (celui-ci étant vu par l'OS hôte comme un simple programme, il est limité par les ressources attribués par l'OS hôte pour le moniteur).
 
-Une VM une émulation d'un ordinateur et est constitué de :
-- Un ensemble de ressources physique
+Une VM est une émulation d'un ordinateur et est constituée de :
+- Un ensemble de ressources physiques
 - Un OS invité
 - Tous les programmes installés dessus
 Elle se comporte exactement comme un ordinateur physique avec des caractéristiques identiques.
 
-Un container partage les ressources attribué par OS hôte en pensant avoir l'utilisation exclusive de ces ressources (RAM, FS, adresse IP, ect.). C'est généralement utilisé pour déployer des applications pré-installés. 
+Un container partage les ressources attribué par l'OS hôte en pensant avoir l'utilisation exclusive de ces ressources (RAM, FS, adresse IP, ect.). C'est généralement utilisé pour déployer des applications pré-installés. 
 
 L'objectif est de mutualiser la gestion de la ressource matérielle et de facilement gérer le cycle de vie du déploiement. On peut donc utiliser des VMs pour déployer des ressources puis y installer des containers.
 
@@ -215,7 +215,7 @@ Il existe plusieurs façons pour virtualiser le réseau.
 Les VMs appartiendront au même réseau que l'hôte (même support de communication) et doivent chacune avoir une adresse MAC. Le réseau virtuel agit donc comme une extension du réseau physique.
 
 #### Un switch virtuel + VLAN
-Les VMs peuvent appartenir à des réseaux différents qui existent déjà dans le réseau physique. L'hôte utilise des trames étiquettées. Il est possible d'avoir l'hyperviseur ou l'OS hôte qui n'est pas dans le même VLAN que ses VMs. 
+Les VMs peuvent appartenir à des réseaux différents qui existent déjà dans le réseau physique. L'hôte utilise des trames étiquettées. Il est possible d'avoir l'hyperviseur (ou l'OS hôte) qui n'est pas dans le même VLAN que ses VMs. 
 
 #### Un routeur virtuel
 Les VMs appartiendront à un réseau différent qui n'existe pas encore dans l'architecture. L'hôte utilise ethernet pour communiquer avec ses VMs et route les communications entre le réseau virtuel et son réseau principal.
@@ -231,4 +231,4 @@ Quatre réseaux sont necessaires :
 - Le réseau de migration, pour migrer les VMs sans les interrompre
 - Le réseau de gestion, pour gérer le datacenter
 
-Lors de la mise en place d'un datacenter, les deux première choses à faire sont de mettre en place le DNS pour que les machines puissent se trouver et l'horodatage pour que les communications à certificats fonctionnent correctement et que les machines soient synchronisées.
+Lors de la mise en place d'un datacenter, les deux premières choses à faire sont de mettre en place le DNS pour que les machines puissent se trouver et l'horodatage pour que les communications à certificats fonctionnent correctement et que les machines soient synchronisées.
