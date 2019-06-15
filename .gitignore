@@ -9,3 +9,7 @@ __pycache__
 
 # EndNote libraries data (prevent accidental release of licensed papers)
 pcg.Data
+
+# Checkpoints
+.ipynb_checkpoints
+training_checkpoints
