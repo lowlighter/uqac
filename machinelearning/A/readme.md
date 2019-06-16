@@ -1,9 +1,10 @@
+# 🧠 Apprentissage machine - Notes de cours
 
 ## Introduction
 
 #### Historique
-1943. Apparition du neurone artificiel (McCullock & Pitts).
-1957. Perceptron (Rosenblatt)
+- 1943: Apparition du neurone artificiel (McCullock & Pitts).
+- 1957: Perceptron (Rosenblatt)
 
 #### Pourquoi ?
 * Environnements inconnus
@@ -54,7 +55,7 @@ Normalise les données suivant une échelle (min-max, z-score, ...) pour éviter
 Phénomène qui se produit lorsque la proportion d'exemples de chaque classe est très différente, ce qui tend à favoriser les classes avec un grand nombre d'échantillons
 
 ##### Sous-apprentissage et sur-apprentissage
-![Schéma](imgs/overfit.png)
+<img src="imgs/overfit.png" width="500">
 
 ##### Compromis biais-variance
 Un haut biais permet un apprentissage généralement plus rapide et simple, mais procure de moins bonne performances sur les problèmes complexes (e.g. logistic regression, linear regression, ...).
@@ -80,11 +81,11 @@ Généralement les méthodes non-paramétriques sont utiles lorsque l'on a beauc
 ## Classification simple
 
 ### Perceptron
-![Schéma](imgs/perceptron_schema.png)
+<img src="imgs/perceptron_schema.png" width="500">
 
 Le perceptron apprend les poids optimaux à multiplier avec les entrées pour déterminer si le neurone s'active ou non. La fonction d'activation est celle de Heaviside (+1 si positif, -1 si négatif). Il s'agit donc d'un outil de classification binaire.
 
-![Perceptron](imgs/perceptron.png)
+<img src="imgs/perceptron.png" width="300">
 
 A noter que w<sub>0</sub>x<sub>0</sub> = ϑ est appelé le biais.
 
@@ -94,7 +95,7 @@ Le principe est le suivant :
   1. On calcule la sortie estimée y<sup>(i)</sup>
   2. On met à jour les poids w<sub>j</sub> += Δ w<sub>j</sub>
 
-![Calcul des poids](imgs/perceptron_weight.png)
+<img src="imgs/perceptron_weight.png" width="200">
 
 *η* est un nombre entre 0 et 1 qui constitue le learning rate.
 
@@ -106,21 +107,21 @@ Si le dataset n'est pas séparable linéairement, le perceptron bouclera à l'in
 Il est possible d'étendre le perceptron pour faire de la classification multi-classe par du *One-vs-All*, qui consiste à créer un classeur spécialisé dans la détection d'une classe en particulier, puis de déterminer quel classeur est actif pour tel entrée.
 
 ### Adaptive linear neurons (Adaline)
-![Schéma](imgs/adaline_schema.png)
+<img src="imgs/adaline_schema.png" width="500">
 
 Sur le même principe que le perceptron, toutefois la fonction d'activation est linéraire, ce qui permet d'avoir des sorties continues plutôt que binaire. On rajoute parfois un *quantizer* pour la prédiction de classe.
 
 On charche à optimiser la fonction de coûts *Sum of Squared Errors* (SSE) entre les sorties et les vraies classes :
 
-![SSE](imgs/sse.png)
+<img src="imgs/sse.png" width="200">
 
 On utilise pour cela l'algorithme du gradient, notamment parce que J(w) est convexe mais aussi parce que c'est très rapide.
 
-![Gradient](imgs/gradient.png)
+<img src="imgs/gradient.png" width="200">
 
 Toutefois, on utilise généralement la *descente de gradient stochastique* (SGD) pour éviter l'utilisation du dataset complet et accélerer le temps de calcul. Dans ce cas, il faut veiller à mélanger le dataset pour obtenir des résultats satisfaisants. Un learning rate adaptatif est particulièrement adapté avec le SGD. 
 
-![Gradient](imgs/sgd.png)
+<img src="imgs/sgd.png" width="200">
 
 #### Remarques
 La mise à jour des poids se fait sur le dataset en entier, à l'inverse du perceptron où elle se fait exemple par exemple.
@@ -132,7 +133,7 @@ Une valeur de learning rate *η* forte peut empêcher de converger (si le pas du
 ## Classification
 
 ### Logistic regression
-![Schéma](imgs/logistic_schema.png)
+<img src="imgs/logistic_schema.png" width="500">
 
 La fonction d'activation est une sigmoïde (fonction logistique). Elle se base sur le principe du rapport des chances (odds ratio), c'est-à-dire qu'une échantillon appartienne à une certaine classe étant donné ses attributs.
 
@@ -142,7 +143,7 @@ La fonction de coûts est modifiée pour utilisée les logarithmes (Log-likelyho
 La logistic regression est plus sensible aux outliers. Il s'agit également d'un modèle simple qui est facile à mettre en place et à jour.
 
 ### Support vector machine (SVM)
-![Schéma](imgs/svm_schema.png)
+<img src="imgs/svm_schema.png" width="500">
 
 Le principe est de maximiser les marges (distance entre un hyperplan et les échantillons les plus proches de ce plan, a.k.a support vectors) entre les classes, dans le but d'éviter l'overfitting et permettre une meilleure généralisation.
 
@@ -158,13 +159,13 @@ Si on utilise un kernel, il est nécessaire d'entraîner le SVM dans la dimensio
 Le *gamma* du RBF kernel détermine l'influence des échantillons.
 
 ### Arbres de décision
-![Schéma](imgs/decision_tree_schema.png)
+<img src="imgs/decision_tree_schema.png" width="500">
 
 Le principe est d'exploiter les attributs de l'ensemble de données pour apprendre une série de "questions" pour inférer les classes. Chaque noeud sépare les données qui permettent d'obtenir le plus grand gain d'information, et ce processus est répété jusqu'à ce que les feuilles soient *pures* (i.e. ne représentent qu'une seule classe).
 
 On teste sur le dataset du parent *D<sub>p</sub>* la séparation selon l'attribut *f*, en fonction de l'impureté *I* et du nombre d'échantillons *N* du parent et des enfants :
 
-![Gain d'information](imgs/info_gain.png)
+<img src="imgs/info_gain.png" width="300">
 
 L'impureté (qu'on cherche à réduire), est calculée selon l'entropie (elle-même calculée sur la proportion d'échantillons appartenant à une certaine classe pour un certain noeud). C'est-à-dire qu'elle sera nul si tous les échantillons sont dans la même classe et maximale si tous les échantillons sont différents.
 
@@ -179,7 +180,7 @@ Il s'agit d'un ensemble d'arbres de décisions (estimators), dont la classificat
 Les performances sont généralement meilleures qu'avec un seul arbre.
 
 ### K-nearest neighbors (KNN)
-![Schéma](imgs/knn.png)
+<img src="imgs/knn.png" width="300">
 
 Le principe est de se dire que les éléments proches les uns par rapport aux autres sont probablement de la même classe.
 
@@ -193,14 +194,14 @@ On utilise généralement une distance de minkowski.
 Un inconvénient majeur de cette méthode est que l'ensemble des exemples d'entrainement doit être gardé en mémoire, et par conséquent les knn sont peu performants pour une dimensionnalité élevée.
 
 ## Ensemble learning
-![Ensemble learning](imgs/ensemble_learning.png)
+<img src="imgs/ensemble_learning.png" width="400">
 
 On part du principe qu'un ensemble de classeur plus faibles performent mieux qu'un seul très bon classeur.
 
 A partir d'un ensemble d'entraînement, un certain nombre de classeurs sont produits (ceux-ci peuvent potentiellement être différents algorithmes ou sous-ensemble d'entraînement).
 
 ### Bagging (bootstrap aggregation)
-![Bootstrap](imgs/bootstrap.png)
+<img src="imgs/bootstrap.png" width="400">
 
 Le principe est d'utiliser différents sous-ensemble d'apprentissage (bootstrap) aléatoire avec remise.
 
