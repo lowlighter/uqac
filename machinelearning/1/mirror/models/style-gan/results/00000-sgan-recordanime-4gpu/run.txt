@@ -1,0 +1,1 @@
+{'host_name': 'localhost', 'start_time': '2019-06-08 17:12:26.355021', 'task_name': 'louisquentinjoucla-00000-sgan-recordanime-4gpu'}

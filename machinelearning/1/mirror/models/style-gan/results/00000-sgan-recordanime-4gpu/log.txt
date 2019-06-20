@@ -1,0 +1,198 @@
+dnnlib: Running training.training_loop.training_loop() on localhost...
+Streaming data using training.dataset.TFRecordDataset...
+Dataset shape = [3, 64, 64]
+Dynamic range = [0, 255]
+Label size    = 0
+Constructing networks...
+
+G                           Params    OutputShape       WeightShape     
+---                         ---       ---               ---             
+latents_in                  -         (?, 512)          -               
+labels_in                   -         (?, 0)            -               
+lod                         -         ()                -               
+dlatent_avg                 -         (512,)            -               
+G_mapping/latents_in        -         (?, 512)          -               
+G_mapping/labels_in         -         (?, 0)            -               
+G_mapping/PixelNorm         -         (?, 512)          -               
+G_mapping/Dense0            262656    (?, 512)          (512, 512)      
+G_mapping/Dense1            262656    (?, 512)          (512, 512)      
+G_mapping/Dense2            262656    (?, 512)          (512, 512)      
+G_mapping/Dense3            262656    (?, 512)          (512, 512)      
+G_mapping/Dense4            262656    (?, 512)          (512, 512)      
+G_mapping/Dense5            262656    (?, 512)          (512, 512)      
+G_mapping/Dense6            262656    (?, 512)          (512, 512)      
+G_mapping/Dense7            262656    (?, 512)          (512, 512)      
+G_mapping/Broadcast         -         (?, 10, 512)      -               
+G_mapping/dlatents_out      -         (?, 10, 512)      -               
+Truncation                  -         (?, 10, 512)      -               
+G_synthesis/dlatents_in     -         (?, 10, 512)      -               
+G_synthesis/4x4/Const       534528    (?, 512, 4, 4)    (512,)          
+G_synthesis/4x4/Conv        2885632   (?, 512, 4, 4)    (3, 3, 512, 512)
+G_synthesis/ToRGB_lod4      1539      (?, 3, 4, 4)      (1, 1, 512, 3)  
+G_synthesis/8x8/Conv0_up    2885632   (?, 512, 8, 8)    (3, 3, 512, 512)
+G_synthesis/8x8/Conv1       2885632   (?, 512, 8, 8)    (3, 3, 512, 512)
+G_synthesis/ToRGB_lod3      1539      (?, 3, 8, 8)      (1, 1, 512, 3)  
+G_synthesis/Upscale2D       -         (?, 3, 8, 8)      -               
+G_synthesis/Grow_lod3       -         (?, 3, 8, 8)      -               
+G_synthesis/16x16/Conv0_up  2885632   (?, 512, 16, 16)  (3, 3, 512, 512)
+G_synthesis/16x16/Conv1     2885632   (?, 512, 16, 16)  (3, 3, 512, 512)
+G_synthesis/ToRGB_lod2      1539      (?, 3, 16, 16)    (1, 1, 512, 3)  
+G_synthesis/Upscale2D_1     -         (?, 3, 16, 16)    -               
+G_synthesis/Grow_lod2       -         (?, 3, 16, 16)    -               
+G_synthesis/32x32/Conv0_up  2885632   (?, 512, 32, 32)  (3, 3, 512, 512)
+G_synthesis/32x32/Conv1     2885632   (?, 512, 32, 32)  (3, 3, 512, 512)
+G_synthesis/ToRGB_lod1      1539      (?, 3, 32, 32)    (1, 1, 512, 3)  
+G_synthesis/Upscale2D_2     -         (?, 3, 32, 32)    -               
+G_synthesis/Grow_lod1       -         (?, 3, 32, 32)    -               
+G_synthesis/64x64/Conv0_up  1442816   (?, 256, 64, 64)  (3, 3, 512, 256)
+G_synthesis/64x64/Conv1     852992    (?, 256, 64, 64)  (3, 3, 256, 256)
+G_synthesis/ToRGB_lod0      771       (?, 3, 64, 64)    (1, 1, 256, 3)  
+G_synthesis/Upscale2D_3     -         (?, 3, 64, 64)    -               
+G_synthesis/Grow_lod0       -         (?, 3, 64, 64)    -               
+G_synthesis/images_out      -         (?, 3, 64, 64)    -               
+G_synthesis/lod             -         ()                -               
+G_synthesis/noise0          -         (1, 1, 4, 4)      -               
+G_synthesis/noise1          -         (1, 1, 4, 4)      -               
+G_synthesis/noise2          -         (1, 1, 8, 8)      -               
+G_synthesis/noise3          -         (1, 1, 8, 8)      -               
+G_synthesis/noise4          -         (1, 1, 16, 16)    -               
+G_synthesis/noise5          -         (1, 1, 16, 16)    -               
+G_synthesis/noise6          -         (1, 1, 32, 32)    -               
+G_synthesis/noise7          -         (1, 1, 32, 32)    -               
+G_synthesis/noise8          -         (1, 1, 64, 64)    -               
+G_synthesis/noise9          -         (1, 1, 64, 64)    -               
+images_out                  -         (?, 3, 64, 64)    -               
+---                         ---       ---               ---             
+Total                       25137935                                    
+
+
+D                    Params    OutputShape       WeightShape     
+---                  ---       ---               ---             
+images_in            -         (?, 3, 64, 64)    -               
+labels_in            -         (?, 0)            -               
+lod                  -         ()                -               
+FromRGB_lod0         1024      (?, 256, 64, 64)  (1, 1, 3, 256)  
+64x64/Conv0          590080    (?, 256, 64, 64)  (3, 3, 256, 256)
+64x64/Conv1_down     1180160   (?, 512, 32, 32)  (3, 3, 256, 512)
+Downscale2D          -         (?, 3, 32, 32)    -               
+FromRGB_lod1         2048      (?, 512, 32, 32)  (1, 1, 3, 512)  
+Grow_lod0            -         (?, 512, 32, 32)  -               
+32x32/Conv0          2359808   (?, 512, 32, 32)  (3, 3, 512, 512)
+32x32/Conv1_down     2359808   (?, 512, 16, 16)  (3, 3, 512, 512)
+Downscale2D_1        -         (?, 3, 16, 16)    -               
+FromRGB_lod2         2048      (?, 512, 16, 16)  (1, 1, 3, 512)  
+Grow_lod1            -         (?, 512, 16, 16)  -               
+16x16/Conv0          2359808   (?, 512, 16, 16)  (3, 3, 512, 512)
+16x16/Conv1_down     2359808   (?, 512, 8, 8)    (3, 3, 512, 512)
+Downscale2D_2        -         (?, 3, 8, 8)      -               
+FromRGB_lod3         2048      (?, 512, 8, 8)    (1, 1, 3, 512)  
+Grow_lod2            -         (?, 512, 8, 8)    -               
+8x8/Conv0            2359808   (?, 512, 8, 8)    (3, 3, 512, 512)
+8x8/Conv1_down       2359808   (?, 512, 4, 4)    (3, 3, 512, 512)
+Downscale2D_3        -         (?, 3, 4, 4)      -               
+FromRGB_lod4         2048      (?, 512, 4, 4)    (1, 1, 3, 512)  
+Grow_lod3            -         (?, 512, 4, 4)    -               
+4x4/MinibatchStddev  -         (?, 513, 4, 4)    -               
+4x4/Conv             2364416   (?, 512, 4, 4)    (3, 3, 513, 512)
+4x4/Dense0           4194816   (?, 512)          (8192, 512)     
+4x4/Dense1           513       (?, 1)            (512, 1)        
+scores_out           -         (?, 1)            -               
+---                  ---       ---               ---             
+Total                22498049                                    
+
+Building TensorFlow graph...
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+Setting up snapshot image grid...
+Setting up run dir...
+Training...
+
+tick 1     kimg 140.3    lod 3.00  minibatch 256  time 4m 39s       sec/tick 147.9   sec/kimg 1.05    maintenance 131.2  gpumem 2.9 
+network-snapshot-000140        time 6s           dummy 0.0000    
+tick 2     kimg 280.6    lod 3.00  minibatch 256  time 7m 36s       sec/tick 129.5   sec/kimg 0.92    maintenance 47.0   gpumem 2.9 
+tick 3     kimg 420.9    lod 3.00  minibatch 256  time 9m 46s       sec/tick 130.1   sec/kimg 0.93    maintenance 0.6    gpumem 2.9 
+tick 4     kimg 561.2    lod 3.00  minibatch 256  time 11m 56s      sec/tick 129.1   sec/kimg 0.92    maintenance 0.6    gpumem 2.9 
+tick 5     kimg 681.5    lod 2.87  minibatch 128  time 15m 30s      sec/tick 213.5   sec/kimg 1.77    maintenance 0.6    gpumem 3.3 
+tick 6     kimg 801.8    lod 2.66  minibatch 128  time 19m 44s      sec/tick 252.6   sec/kimg 2.10    maintenance 0.8    gpumem 3.3 
+tick 7     kimg 922.1    lod 2.46  minibatch 128  time 23m 50s      sec/tick 246.1   sec/kimg 2.05    maintenance 0.7    gpumem 3.3 
+tick 8     kimg 1042.4   lod 2.26  minibatch 128  time 27m 57s      sec/tick 246.2   sec/kimg 2.05    maintenance 0.7    gpumem 3.3 
+tick 9     kimg 1162.8   lod 2.06  minibatch 128  time 32m 03s      sec/tick 245.4   sec/kimg 2.04    maintenance 0.7    gpumem 3.3 
+tick 10    kimg 1283.1   lod 2.00  minibatch 128  time 36m 09s      sec/tick 245.2   sec/kimg 2.04    maintenance 0.7    gpumem 3.3 
+network-snapshot-001283        time 4s           dummy 0.0000    
+tick 11    kimg 1403.4   lod 2.00  minibatch 128  time 40m 20s      sec/tick 245.8   sec/kimg 2.04    maintenance 5.0    gpumem 3.3 
+tick 12    kimg 1523.7   lod 2.00  minibatch 128  time 44m 26s      sec/tick 245.6   sec/kimg 2.04    maintenance 0.7    gpumem 3.3 
+tick 13    kimg 1644.0   lod 2.00  minibatch 128  time 48m 32s      sec/tick 245.4   sec/kimg 2.04    maintenance 0.7    gpumem 3.3 
+tick 14    kimg 1764.4   lod 2.00  minibatch 128  time 52m 38s      sec/tick 245.2   sec/kimg 2.04    maintenance 0.7    gpumem 3.3 
+tick 15    kimg 1864.4   lod 1.89  minibatch 64   time 59m 18s      sec/tick 398.6   sec/kimg 3.98    maintenance 0.7    gpumem 3.4 
+tick 16    kimg 1964.5   lod 1.73  minibatch 64   time 1h 07m 35s   sec/tick 495.6   sec/kimg 4.95    maintenance 1.9    gpumem 3.4 
+tick 17    kimg 2064.6   lod 1.56  minibatch 64   time 1h 15m 52s   sec/tick 495.2   sec/kimg 4.95    maintenance 2.0    gpumem 3.4 
+tick 18    kimg 2164.7   lod 1.39  minibatch 64   time 1h 24m 08s   sec/tick 493.4   sec/kimg 4.93    maintenance 2.1    gpumem 3.4 
+tick 19    kimg 2264.8   lod 1.23  minibatch 64   time 1h 32m 24s   sec/tick 494.0   sec/kimg 4.94    maintenance 2.1    gpumem 3.4 
+tick 20    kimg 2364.9   lod 1.06  minibatch 64   time 1h 40m 41s   sec/tick 495.0   sec/kimg 4.95    maintenance 2.1    gpumem 3.4 
+network-snapshot-002364        time 4s           dummy 0.0000    
+tick 21    kimg 2465.0   lod 1.00  minibatch 64   time 1h 49m 00s   sec/tick 492.3   sec/kimg 4.92    maintenance 6.5    gpumem 3.4 
+tick 22    kimg 2565.1   lod 1.00  minibatch 64   time 1h 57m 13s   sec/tick 490.7   sec/kimg 4.90    maintenance 2.1    gpumem 3.4 
+tick 23    kimg 2665.2   lod 1.00  minibatch 64   time 2h 05m 26s   sec/tick 491.5   sec/kimg 4.91    maintenance 2.1    gpumem 3.4 
+tick 24    kimg 2765.3   lod 1.00  minibatch 64   time 2h 13m 38s   sec/tick 489.6   sec/kimg 4.89    maintenance 2.1    gpumem 3.4 
+tick 25    kimg 2865.4   lod 1.00  minibatch 64   time 2h 21m 49s   sec/tick 489.6   sec/kimg 4.89    maintenance 2.1    gpumem 3.4 
+tick 26    kimg 2965.5   lod 1.00  minibatch 64   time 2h 30m 02s   sec/tick 490.7   sec/kimg 4.90    maintenance 2.1    gpumem 3.4 
+tick 27    kimg 3045.5   lod 0.92  minibatch 32   time 2h 41m 24s   sec/tick 680.0   sec/kimg 8.50    maintenance 2.1    gpumem 3.4 
+tick 28    kimg 3125.5   lod 0.79  minibatch 32   time 2h 56m 22s   sec/tick 893.1   sec/kimg 11.16   maintenance 4.1    gpumem 3.4 
+tick 29    kimg 3205.5   lod 0.66  minibatch 32   time 3h 11m 19s   sec/tick 893.4   sec/kimg 11.17   maintenance 3.9    gpumem 3.4 
+tick 30    kimg 3285.5   lod 0.52  minibatch 32   time 3h 26m 15s   sec/tick 892.8   sec/kimg 11.16   maintenance 3.3    gpumem 3.4 
+network-snapshot-003285        time 4s           dummy 0.0000    
+tick 31    kimg 3365.5   lod 0.39  minibatch 32   time 3h 41m 15s   sec/tick 893.0   sec/kimg 11.16   maintenance 7.4    gpumem 3.4 
+tick 32    kimg 3445.5   lod 0.26  minibatch 32   time 3h 56m 15s   sec/tick 896.0   sec/kimg 11.20   maintenance 3.2    gpumem 3.4 
+tick 33    kimg 3525.5   lod 0.12  minibatch 32   time 4h 11m 12s   sec/tick 893.9   sec/kimg 11.17   maintenance 3.2    gpumem 3.4 
+tick 34    kimg 3605.5   lod 0.00  minibatch 32   time 4h 26m 10s   sec/tick 895.5   sec/kimg 11.19   maintenance 3.2    gpumem 3.4 
+tick 35    kimg 3685.5   lod 0.00  minibatch 32   time 4h 41m 11s   sec/tick 897.7   sec/kimg 11.22   maintenance 3.1    gpumem 3.4 
+tick 36    kimg 3765.5   lod 0.00  minibatch 32   time 4h 56m 10s   sec/tick 895.1   sec/kimg 11.19   maintenance 3.1    gpumem 3.4 
+tick 37    kimg 3845.5   lod 0.00  minibatch 32   time 5h 11m 08s   sec/tick 895.7   sec/kimg 11.20   maintenance 3.1    gpumem 3.4 
+tick 38    kimg 3925.5   lod 0.00  minibatch 32   time 5h 26m 08s   sec/tick 896.3   sec/kimg 11.20   maintenance 3.1    gpumem 3.4 
+tick 39    kimg 4005.5   lod 0.00  minibatch 32   time 5h 41m 08s   sec/tick 896.5   sec/kimg 11.21   maintenance 3.2    gpumem 3.4 
+tick 40    kimg 4085.5   lod 0.00  minibatch 32   time 5h 56m 08s   sec/tick 897.2   sec/kimg 11.21   maintenance 3.2    gpumem 3.4 
+network-snapshot-004085        time 4s           dummy 0.0000    
+tick 41    kimg 4165.5   lod 0.00  minibatch 32   time 6h 11m 12s   sec/tick 896.5   sec/kimg 11.21   maintenance 7.9    gpumem 3.4 
+tick 42    kimg 4245.5   lod 0.00  minibatch 32   time 6h 26m 11s   sec/tick 895.9   sec/kimg 11.20   maintenance 3.2    gpumem 3.4 
+tick 43    kimg 4325.5   lod 0.00  minibatch 32   time 6h 41m 10s   sec/tick 895.7   sec/kimg 11.20   maintenance 3.2    gpumem 3.4 
+tick 44    kimg 4405.5   lod 0.00  minibatch 32   time 6h 56m 09s   sec/tick 895.5   sec/kimg 11.19   maintenance 3.2    gpumem 3.4 
+tick 45    kimg 4485.5   lod 0.00  minibatch 32   time 7h 11m 08s   sec/tick 895.9   sec/kimg 11.20   maintenance 3.2    gpumem 3.4 
+tick 46    kimg 4565.5   lod 0.00  minibatch 32   time 7h 26m 07s   sec/tick 895.4   sec/kimg 11.19   maintenance 3.2    gpumem 3.4 
+tick 47    kimg 4645.5   lod 0.00  minibatch 32   time 7h 41m 07s   sec/tick 896.9   sec/kimg 11.21   maintenance 3.2    gpumem 3.4 
+tick 48    kimg 4725.5   lod 0.00  minibatch 32   time 7h 56m 06s   sec/tick 895.9   sec/kimg 11.20   maintenance 3.2    gpumem 3.4 
+tick 49    kimg 4805.5   lod 0.00  minibatch 32   time 8h 11m 03s   sec/tick 894.7   sec/kimg 11.18   maintenance 3.1    gpumem 3.4 
+tick 50    kimg 4885.5   lod 0.00  minibatch 32   time 8h 26m 02s   sec/tick 895.4   sec/kimg 11.19   maintenance 3.2    gpumem 3.4 
+network-snapshot-004885        time 4s           dummy 0.0000    
+Traceback (most recent call last):
+  File "train.py", line 191, in <module>
+    main()
+  File "train.py", line 186, in main
+    dnnlib.submit_run(**kwargs)
+  File "/home/louisquentinjoucla/anime-gan/models/style-gan/dnnlib/submission/submit.py", line 290, in submit_run
+    run_wrapper(submit_config)
+  File "/home/louisquentinjoucla/anime-gan/models/style-gan/dnnlib/submission/submit.py", line 242, in run_wrapper
+    util.call_func_by_name(func_name=submit_config.run_func_name, submit_config=submit_config, **submit_config.run_func_kwargs)
+  File "/home/louisquentinjoucla/anime-gan/models/style-gan/dnnlib/util.py", line 257, in call_func_by_name
+    return func_obj(*args, **kwargs)
+  File "/home/louisquentinjoucla/anime-gan/models/style-gan/training/training_loop.py", line 230, in training_loop
+    tflib.run([D_train_op, Gs_update_op], {lod_in: sched.lod, lrate_in: sched.D_lrate, minibatch_in: sched.minibatch})
+  File "/home/louisquentinjoucla/anime-gan/models/style-gan/dnnlib/tflib/tfutil.py", line 26, in run
+    return tf.get_default_session().run(*args, **kwargs)
+  File "/home/louisquentinjoucla/.local/lib/python3.7/site-packages/tensorflow/python/client/session.py", line 929, in run
+    run_metadata_ptr)
+  File "/home/louisquentinjoucla/.local/lib/python3.7/site-packages/tensorflow/python/client/session.py", line 1152, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/home/louisquentinjoucla/.local/lib/python3.7/site-packages/tensorflow/python/client/session.py", line 1328, in _do_run
+    run_metadata)
+  File "/home/louisquentinjoucla/.local/lib/python3.7/site-packages/tensorflow/python/client/session.py", line 1334, in _do_call
+    return fn(*args)
+  File "/home/louisquentinjoucla/.local/lib/python3.7/site-packages/tensorflow/python/client/session.py", line 1319, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/home/louisquentinjoucla/.local/lib/python3.7/site-packages/tensorflow/python/client/session.py", line 1407, in _call_tf_sessionrun
+    run_metadata)
+KeyboardInterrupt
