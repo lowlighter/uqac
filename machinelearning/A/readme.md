@@ -422,4 +422,58 @@ RNN qui introduit un mécanisme de portes et de celulles.
 * L'état de la celulle précédente est mise à jour
 * La porte de sortie retourne un résultat filtré à partir de l'état de la cellule
 
+## Apprentissage par renforcement
 
+Similaire à l’apprentissage humain.
+Chaque action de l'agent impacte l'environnement, qui fourni un feedback sous forme de récompense qui guide l'apprentissage de l'agent.
+Ce dernier apprend donc en essayant chacune des action afin de voir laquelle produit la meilleure récompense.
+
+Même si l'environnement peut être complexe, stochastique ou inconnu, il reste cependant séquentiel.
+L'objectif de l'agent est de maximiser sa récompense dans le temps, il doit donc raisonner en fonction du temps (e.g. une bonne récompense instantanée n'est pas forcément la meilleure !).
+
+Un compromis entre exploitation et exploration est présent.
+On cherche généralement à explorer et de progressivement favoriser l'exploitation.
+Néanmoins, il s'agit d'un problème ouvert, puisque si une tâche est stochastique, il faudra essayer plusieurs fois pour l'estimer. 
+
+Composantes :
+* La politique (ou police) d'un agent définit le comportement de celui-ci en associant un état à une action.
+* La fonction de récompense associe un couple état/action à un nombre réel qui évalue la désirabilité instantanée.
+Cette fonction ne change jamais, mais peut influencer la politique.
+* La fonction de valeur estime la récompense que l'agent peut obtenir à plus long terme.
+
+Un des avantages du RL par rapport aux algorithmes adverses est qu'on apprends le comportement de l'autre au lieu de devoir le spécifier.
+
+On distingue plusieurs types de tâches :
+* associative : si elle dépends de la situation
+* non-associative et stationnaire : si elle ne dépends pas de la situation et que la meilleure solution n'évolue pas dans le temps
+* non-associative et non stationnaire : si elle ne dépends pas de la situation et que la meilleure solution peut évoluer dans le temps
+
+#### N-bandits
+
+Pour estimer la valeur réelle d'un action, on peut faire du sample-average.
+Idéalement, si on répète un nombre infini de fois une action, on obtiendra sa valeur de récompense réelle.
+
+De base, si on utilise un algorithme glouton, on ne fait qu'exploiter.
+On peut utiliser une sélection e-greedy, où *e* est une probabilité d'explorer plutôt que d'exploiter.
+On peut combiner ceci avec un softmax pour faire une exploration avec des probabilités d'action pondérées.
+
+On réalise une mise à jour incrémentale pour éviter de retenir la liste des récompenses depuis le début (~ équivalent à une moyenne).
+
+Pour calibrer les "grandes récompenses", on utilise une *reward reference* qui consiste à calculer la moyenne des récompenses. 
+Cela permet de déterminer quelles actions offrent une bonne récompenses et devraient être réalisées plus souvent.
+
+Fonctionnement: 
+1. L'agent observe l'environnement
+2. Il associe les probabilités d'actions à l'état en fonction de sa politique
+
+L’apprentissage est la méthode qui explique à l’agent comment faire évoluer sa politique selon son expérience.
+On cherche à maximiser la récompense espérée de l'agent.
+Pour éviter que les récompenses à long terme impacte trop sur l'instant présent, on introduit un *discount rate*, qui va rabaisser les récompenses futures.
+
+#### Pour un MDP:
+Si on garde une reward reference pour chaque état suivant la politique 𝜋, on peut estimer la valeur d'un état avec la politique 𝜋.
+Si on garde une reward reference pour chaque état ainsi qu'une reward reference pour chaque action dans cet état suivant la politique 𝜋, on peut estimer la valeur de la paire état/action avec la politique 𝜋.
+Ce qui revient à une méthode Monte-carlo.
+
+Néanmoins c'est peu pratique car cela consomme beaucoup de mémoire.
+On peut se contenter de la résolution de Bellman pour faire l'approximation.
