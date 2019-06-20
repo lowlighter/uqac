@@ -5,6 +5,7 @@
 #### Historique
 - 1943: Apparition du neurone artificiel (McCullock & Pitts).
 - 1957: Perceptron (Rosenblatt)
+- 1986: Backpropagation
 
 #### Pourquoi ?
 * Environnements inconnus
@@ -64,6 +65,15 @@ Une haute variance permet d'impacter l'estimation de la fonction cible est d'êt
 
 C'est donc un compromis à faire. On peut utiliser par exemple la régularisation L2 (qui introduit un nouveau biais qui pénaliser les valeurs extrêmes de poids, à condition d'avoir fait du feature scaling).
 
+##### Minibatch
+Stochastic gradient descent avec k > 1.
+
+##### Backpropagation
+Algorithme qui permet de calculer les dérivées partielles d'une fonction de coûts complexe (e.g. inégale et non convexe).
+
+On part du vecteur d'erreur de la dernière couche, pour calculer l'erreur de la couche précédente qui est calculé à partir de la dérivée de la fonction d'activation.
+
+<img src="imgs/backpropagation.png" width="300">
 
 ##### Paramétrique et non-paramètrique
 **Paramétrique** :
@@ -230,3 +240,186 @@ Exemple :
 2. Ajustement des poids, et entrainement d'un second classeur
 3. Ajustement des poids, et entrainement d'un troisième classeur
 4. Vote majoritaire
+
+## Text mining
+
+### Représentation du texte
+
+##### Bag of words
+Vectorisation du vocabulaire par jeton et nombres d'occurences.
+
+`hello world and hello universe` devient par exemple `[2, 1, 1, 1]` avec les jetons `{hello:0, world:1, and:2, universe:3}`.
+
+Il s'agit des *raw terms frequencies* (tf) ou *n-gram*. 
+Néanmoins comme le nombre d'occurence d'un mot ne représente pas son importance, on utilise le *term frequency - inverse document frequency* (tf-idf) qui compare le *tf* par rapport au nombre de document contenant le terme.
+
+Il existe plusieurs déclinaisons de *tf-idf*. Celui-ci est généralement normalisé.
+
+### Nettoyage du texte
+
+Il faut généralement enlever les caractères spéciaux, les majuscules, etc.
+
+#### Stemming
+
+Le stemming consiste à supprimer les suffixes pour avoir en quelque sorte le radical (e.g. `running -> run`). 
+Néanmoins l'efficacité dépends de la langue.
+
+#### Lemmatisation
+
+Consiste à retrouver les mots sous leur forme de base (e.g. `saw -> see`) en se basant sur un dictionnaire. 
+Le problème de cette méthode est qu'elle est très couteuse.
+
+#### Retirer les stop words
+
+Les stop words sont des "mots vide" qui n'apportent pas grand-chose (e.g. les déterminants)
+
+## Régression
+
+Se démarque de la classification car la régression permet de prédire des tendances en terme de variable continue, et d'expliquer la relation entre une variable et une caractéristique.
+
+Le coefficient de détermination R² est la méthode la plus utilisée pour évaluer les modèles de regression. 
+Le R² est parfois égal à la corrélation au carré.
+
+### Régression linéaire
+
+<img src="imgs/regression.png" width="400">
+
+La distance entre les échantillons et la ligne représente l’erreur de prédiction.
+Il existe plusieurs méthodes pour trouver la droite de tendance: ordinary least squares (minimise la distance verticale par rapport à la droite au carré), random sample consensus (ransac, qui consiste à utiliser un échantillon pour calculer le modèle), ...
+
+Pour observer les relations linéaires entre les variables, on utilise une matrice de corrélation (Pearson's r).
+Si *r* vaut 0, il n'y a aucune corrélation.
+
+#### Remarques
+La régression linéaire est très sensible aux données aberrantes. On peut réduire l'impact selon la méthode employée (e.g. ransac).
+
+Il est facilement possible de tomber en surapprentissage, qui peut être contrée par la régularisation: 
+* ridge regression (l2) : ajoute une pénalité selon la somme des poids aux carrés
+* lasso (l1) : ajoute une pénalité selon la somme des poids en valeur absolue
+* elastic net : hybride l1/l2
+
+### Régression polynomiale
+
+<img src="imgs/regression2.png" width="400">
+
+Il s'agit de réaliser une regression de degré supérieure, mais dans l'optique, cela reste un apprentissage de modèle linéaire.
+
+Par exemple, pour un degré 2, si l'on pose `z = [x1, x2, x1x2, x1², x2²]`, il s'agit d'une régression linaire multiple en `z`.
+
+### Regression trees
+
+<img src="imgs/regression3.png" width="400">
+
+Il s'agit d'arbre de décision, mais dont la fonction d'impureté est calculé par le MSE (mean squared error).
+
+## Deep learning
+
+Il s'agit d'un ensemble d'algorithmes conçus pour l'entrainement sur plusieurs couches.
+La backgpropagation est ce qui a majoritairement rendu cela possible.
+Il s'agit généralement des méthodes state-of-the-art pour les problèmes à données complexes (images, textes, voix).
+
+Globalement pour faire du deep learning, il faut:
+* Des fonctions différentiables et la backpropagation
+* Des fonctions d'activation non linéaires
+* Un optimiseur itératif
+* Beaucoup de données
+
+### Perceptron multicouche
+
+<img src="imgs/mlp.png" width="400">
+
+Il s'agit d'une sorte de "perceptron" avec des couches cachées connectées de façon dense (en effet, contrairement au perceptron de base, les unités sont continues et non binaires, et les activations sont sigmoïdales).
+La couche de sortie est représenté par un vecteur one-hot pour faire de la classification multiple.
+
+La propagation avant permet de calculer la sortie du réseau.
+Chaque couche sert d'entrée à la couche suivante, sans qu'il n'y ait de boucle.
+
+La fonction de coûts est la même que logistic regression, mais généralisée à toutes les unités du réseau.
+Il faut donc calculer la dérivée partielle de la matrice de poids par rapport à tous les poids du réseau (sachant que les matrices n'ont pas forcément la même dimension).
+
+#### Paramètres particuliers
+
+* *l2* permet de réduire le surapprentissage
+* *alpha* permet d'ajouter un momentum au gradient de l'epoch pour accélerer l'apprentissage
+* *decrease* permet de réduire le learning rate au fil du temps
+
+## Fonctions d'activation
+
+Il existe deux familles : linéaire et non linéaire.
+
+Sigmoid et tanh sont particulièrement adpaté pour prédire une probabilité comme sortie.
+Elles sont dérivables et monotones. Tanh retourne des scores négatif pour les entrées négatives.
+
+Relu (rectified linear unit) permet de débloquer l'apprentissage si sigmoid et tanh ne marche pas.
+Moins de problème avec les gradient qui disparaissent (underflow), et les opérations sont plus simples (pas d'exponentielles).
+Il existe des variantes comme le leaky relu.
+
+<img src="imgs/activation.png" width="400">
+
+## Réseau de neurones à convolutions (CNN)
+
+Type particulier de réseau qui utilisent l'opération de convolution plutôt que la multiplication matricielle.
+Particulièrement adapaté pour les données sous formes de grilles (images, sons, séquences).
+
+La convolution prend une entrée et un kernel (filtre de convolution, souvent de taille impair) pour produire une sortie (feature map).
+
+<img src="imgs/convolution.png" width="200">
+
+Ce que l'on cherche à apprendre sont les kernels, qui sont généralement assez petits.
+En soit, plutôt que d'apprendre des poids différents pour chaque entrée, un seul ensemble de poids (celui du kernel) est appris.
+Un autre avantage des convolutions est la connectivité locale ainsi que le fait de pouvoir travailler sur des entrées de tailles variables.
+
+Les filtres (kernel) peuvent: 
+* être initialisé de façon aléatoire ou manuellement (edge detector, corner detector, ...)
+* appris de façon supervisé ou non supervisé (via clustering et sur de petits morceaux d'images)
+
+Le pooling permet d'essayer de rendre la représentation peu variable à de petits changements (e.g. translation): Max pooling sur un petit voisinage, etc. Cela peut également permettre de faire du downsampling, bien que ce soit possible directement avec la convolution (striding).Le pooling peut aussi permettre de garantir la taille d'une entrée si celle-ci est variable. Néanmoins, il est possible de tomber dans le sous-apprentissage avec trop de pooling.
+
+Une propriété intéressante des CNNs est qu'ils peuvent retourner un objet structuré en haute dimension (e.g. la probabilité qu'un pixel appartienne à une classe), ce qui permet de faire des masques pour la segmentation d'images.
+
+<img src="imgs/seg.png" width="150">
+
+Les CNNs peuvent facilement être parallélisé pour fonctionner sur GPU, et ils diminuent globalement le nombre d'opération et l'utilisation de la mémoire.
+
+#### Architectures majeurs
+
+Lenet, Alexnet, VGG, Inception/GoogleNet, Resnet.
+
+## Réseau de neurones récurrents (RNN)
+
+<img src="imgs/rnn.png" width="400">
+
+Famille de réseau qui se concentrent principalement sur les données séquentielles.
+Les séquences peuvent être de longueurs variables.
+Plus spécifiquement, un RNN applique une fonction à une séquence d'entrée pour produire une séquence de sortie tout en conservant un état interne.
+
+Applications: musique, traduction, machine translation, etc.
+
+Chaque élément de la sortie est une fonction des membres précédents de la sortie (principe de récurrence):
+<img src="imgs/recurr.png" width="150">
+
+Des couches supplémentaires pour lire l'information des états afin de faire des prédictions.
+L'état est ce qu'on va essayer d'apprendre, en y incorporant les données temporelles. 
+Par exemple, on va essayer de prédire le prochain mot suivant les mots qu'on a déjà lu, sans avoir à parcourir tous les mots.
+
+L'entrée est spécifiée en terme de transition d'état plutôt qu'en terme d'historique d'état, ce qui est avantageux.
+Il est aussi possible de réutiliser la fonction de transition avec les mêmes paramètres pour chaque pas.
+
+L'erreur doit aussi être propagée en arrière "dans le temps".
+
+Pour les dépendances à long terme, le fait de devoir propager le gradient loin dans le temps peut poser quelques soucis à l'entrainement.
+On peut utiliser du gradient clipping par exemple.
+En ce qui concerne la dissipation de gradient (underflow lié à la propagation rétro-temporelle du gradient), il n'y a pas réellement de solution possible.
+
+### LSTM
+
+<img src="imgs/lstm.png" width="400">
+
+RNN qui introduit un mécanisme de portes et de celulles.
+
+* La porte d'oubli détermine la quantité d'information à oublier
+* La porte d'entrée acceuilles les nouvelles données, détermine la quantité à garder et met à jour l'état
+* L'état de la celulle précédente est mise à jour
+* La porte de sortie retourne un résultat filtré à partir de l'état de la cellule
+
+
