@@ -12,8 +12,7 @@
  
 * 🧠 **[Apprentissage machine](https://github.com/lowlighter/uqac/tree/master/machinelearning)**
   * [Anime-gan](https://github.com/lowlighter/uqac/tree/master/machinelearning/project)
-  * [Snippets](https://github.com/lowlighter/uqac/tree/master/machinelearning/snippets)
-    * [Exemples sur le dataset Iris](https://github.com/lowlighter/uqac/blob/master/machinelearning/snippets/Examples.ipynb)
+  * [Snippets de code](https://github.com/lowlighter/uqac/tree/master/machinelearning/S)
   
 * 🗃 **[Bases de données réparties](https://github.com/lowlighter/uqac/tree/master/database)**
   * [Manipulations de RDD et algorithme du PageRank](https://github.com/lowlighter/uqac/tree/master/database/1)
