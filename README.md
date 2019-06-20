@@ -53,7 +53,7 @@
   * [État de l'art sur l'ED-PCG](https://github.com/lowlighter/uqac/blob/master/research/3/state_of_the_art.pdf)
   * [Rédaction sous LaTex](https://github.com/lowlighter/uqac/blob/master/research/A/Latex.pdf)
   
-* 💠 **Virtualisation**
+* 💠 **[Virtualisation](https://github.com/lowlighter/uqac/tree/master/virtualization)**
   * [Notes de cours et autres](https://github.com/lowlighter/uqac/tree/master/virtualization)
 
 ## Précautions d'usages
