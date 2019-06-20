@@ -60,6 +60,6 @@
 Tous les travaux disponibles sur cette page sont en libre consultation. 
 La liste complète des contributeurs est disponible dans la [licence](https://github.com/lowlighter/uqac/blob/master/LICENSE) :)
 
-Il est déconseillé de télécharger ou de cloner le dépôt en raison de son important volume (+ 130 Mo).
+Il est déconseillé de télécharger ou de cloner le dépôt en raison de son important volume (~ 1.5 Go).
 De plus, la présence d'exécutables windows réalisés à partir de [node-pkg](https://github.com/zeit/pkg) peut possiblement déclencher des faux-positifs chez certains anti-virus.
 
