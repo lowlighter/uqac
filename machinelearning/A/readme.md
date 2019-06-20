@@ -230,3 +230,74 @@ Exemple :
 2. Ajustement des poids, et entrainement d'un second classeur
 3. Ajustement des poids, et entrainement d'un troisième classeur
 4. Vote majoritaire
+
+## Text mining
+
+### Représentation du texte
+
+##### Bag of words
+Vectorisation du vocabulaire par jeton et nombres d'occurences.
+
+`hello world and hello universe` devient par exemple `[2, 1, 1, 1]` avec les jetons `{hello:0, world:1, and:2, universe:3}`.
+
+Il s'agit des *raw terms frequencies* (tf) ou *n-gram*. 
+Néanmoins comme le nombre d'occurence d'un mot ne représente pas son importance, on utilise le *term frequency - inverse document frequency* (tf-idf) qui compare le *tf* par rapport au nombre de document contenant le terme.
+
+Il existe plusieurs déclinaisons de *tf-idf*. Celui-ci est généralement normalisé.
+
+### Nettoyage du texte
+
+Il faut généralement enlever les caractères spéciaux, les majuscules, etc.
+
+#### Stemming
+
+Le stemming consiste à supprimer les suffixes pour avoir en quelque sorte le radical (e.g. `running -> run`). 
+Néanmoins l'efficacité dépends de la langue.
+
+#### Lemmatisation
+
+Consiste à retrouver les mots sous leur forme de base (e.g. `saw -> see`) en se basant sur un dictionnaire. 
+Le problème de cette méthode est qu'elle est très couteuse.
+
+#### Retirer les stop words
+
+Les stop words sont des "mots vide" qui n'apportent pas grand-chose (e.g. les déterminants)
+
+## Régression
+
+Se démarque de la classification car la régression permet de prédire des tendances en terme de variable continue, et d'expliquer la relation entre une variable et une caractéristique.
+
+Le coefficient de détermination R² est la méthode la plus utilisée pour évaluer les modèles de regression. 
+Le R² est parfois égal à la corrélation au carré.
+
+### Régression linéaire
+
+<img src="imgs/regression.png" width="400">
+
+La distance entre les échantillons et la ligne représente l’erreur de prédiction.
+Il existe plusieurs méthodes pour trouver la droite de tendance: ordinary least squares (minimise la distance verticale par rapport à la droite au carré), random sample consensus (ransac, qui consiste à utiliser un échantillon pour calculer le modèle), ...
+
+Pour observer les relations linéaires entre les variables, on utilise une matrice de corrélation (Pearson's r).
+Si *r* vaut 0, il n'y a aucune corrélation.
+
+#### Remarques
+La régression linéaire est très sensible aux données aberrantes. On peut réduire l'impact selon la méthode employée (e.g. ransac).
+
+Il est facilement possible de tomber en surapprentissage, qui peut être contrée par la régularisation: 
+* ridge regression (l2) : ajoute une pénalité selon la somme des poids aux carrés
+* lasso (l1) : ajoute une pénalité selon la somme des poids en valeur absolue
+* elastic net : hybride l1/l2
+
+### Régression polynomiale
+
+<img src="imgs/regression2.png" width="400">
+
+Il s'agit de réaliser une regression de degré supérieure, mais dans l'optique, cela reste un apprentissage de modèle linéaire.
+
+Par exemple, pour un degré 2, si l'on pose `z = [x1, x2, x1x2, x1², x2²]`, il s'agit d'une régression linaire multiple en `z`.
+
+### Regression trees
+
+img src="imgs/regression3.png" width="400">
+
+Il s'agit d'arbre de décision, mais dont la fonction d'impureté est calculé par le MSE (mean squared error).
