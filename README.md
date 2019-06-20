@@ -11,7 +11,7 @@
   * [Moteur de jeu d'échec](https://github.com/lowlighter/uqac/tree/master/ai/4)
  
 * 🧠 **[Apprentissage machine](https://github.com/lowlighter/uqac/tree/master/machinelearning)**
-  * *(prochainement)*
+  * [Anime-gan](https://github.com/lowlighter/uqac/tree/master/machinelearning/project)
   * [Snippets](https://github.com/lowlighter/uqac/tree/master/machinelearning/snippets)
     * [Exemples sur le dataset Iris](https://github.com/lowlighter/uqac/blob/master/machinelearning/snippets/Examples.ipynb)
   
@@ -54,7 +54,7 @@
   * [Rédaction sous LaTex](https://github.com/lowlighter/uqac/blob/master/research/A/Latex.pdf)
   
 * 💠 **Virtualisation**
-  * *(prochainement)*
+  * [Notes de cours et autres](https://github.com/lowlighter/uqac/tree/master/virtualization)
 
 ## Précautions d'usages
 
