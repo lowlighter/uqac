@@ -5,6 +5,7 @@
 #### Historique
 - 1943: Apparition du neurone artificiel (McCullock & Pitts).
 - 1957: Perceptron (Rosenblatt)
+- 1986: Backpropagation
 
 #### Pourquoi ?
 * Environnements inconnus
@@ -64,6 +65,15 @@ Une haute variance permet d'impacter l'estimation de la fonction cible est d'êt
 
 C'est donc un compromis à faire. On peut utiliser par exemple la régularisation L2 (qui introduit un nouveau biais qui pénaliser les valeurs extrêmes de poids, à condition d'avoir fait du feature scaling).
 
+##### Minibatch
+Stochastic gradient descent avec k > 1.
+
+##### Backpropagation
+Algorithme qui permet de calculer les dérivées partielles d'une fonction de coûts complexe (e.g. inégale et non convexe).
+
+On part du vecteur d'erreur de la dernière couche, pour calculer l'erreur de la couche précédente qui est calculé à partir de la dérivée de la fonction d'activation.
+
+<img src="imgs/backpropagation.png" width="300">
 
 ##### Paramétrique et non-paramètrique
 **Paramétrique** :
@@ -298,6 +308,79 @@ Par exemple, pour un degré 2, si l'on pose `z = [x1, x2, x1x2, x1², x2²]`, il
 
 ### Regression trees
 
-img src="imgs/regression3.png" width="400">
+<img src="imgs/regression3.png" width="400">
 
 Il s'agit d'arbre de décision, mais dont la fonction d'impureté est calculé par le MSE (mean squared error).
+
+## Deep learning
+
+Il s'agit d'un ensemble d'algorithmes conçus pour l'entrainement sur plusieurs couches.
+La backgpropagation est ce qui a majoritairement rendu cela possible.
+Il s'agit généralement des méthodes state-of-the-art pour les problèmes à données complexes (images, textes, voix).
+
+Globalement pour faire du deep learning, il faut:
+* Des fonctions différentiables et la backpropagation
+* Des fonctions d'activation non linéaires
+* Un optimiseur itératif
+* Beaucoup de données
+
+### Perceptron multicouche
+
+<img src="imgs/mlp.png" width="400">
+
+Il s'agit d'une sorte de "perceptron" avec des couches cachées connectées de façon dense (en effet, contrairement au perceptron de base, les unités sont continues et non binaires, et les activations sont sigmoïdales).
+La couche de sortie est représenté par un vecteur one-hot pour faire de la classification multiple.
+
+La propagation avant permet de calculer la sortie du réseau.
+Chaque couche sert d'entrée à la couche suivante, sans qu'il n'y ait de boucle.
+
+La fonction de coûts est la même que logistic regression, mais généralisée à toutes les unités du réseau.
+Il faut donc calculer la dérivée partielle de la matrice de poids par rapport à tous les poids du réseau (sachant que les matrices n'ont pas forcément la même dimension).
+
+#### Paramètres particuliers
+
+* *l2* permet de réduire le surapprentissage
+* *alpha* permet d'ajouter un momentum au gradient de l'epoch pour accélerer l'apprentissage
+* *decrease* permet de réduire le learning rate au fil du temps
+
+## Fonctions d'activation
+
+Il existe deux familles : linéaire et non linéaire.
+
+Sigmoid et tanh sont particulièrement adpaté pour prédire une probabilité comme sortie.
+Elles sont dérivables et monotones. Tanh retourne des scores négatif pour les entrées négatives.
+
+Relu (rectified linear unit) permet de débloquer l'apprentissage si sigmoid et tanh ne marche pas.
+Moins de problème avec les gradient qui disparaissent (underflow), et les opérations sont plus simples (pas d'exponentielles).
+Il existe des variantes comme le leaky relu.
+
+<img src="imgs/activation.png" width="400">
+
+## Réseau de neurones à convolutions (CNN)
+
+Type particulier de réseau qui utilisent l'opération de convolution plutôt que la multiplication matricielle.
+Particulièrement adapaté pour les données sous formes de grilles (images, sons, séquences).
+
+La convolution prend une entrée et un kernel (filtre de convolution, souvent de taille impair) pour produire une sortie (feature map).
+
+<img src="imgs/convolution.png" width="200">
+
+Ce que l'on cherche à apprendre sont les kernels, qui sont généralement assez petits.
+En soit, plutôt que d'apprendre des poids différents pour chaque entrée, un seul ensemble de poids (celui du kernel) est appris.
+Un autre avantage des convolutions est la connectivité locale ainsi que le fait de pouvoir travailler sur des entrées de tailles variables.
+
+Les filtres (kernel) peuvent: 
+* être initialisé de façon aléatoire ou manuellement (edge detector, corner detector, ...)
+* appris de façon supervisé ou non supervisé (via clustering et sur de petits morceaux d'images)
+
+Le pooling permet d'essayer de rendre la représentation peu variable à de petits changements (e.g. translation): Max pooling sur un petit voisinage, etc. Cela peut également permettre de faire du downsampling, bien que ce soit possible directement avec la convolution (striding).Le pooling peut aussi permettre de garantir la taille d'une entrée si celle-ci est variable. Néanmoins, il est possible de tomber dans le sous-apprentissage avec trop de pooling.
+
+Une propriété intéressante des CNNs est qu'ils peuvent retourner un objet structuré en haute dimension (e.g. la probabilité qu'un pixel appartienne à une classe), ce qui permet de faire des masques pour la segmentation d'images.
+
+<img src="imgs/seg.png" width="150">
+
+Les CNNs peuvent facilement être parallélisé pour fonctionner sur GPU, et ils diminuent globalement le nombre d'opération et l'utilisation de la mémoire.
+
+#### Architectures majeurs
+
+Lenet, Alexnet, VGG, Inception/GoogleNet, Resnet.
