@@ -384,3 +384,42 @@ Les CNNs peuvent facilement être parallélisé pour fonctionner sur GPU, et ils
 #### Architectures majeurs
 
 Lenet, Alexnet, VGG, Inception/GoogleNet, Resnet.
+
+## Réseau de neurones récurrents (RNN)
+
+<img src="imgs/rnn.png" width="400">
+
+Famille de réseau qui se concentrent principalement sur les données séquentielles.
+Les séquences peuvent être de longueurs variables.
+Plus spécifiquement, un RNN applique une fonction à une séquence d'entrée pour produire une séquence de sortie tout en conservant un état interne.
+
+Applications: musique, traduction, machine translation, etc.
+
+Chaque élément de la sortie est une fonction des membres précédents de la sortie (principe de récurrence):
+<img src="imgs/recurr.png" width="150">
+
+Des couches supplémentaires pour lire l'information des états afin de faire des prédictions.
+L'état est ce qu'on va essayer d'apprendre, en y incorporant les données temporelles. 
+Par exemple, on va essayer de prédire le prochain mot suivant les mots qu'on a déjà lu, sans avoir à parcourir tous les mots.
+
+L'entrée est spécifiée en terme de transition d'état plutôt qu'en terme d'historique d'état, ce qui est avantageux.
+Il est aussi possible de réutiliser la fonction de transition avec les mêmes paramètres pour chaque pas.
+
+L'erreur doit aussi être propagée en arrière "dans le temps".
+
+Pour les dépendances à long terme, le fait de devoir propager le gradient loin dans le temps peut poser quelques soucis à l'entrainement.
+On peut utiliser du gradient clipping par exemple.
+En ce qui concerne la dissipation de gradient (underflow lié à la propagation rétro-temporelle du gradient), il n'y a pas réellement de solution possible.
+
+### LSTM
+
+<img src="imgs/lstm.png" width="400">
+
+RNN qui introduit un mécanisme de portes et de celulles.
+
+* La porte d'oubli détermine la quantité d'information à oublier
+* La porte d'entrée acceuilles les nouvelles données, détermine la quantité à garder et met à jour l'état
+* L'état de la celulle précédente est mise à jour
+* La porte de sortie retourne un résultat filtré à partir de l'état de la cellule
+
+
