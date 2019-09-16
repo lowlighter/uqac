@@ -1,0 +1,81 @@
+<html>
+  <head>
+
+  </head>
+  <body>
+
+    <style>
+      body { margin: 0; padding: 0; user-select: none; }
+      .cropper { width: 256px; height: 256px; border: 2px dashed #3498DB; background: rgba(52, 152, 219, 0.2); position: absolute; top: 0; left: 0;}
+      .image { pointer-events: none; }
+      .fixed { position: fixed; top: 0; right: 0; overflow: hidden; z-index: 999; background-color: rgba(255,255,255,0.7);}
+    </style>
+    
+    <div class="container">
+      <div class="cropper"></div>
+      <img class="image">
+    </div>
+    <div class="fixed"></div>
+
+    <script>
+    (async function () {
+      let qs = document.querySelector.bind(document)
+     
+      let files = await (await fetch("files")).json()
+      let index = 0
+
+      async function load() {
+        let response = await fetch(`raw/${files[index]}`)
+        let url = URL.createObjectURL(await response.blob())
+        qs(".image").src = url
+      }
+      load()
+
+      let container = qs(".container"), draggable = qs(".cropper"), image = qs(".image")
+      let active = false
+      let x = {initial:0, offset:0, current:0}, y = {initial:0, offset:0, current:0}, size = 256
+
+      container.addEventListener("mousedown", e => {
+        x.initial = e.clientX - x.offset
+        y.initial = e.clientY - y.offset
+        if (e.target === draggable) 
+          active = true
+      })
+      container.addEventListener("mouseup", e => {
+        x.initial = x.current
+        y.initial = y.current 
+        active = false
+      })
+      container.addEventListener("mousemove", e => {
+        if (!active) return
+        e.preventDefault()
+        x.current = e.clientX - x.initial
+        y.current = e.clientY - y.initial
+        x.current = Math.max(0, Math.min(x.current, image.naturalWidth-size))
+        y.current = Math.max(0, Math.min(y.current, image.naturalHeight-size))
+        draggable.style.transform = `translate3d(${x.offset = x.current}px, ${y.offset = y.current}px, 0)`
+      })
+
+      window.save = async function () {
+        let extract = (draggable.style.transform.match(/\((\d+)\s*px,\s*(\d+)\s*px/)||["", "0", "0"]).slice(-2).map(Number)
+        let res = await fetch(`/save?x=${extract[0]}&y=${extract[1]}&size=${size}&src=${files[index].replace(/\.jpg$/, "")}`)
+        qs(".fixed").innerHTML = `${Date.now()}|${res.status}`
+      }
+
+      window.next = () => { index = Math.max(0, Math.min(index + 1, files.length-1)); load() }
+      window.prev = () => { index = Math.max(0, Math.min(index - 1, files.length-1)); load() }
+
+      document.addEventListener("keydown", e => {
+        if (e.key === "s")
+          window.save()
+        if (e.key === "d")
+          window.next()
+        if (e.key === "q")
+          window.prev()
+      })
+
+    })()
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "maker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lowlighter",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sharp": "^0.22.1"
+  }
+}
