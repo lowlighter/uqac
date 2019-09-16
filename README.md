@@ -12,8 +12,7 @@
  
 * 🧠 **[Apprentissage machine](https://github.com/lowlighter/uqac/tree/master/machinelearning)**
   * [Anime-gan](https://github.com/lowlighter/uqac/tree/master/machinelearning/project)
-  * [Snippets](https://github.com/lowlighter/uqac/tree/master/machinelearning/snippets)
-    * [Exemples sur le dataset Iris](https://github.com/lowlighter/uqac/blob/master/machinelearning/snippets/Examples.ipynb)
+  * [Snippets de code](https://github.com/lowlighter/uqac/tree/master/machinelearning/S)
   
 * 🗃 **[Bases de données réparties](https://github.com/lowlighter/uqac/tree/master/database)**
   * [Manipulations de RDD et algorithme du PageRank](https://github.com/lowlighter/uqac/tree/master/database/1)
@@ -61,6 +60,6 @@
 Tous les travaux disponibles sur cette page sont en libre consultation. 
 La liste complète des contributeurs est disponible dans la [licence](https://github.com/lowlighter/uqac/blob/master/LICENSE) :)
 
-Il est déconseillé de télécharger ou de cloner le dépôt en raison de son important volume (+ 130 Mo).
+Il est déconseillé de télécharger ou de cloner le dépôt en raison de son important volume (~ 1.5 Go).
 De plus, la présence d'exécutables windows réalisés à partir de [node-pkg](https://github.com/zeit/pkg) peut possiblement déclencher des faux-positifs chez certains anti-virus.
 
