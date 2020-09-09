@@ -3,3 +3,4 @@
 
 # Linguist ignore
 *.ipynb linguist-vendored
+cybersecurity/3/Wireshark/* linguist-vendored
